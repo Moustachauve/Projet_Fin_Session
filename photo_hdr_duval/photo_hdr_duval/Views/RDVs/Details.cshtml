@@ -1,0 +1,50 @@
+﻿@model photo_hdr_duval.RDVs
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RDVs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRDV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRDV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeureRDV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeureRDV)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Commentaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailProprietaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailProprietaire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
