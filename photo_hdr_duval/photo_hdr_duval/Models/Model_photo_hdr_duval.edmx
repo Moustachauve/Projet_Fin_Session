@@ -5,77 +5,61 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="H15_PROJET_E05Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Erreurs détectées durant la génération :
-avertissement 6002: La table/vue 'H15_PROJET_E05.RDV.RDVs' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="RDVs">
           <Key>
             <PropertyRef Name="RDVID" />
-            <PropertyRef Name="NomPrenomProprio" />
-            <PropertyRef Name="TelProprietaire" />
-            <PropertyRef Name="AdressePropriete" />
           </Key>
           <Property Name="RDVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateRDV" Type="datetime" />
           <Property Name="HeureRDV" Type="time" Precision="7" />
-          <Property Name="Commentaire" Type="nvarchar" MaxLength="4000" />
-          <Property Name="NomPrenomProprio" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="TelProprietaire" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Commentaire" Type="nvarchar(max)" />
+          <Property Name="NomPrenomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="TelPrincipalProprietaire" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TelCellProprietaire" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
         </EntityType>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
-          <EntitySet Name="RDVs" EntityType="Self.RDVs" store:Type="Tables" store:Schema="RDV">
-            <DefiningQuery>SELECT 
-    [RDVs].[RDVID] AS [RDVID], 
-    [RDVs].[DateRDV] AS [DateRDV], 
-    [RDVs].[HeureRDV] AS [HeureRDV], 
-    [RDVs].[Commentaire] AS [Commentaire], 
-    [RDVs].[NomPrenomProprio] AS [NomPrenomProprio], 
-    [RDVs].[TelProprietaire] AS [TelProprietaire], 
-    [RDVs].[AdressePropriete] AS [AdressePropriete], 
-    [RDVs].[EmailProprietaire] AS [EmailProprietaire]
-    FROM [RDV].[RDVs] AS [RDVs]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="RDVs">
+        <EntityType Name="RDV">
           <Key>
             <PropertyRef Name="RDVID" />
-            <PropertyRef Name="NomPrenomProprio" />
-            <PropertyRef Name="TelProprietaire" />
-            <PropertyRef Name="AdressePropriete" />
           </Key>
           <Property Name="RDVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateRDV" Type="DateTime" Precision="3" />
           <Property Name="HeureRDV" Type="Time" Precision="7" />
-          <Property Name="Commentaire" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="NomPrenomProprio" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TelProprietaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NomPrenomProprietaire" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelPrincipalProprietaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TelCellProprietaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="AdressePropriete" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="H15_PROJET_E05Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="RDVs" EntityType="Self.RDVs" />
+        <EntityContainer Name="H15_PROJET_E05Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RDVs" EntityType="Self.RDV" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05Entities">
+        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05Entities1">
           <EntitySetMapping Name="RDVs">
-            <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDVs">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="RDVID" ColumnName="RDVID" />
                 <ScalarProperty Name="DateRDV" ColumnName="DateRDV" />
                 <ScalarProperty Name="HeureRDV" ColumnName="HeureRDV" />
                 <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
-                <ScalarProperty Name="NomPrenomProprio" ColumnName="NomPrenomProprio" />
-                <ScalarProperty Name="TelProprietaire" ColumnName="TelProprietaire" />
+                <ScalarProperty Name="NomPrenomProprietaire" ColumnName="NomPrenomProprietaire" />
+                <ScalarProperty Name="TelPrincipalProprietaire" ColumnName="TelPrincipalProprietaire" />
+                <ScalarProperty Name="TelCellProprietaire" ColumnName="TelCellProprietaire" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
               </MappingFragment>
@@ -95,7 +79,7 @@ avertissement 6002: La table/vue 'H15_PROJET_E05.RDV.RDVs' n'a pas de clé prima
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />

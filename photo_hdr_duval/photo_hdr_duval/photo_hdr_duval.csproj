@@ -120,12 +120,31 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_photo_hdr_duval.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_photo_hdr_duval.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_photo_hdr_duval.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model_photo_hdr_duval.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RDV.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -138,6 +157,23 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Model_photo_hdr_duval.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_photo_hdr_duval.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model_photo_hdr_duval.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
+      <LastGenOutput>Model_photo_hdr_duval.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Model_photo_hdr_duval.edmx.diagram">
+      <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Model_photo_hdr_duval.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
+      <LastGenOutput>Model_photo_hdr_duval.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -168,7 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

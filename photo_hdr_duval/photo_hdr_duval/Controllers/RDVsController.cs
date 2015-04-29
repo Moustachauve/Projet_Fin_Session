@@ -7,27 +7,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using photo_hdr_duval;
+using photo_hdr_duval.Models;
 
 namespace photo_hdr_duval.Controllers
 {
-    public class RDVsController : Controller
+    public class RDVController : Controller
     {
-        private H15_PROJET_E05Entities db = new H15_PROJET_E05Entities();
+        private H15_PROJET_E05Entities1 db = new H15_PROJET_E05Entities1();
 
-        // GET: RDVs
+        // GET: RDV
         public ActionResult Index()
         {
             return View(db.RDVs.ToList());
         }
 
-        // GET: RDVs/Details/5
+        // GET: RDV/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDVs rDVs = db.RDVs.Find(id);
+            RDV rDVs = db.RDVs.Find(id);
             if (rDVs == null)
             {
                 return HttpNotFound();
@@ -35,18 +36,18 @@ namespace photo_hdr_duval.Controllers
             return View(rDVs);
         }
 
-        // GET: RDVs/Create
+        // GET: RDV/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RDVs/Create
+        // POST: RDV/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprio,TelProprietaire,AdressePropriete,EmailProprietaire")] RDVs rDVs)
+        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprio,TelProprietaire,AdressePropriete,EmailProprietaire")] RDV rDVs)
         {
             if (ModelState.IsValid)
             {
@@ -58,14 +59,14 @@ namespace photo_hdr_duval.Controllers
             return View(rDVs);
         }
 
-        // GET: RDVs/Edit/5
+        // GET: RDV/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDVs rDVs = db.RDVs.Find(id);
+            RDV rDVs = db.RDVs.Find(id);
             if (rDVs == null)
             {
                 return HttpNotFound();
@@ -73,12 +74,12 @@ namespace photo_hdr_duval.Controllers
             return View(rDVs);
         }
 
-        // POST: RDVs/Edit/5
+        // POST: RDV/Edit/5
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprio,TelProprietaire,AdressePropriete,EmailProprietaire")] RDVs rDVs)
+        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprio,TelProprietaire,AdressePropriete,EmailProprietaire")] RDV rDVs)
         {
             if (ModelState.IsValid)
             {
@@ -89,14 +90,14 @@ namespace photo_hdr_duval.Controllers
             return View(rDVs);
         }
 
-        // GET: RDVs/Delete/5
+        // GET: RDV/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDVs rDVs = db.RDVs.Find(id);
+            RDV rDVs = db.RDVs.Find(id);
             if (rDVs == null)
             {
                 return HttpNotFound();
@@ -104,12 +105,12 @@ namespace photo_hdr_duval.Controllers
             return View(rDVs);
         }
 
-        // POST: RDVs/Delete/5
+        // POST: RDV/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RDVs rDVs = db.RDVs.Find(id);
+            RDV rDVs = db.RDVs.Find(id);
             db.RDVs.Remove(rDVs);
             db.SaveChanges();
             return RedirectToAction("Index");
