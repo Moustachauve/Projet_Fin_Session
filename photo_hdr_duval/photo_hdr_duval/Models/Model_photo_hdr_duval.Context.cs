@@ -13,10 +13,10 @@ namespace photo_hdr_duval.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class H15_PROJET_E05Entities1 : DbContext
+    public partial class H15_PROJET_E05_Context : DbContext
     {
-        public H15_PROJET_E05Entities1()
-            : base("name=H15_PROJET_E05Entities1")
+        public H15_PROJET_E05_Context()
+            : base("name=H15_PROJET_E05_Context")
         {
         }
     

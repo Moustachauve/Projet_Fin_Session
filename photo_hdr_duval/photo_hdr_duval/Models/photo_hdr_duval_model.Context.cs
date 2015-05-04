@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace photo_hdr_duval.DAL
+namespace photo_hdr_duval.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class H15_PROJET_E05Entities : DbContext
+    public partial class H15_PROJET_E05_Context : DbContext
     {
-        public H15_PROJET_E05Entities()
-            : base("name=H15_PROJET_E05Entities")
+        public H15_PROJET_E05_Context()
+            : base("name=H15_PROJET_E05_Context")
         {
         }
     

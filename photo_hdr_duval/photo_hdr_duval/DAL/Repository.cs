@@ -1,4 +1,5 @@
-﻿using System;
+﻿using photo_hdr_duval.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace photo_hdr_duval.DAL
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        internal H15_PROJET_E05Entities context;
+        internal H15_PROJET_E05_Context context;
         internal DbSet<TEntity> dbSet;
 
-        public Repository(H15_PROJET_E05Entities context)
+        public Repository(H15_PROJET_E05_Context context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();

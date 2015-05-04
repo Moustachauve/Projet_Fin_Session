@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="H15_PROJET_E05Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="H15_PROJET_E05Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="RDVs">
           <Key>
             <PropertyRef Name="RDVID" />
@@ -19,14 +19,14 @@
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
         </EntityType>
-        <EntityContainer Name="H15_PROJET_E05Model1StoreContainer">
+        <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
           <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="H15_PROJET_E05Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="RDV">
           <Key>
             <PropertyRef Name="RDVID" />
@@ -41,7 +41,7 @@
           <Property Name="AdressePropriete" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="H15_PROJET_E05Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RDVs" EntityType="Self.RDV" />
         </EntityContainer>
       </Schema>
@@ -49,9 +49,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05Model1StoreContainer" CdmEntityContainer="H15_PROJET_E05Entities">
+        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
           <EntitySetMapping Name="RDVs">
-            <EntityTypeMapping TypeName="H15_PROJET_E05Model1.RDV">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="RDVID" ColumnName="RDVID" />
                 <ScalarProperty Name="DateRDV" ColumnName="DateRDV" />

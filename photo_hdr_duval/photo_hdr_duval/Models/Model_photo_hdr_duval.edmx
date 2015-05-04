@@ -41,7 +41,7 @@
           <Property Name="AdressePropriete" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="H15_PROJET_E05Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RDVs" EntityType="Self.RDV" />
         </EntityContainer>
       </Schema>
@@ -49,7 +49,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05Entities1">
+        <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
