@@ -11,126 +11,134 @@ using photo_hdr_duval.DAL;
 
 namespace photo_hdr_duval.Controllers
 {
-    public class RDVsController : Controller
-    {
+	public class RDVsController : Controller
+	{
 		private UnitOfWork uow = new UnitOfWork();
 
-        // GET: RDVs
-        public ActionResult Index()
-        {
-			IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
+		// GET: RDVs
+		public ActionResult Index(string sortString)
+		{
+			if (uow.RDVRepository.Get() != null)
+			{
+				IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
+				switch (sortString)
+				{
+					case "dateRdv":
+						rdvs.OrderBy(x => x.DateRDV);
+						break;
+					default:
+						rdvs.OrderBy(x => x.DateDemande);
+						break;
+				}
+				
+				return View(rdvs);
+			}
+			return View();
+		}
 
-			if(rdvs != null)
-				rdvs.OrderBy(x => x.DateDemande);
-
-			return View(rdvs);
-        }
-
-        // GET: RDVs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+		// GET: RDVs/Details/5
+		public ActionResult Details(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 			RDV rDV = uow.RDVRepository.GetByID((int)id);
-            if (rDV == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rDV);
-        }
+			if (rDV == null)
+			{
+				return HttpNotFound();
+			}
+			return View(rDV);
+		}
 
-        // GET: RDVs/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+		// GET: RDVs/Create
+		public ActionResult Create()
+		{
+			return View();
+		}
 
-        // POST: RDVs/Create
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
-        {
-            if (ModelState.IsValid)
-            {
+		// POST: RDVs/Create
+		// Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
+		{
+			if (ModelState.IsValid)
+			{
 				rDV.DateDemande = DateTime.Now;
-				//TODO: mettre un default dans la bd
-				rDV.Etat = "";
 				uow.RDVRepository.Insert(rDV);
 				uow.Save();
-                return RedirectToAction("Index");
-            }
+				return RedirectToAction("Index");
+			}
 
-            return View(rDV);
-        }
+			return View(rDV);
+		}
 
-        // GET: RDVs/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+		// GET: RDVs/Edit/5
+		public ActionResult Edit(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 			RDV rDV = uow.RDVRepository.GetByID((int)id);
-            if (rDV == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rDV);
-        }
+			if (rDV == null)
+			{
+				return HttpNotFound();
+			}
+			return View(rDV);
+		}
 
-        // POST: RDVs/Edit/5
-        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
-        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
-        {
-            if (ModelState.IsValid)
-            {
+		// POST: RDVs/Edit/5
+		// Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
+		{
+			if (ModelState.IsValid)
+			{
 				uow.RDVRepository.Update(rDV);
 				uow.Save();
-                return RedirectToAction("Index");
-            }
-            return View(rDV);
-        }
+				return RedirectToAction("Index");
+			}
+			return View(rDV);
+		}
 
-        // GET: RDVs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+		// GET: RDVs/Delete/5
+		public ActionResult Delete(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
 			RDV rDV = uow.RDVRepository.GetByID((int)id);
-            if (rDV == null)
-            {
-                return HttpNotFound();
-            }
-            return View(rDV);
-        }
+			if (rDV == null)
+			{
+				return HttpNotFound();
+			}
+			return View(rDV);
+		}
 
-        // POST: RDVs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+		// POST: RDVs/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int id)
+		{
 			RDV rDV = uow.RDVRepository.GetByID((int)id);
 			uow.RDVRepository.Delete(rDV);
 			uow.Save();
-            return RedirectToAction("Index");
-        }
+			return RedirectToAction("Index");
+		}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
 				uow.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }
+			}
+			base.Dispose(disposing);
+		}
+	}
 }

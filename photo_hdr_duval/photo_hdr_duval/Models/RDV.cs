@@ -23,7 +23,6 @@ namespace photo_hdr_duval.Models
         public string TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
         public string EmailProprietaire { get; set; }
-        public string Etat { get; set; }
         public System.DateTime DateDemande { get; set; }
     }
 }

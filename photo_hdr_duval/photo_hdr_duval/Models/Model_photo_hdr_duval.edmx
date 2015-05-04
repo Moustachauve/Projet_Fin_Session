@@ -18,7 +18,6 @@
           <Property Name="TelSecondaire" Type="nvarchar" MaxLength="10" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
-          <Property Name="Etat" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateDemande" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
@@ -44,7 +43,6 @@
           <Property Name="TelSecondaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Etat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateDemande" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
@@ -57,7 +55,6 @@
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="DateDemande" ColumnName="DateDemande" />
-                <ScalarProperty Name="Etat" ColumnName="Etat" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
