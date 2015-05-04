@@ -120,9 +120,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\RDVRepository.cs" />
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
