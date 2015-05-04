@@ -1,0 +1,14 @@
+USE H15_PROJET_E05
+GO
+
+CREATE TRIGGER RDV.GererStatut
+ON RDV.RDVs
+AFTER UPDATE, INSERT
+AS
+	DECLARE @MessageStatut NVARCHAR(50);
+
+	IF(Etat = '')
+	BEGIN
+		@MessageStatut
+	END
+GO
