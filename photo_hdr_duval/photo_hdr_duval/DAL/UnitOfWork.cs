@@ -25,6 +25,19 @@ namespace photo_hdr_duval.DAL
 				return this.rdvRepository;
 			}
 		}
+
+        private RDVRepository demandeRdvRepository;
+        public RDVRepository DemandeRDVRepository
+        {
+            get
+            {
+                if (this.demandeRdvRepository == null)
+                {
+                    this.demandeRdvRepository = new RDVRepository(context);
+                }
+                return this.demandeRdvRepository;
+            }
+        }
         
 
 		public void Save()
