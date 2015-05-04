@@ -1,0 +1,75 @@
+﻿@model IEnumerable<photo_hdr_duval.Models.RDV>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRDV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureRDV)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelCellProprietaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdressePropriete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailProprietaire)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRDV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeureRDV)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Commentaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelPrincipalProprietaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelCellProprietaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdressePropriete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailProprietaire)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RDVID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RDVID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RDVID })
+        </td>
+    </tr>
+}
+
+</table>
