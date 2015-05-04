@@ -18,7 +18,12 @@ namespace photo_hdr_duval.Controllers
         // GET: RDVs
         public ActionResult Index()
         {
-            return View(uow.RDVRepository.Get());
+			IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
+
+			if(rdvs != null)
+				rdvs.OrderBy(x => x.DateDemande);
+
+			return View(rdvs);
         }
 
         // GET: RDVs/Details/5
@@ -51,6 +56,9 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
+				rDV.DateDemande = DateTime.Now;
+				//TODO: mettre un default dans la bd
+				rDV.Etat = "";
 				uow.RDVRepository.Insert(rDV);
 				uow.Save();
                 return RedirectToAction("Index");
