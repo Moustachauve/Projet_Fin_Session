@@ -9,14 +9,14 @@ namespace photo_hdr_duval.DAL
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        //internal  context;
+        internal H15_PROJET_E05Entities context;
         internal DbSet<TEntity> dbSet;
 
-        /*public Repository(Statistiques_SkiContext context)
+        public Repository(H15_PROJET_E05Entities context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
-        }*/
+        }
 
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
@@ -64,17 +64,17 @@ namespace photo_hdr_duval.DAL
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            /*if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbSet.Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);*/
+            dbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            //context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
