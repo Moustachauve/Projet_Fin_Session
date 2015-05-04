@@ -10,9 +10,26 @@ namespace photo_hdr_duval.DAL
 	{
 		public RDVRepository(H15_PROJET_E05_Context context)
 			: base(context)
-		{}
+		{ }
 
+		public RDV GetByID(int id)
+		{
+			RDV rdv = GetByID(id);
+			if (rdv != null)
+				return rdv;
+			return null;
+		}
+		public void Insert(RDV rdv)
+		{
+			if (rdv != null)
+				Insert(rdv);
 
+		}
+		public void Update(RDV rdv)
+		{
+			if (rdv != null)
+				Update(rdv);
+		}
 
 	}
 }

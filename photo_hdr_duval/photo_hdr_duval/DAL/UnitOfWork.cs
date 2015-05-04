@@ -1,4 +1,5 @@
-﻿using System;
+﻿using photo_hdr_duval.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,13 +11,25 @@ namespace photo_hdr_duval.DAL
 
 		public int CurrentUserID { get { return 1; } }
 
-		//private Statistiques_SkiContext context = new Statistiques_SkiContext();
+		private H15_PROJET_E05_Context context = new H15_PROJET_E05_Context();
 
+		private RDVRepository rdvRepository;
+		public RDVRepository RDVRepository
+		{
+			get
+			{
+				if (this.rdvRepository == null)
+				{
+					this.rdvRepository = new RDVRepository(context);
+				}
+				return this.rdvRepository;
+			}
+		}
         
 
 		public void Save()
 		{
-			//context.SaveChanges();
+			context.SaveChanges();
 		}
 
 		private bool disposed = false;
@@ -26,7 +39,7 @@ namespace photo_hdr_duval.DAL
 			{
 				if (disposing)
 				{
-					//context.Dispose();
+					context.Dispose();
 				}
 			}
 			this.disposed = true;
