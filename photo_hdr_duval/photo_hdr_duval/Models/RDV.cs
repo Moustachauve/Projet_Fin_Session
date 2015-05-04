@@ -20,8 +20,10 @@ namespace photo_hdr_duval.Models
         public string Commentaire { get; set; }
         public string NomPrenomProprietaire { get; set; }
         public string TelPrincipalProprietaire { get; set; }
-        public string TelCellProprietaire { get; set; }
+        public string TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
         public string EmailProprietaire { get; set; }
+        public string Etat { get; set; }
+        public System.DateTime DateDemande { get; set; }
     }
 }
