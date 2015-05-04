@@ -12,6 +12,11 @@ namespace photo_hdr_duval.DAL
 			: base(context)
 		{ }
 
+		public RDV Get()
+		{
+			return Get();
+		}
+
 		public RDV GetByID(int id)
 		{
 			RDV rdv = GetByID(id);
