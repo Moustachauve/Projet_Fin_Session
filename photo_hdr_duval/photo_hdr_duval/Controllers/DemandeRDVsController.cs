@@ -13,13 +13,12 @@ namespace photo_hdr_duval.Controllers
 {
     public class DemandeRDVsController : Controller
     {
-        private H15_PROJET_E05_Context db = new H15_PROJET_E05_Context();
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: DemandeRDVs
         public ActionResult Index()
         {
-            return View(db.RDVs.ToList());
+            return View(uow.RDVRepository.Get());
         }
 
         // GET: DemandeRDVs/Details/5
@@ -29,7 +28,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDV rDV = db.RDVs.Find(id);
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
             if (rDV == null)
             {
                 return HttpNotFound();
@@ -52,8 +51,8 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RDVs.Add(rDV);
-                db.SaveChanges();
+                uow.RDVRepository.Insert(rDV);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +66,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDV rDV = db.RDVs.Find(id);
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
             if (rDV == null)
             {
                 return HttpNotFound();
@@ -84,8 +83,8 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(rDV).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.RDVRepository.Update(rDV);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(rDV);
@@ -98,7 +97,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RDV rDV = db.RDVs.Find(id);
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
             if (rDV == null)
             {
                 return HttpNotFound();
@@ -111,9 +110,9 @@ namespace photo_hdr_duval.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            RDV rDV = db.RDVs.Find(id);
-            db.RDVs.Remove(rDV);
-            db.SaveChanges();
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
+            uow.RDVRepository.Delete(rDV);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +120,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }
