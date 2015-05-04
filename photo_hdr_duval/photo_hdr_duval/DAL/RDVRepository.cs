@@ -6,16 +6,12 @@ using System.Web;
 
 namespace photo_hdr_duval.DAL
 {
-	public class RDVRepository : Repository<RDVRepository>
+	public class RDVRepository : Repository<RDV>
 	{
 		public RDVRepository(H15_PROJET_E05_Context context)
 			: base(context)
 		{ }
 
-		public RDV Get()
-		{
-			return Get();
-		}
 
 		public RDV GetByID(int id)
 		{
