@@ -123,6 +123,24 @@
     <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
+    <Compile Include="DAL\photo_hdr_duval_model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>photo_hdr_duval_model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\photo_hdr_duval_model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>photo_hdr_duval_model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\photo_hdr_duval_model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>photo_hdr_duval_model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RDV.cs">
+      <DependentUpon>photo_hdr_duval_model.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Repository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
@@ -173,6 +191,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
       <LastGenOutput>Model_photo_hdr_duval.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="DAL\photo_hdr_duval_model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>photo_hdr_duval_model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\photo_hdr_duval_model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>photo_hdr_duval_model.edmx</DependentUpon>
+      <LastGenOutput>photo_hdr_duval_model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\photo_hdr_duval_model.edmx.diagram">
+      <DependentUpon>photo_hdr_duval_model.edmx</DependentUpon>
+    </Content>
+    <Content Include="DAL\photo_hdr_duval_model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>photo_hdr_duval_model.edmx</DependentUpon>
+      <LastGenOutput>photo_hdr_duval_model.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
