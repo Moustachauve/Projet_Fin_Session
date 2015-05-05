@@ -7,20 +7,41 @@ GO
 --DROP TABLE RDV.RDVs
 
 CREATE TABLE RDV.RDVs(
-	RDVID int NOT NULL IDENTITY,
-	DateRDV DateTime Null,
-	HeureRDV time NULL,
-	Commentaire nvarchar(MAX) NULL,
-	NomPrenomProprietaire nvarchar(70) NOT NULL,
-	TelPrincipalProprietaire nvarchar(10) NOT NULL,
-	TelSecondaire nvarchar(10) NULL,
-	AdressePropriete nvarchar(70) NOT NULL,
-	EmailProprietaire nvarchar(30) NULL,
+	RDVID INT NOT NULL IDENTITY,
+	DateDemande DATETIME NOT NULL,
+	DateRDV DATE Null,
+	HeureRDV TIME NULL,
+	Commentaire NVARCHAR(MAX) NULL,
+	NomPrenomProprietaire NVARCHAR(70) NOT NULL,
+	TelPrincipalProprietaire NVARCHAR(10) NOT NULL,
+	TelSecondaire NVARCHAR(10) NULL,
+	AdressePropriete NVARCHAR(70) NOT NULL,
+	EmailProprietaire NVARCHAR(30) NULL,
+	ForfaitID INT NOT NULL
 
-	--NOUVEAU SPRINT 1 (ENLEVER POUR SCREENSHOT)
-	Etat nvarchar(50) NOT NULL DEFAULT 'Aucun statut',
-	DateDemande DateTime NOT NULL
+	--NOUVEAU SPRINT 1 (ENLEVER POUR SCREENSHOT)  -- !!! PAS BON !!!
+	--Etat nvarchar(50) NOT NULL DEFAULT 'Aucun statut',
 
 	PRIMARY KEY (RDVID)
 ) ON [PRIMARY];
 GO
+
+--Forfait
+-------------------------------------------------------------------
+
+CREATE TABLE RDV.Forfaits(
+	ForfaitID INT NOT NULL IDENTITY,
+	Nom NVARCHAR(30) NOT NULL,
+	DescriptionForfait NVARCHAR(MAX),
+	Prix MONEY NOT NULL,
+
+	PRIMARY KEY (ForfaitID)
+) ON [PRIMARY];
+
+--Keys
+-------------------------------------------------------------------
+
+ALTER TABLE RDV.RDVs
+	ADD CONSTRAINT FK_RDVs_Forfaits_ForfaitID
+	FOREIGN KEY (ForfaitID) 
+	REFERENCES RDV.RDVs
