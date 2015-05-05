@@ -47,10 +47,11 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
+        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire")] RDV rDV)
         {
             if (ModelState.IsValid)
             {
+                rDV.DateDemande = DateTime.Now;
                 uow.RDVRepository.Insert(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
@@ -79,7 +80,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelCellProprietaire,AdressePropriete,EmailProprietaire")] RDV rDV)
+        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire")] RDV rDV)
         {
             if (ModelState.IsValid)
             {

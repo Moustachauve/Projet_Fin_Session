@@ -148,6 +148,7 @@
     <Compile Include="Models\RDV.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RDVMetaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
