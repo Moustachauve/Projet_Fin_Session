@@ -25,8 +25,8 @@ namespace photo_hdr_duval.Models
         public Nullable<System.TimeSpan> HeureRDV { get; set; }
         public string Commentaire { get; set; }
         public string NomPrenomProprietaire { get; set; }
-        public string TelPrincipalProprietaire { get; set; }
-        public string TelSecondaire { get; set; }
+        public long TelPrincipalProprietaire { get; set; }
+        public Nullable<long> TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
         public string Ville { get; set; }
         public string EmailProprietaire { get; set; }

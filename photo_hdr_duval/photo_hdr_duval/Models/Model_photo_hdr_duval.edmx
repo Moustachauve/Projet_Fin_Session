@@ -53,8 +53,8 @@
           <Property Name="HeureRDV" Type="time" Precision="7" />
           <Property Name="Commentaire" Type="nvarchar(max)" />
           <Property Name="NomPrenomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="TelPrincipalProprietaire" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="TelSecondaire" Type="nvarchar" MaxLength="10" />
+          <Property Name="TelPrincipalProprietaire" Type="bigint" Nullable="false" />
+          <Property Name="TelSecondaire" Type="bigint" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
@@ -190,8 +190,8 @@
           <Property Name="HeureRDV" Type="Time" Precision="7" />
           <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NomPrenomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="TelPrincipalProprietaire" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="TelSecondaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TelPrincipalProprietaire" Type="Int64" Nullable="false" />
+          <Property Name="TelSecondaire" Type="Int64" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
