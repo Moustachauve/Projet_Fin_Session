@@ -7,17 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using photo_hdr_duval.Models;
+using photo_hdr_duval.DAL;
 
 namespace photo_hdr_duval.Controllers
 {
     public class AgentsController : Controller
     {
-        private H15_PROJET_E05_Context db = new H15_PROJET_E05_Context();
+        //private H15_PROJET_E05_Context db = new H15_PROJET_E05_Context();
+        UnitOfWork uow = new UnitOfWork();
 
         // GET: Agents
         public ActionResult Index()
         {
-            return View(db.Agents.ToList());
+            return View(uow.AgentRepository.Get());
         }
 
         // GET: Agents/Details/5
@@ -27,7 +29,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agent agent = db.Agents.Find(id);
+            Agent agent = uow.AgentRepository.GetByID(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -50,8 +52,8 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Agents.Add(agent);
-                db.SaveChanges();
+                uow.AgentRepository.Insert(agent);
+                uow.Save();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +67,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agent agent = db.Agents.Find(id);
+            Agent agent = uow.AgentRepository.GetByID(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -82,8 +84,8 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(agent).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.AgentRepository.Update(agent);
+                uow.Save();
                 return RedirectToAction("Index");
             }
             return View(agent);
@@ -96,7 +98,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Agent agent = db.Agents.Find(id);
+            Agent agent = uow.AgentRepository.GetByID(id);
             if (agent == null)
             {
                 return HttpNotFound();
@@ -109,9 +111,9 @@ namespace photo_hdr_duval.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Agent agent = db.Agents.Find(id);
-            db.Agents.Remove(agent);
-            db.SaveChanges();
+            Agent agent = uow.AgentRepository.GetByID(id);
+            uow.AgentRepository.Delete(agent);
+            uow.Save();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +121,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                uow.Dispose();
             }
             base.Dispose(disposing);
         }
