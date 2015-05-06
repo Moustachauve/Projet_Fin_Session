@@ -216,6 +216,7 @@
     <Content Include="Views\DemandeRDVs\Details.cshtml" />
     <Content Include="Views\DemandeRDVs\Edit.cshtml" />
     <Content Include="Views\DemandeRDVs\Index.cshtml" />
+    <Content Include="Views\RDVs\UploadPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
