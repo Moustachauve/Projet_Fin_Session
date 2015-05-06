@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="H15_PROJET_E05Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NomPrenomAgent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NomEntreprise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TelPrincipal" Type="int" Nullable="false" />
+          <Property Name="TelSecondaire" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Emails">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgentID" Type="int" Nullable="false" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Forfaits">
           <Key>
             <PropertyRef Name="ForfaitID" />
@@ -40,6 +60,18 @@
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
           <Property Name="ForfaitID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Agent_Emails_EmailID">
+          <End Role="Agent" Type="Self.Agent" Multiplicity="1" />
+          <End Role="Emails" Type="Self.Emails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="Emails">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RDVs_Forfaits_ForfaitID">
           <End Role="Forfaits" Type="Self.Forfaits" Multiplicity="1" />
           <End Role="RDVs" Type="Self.RDVs" Multiplicity="*" />
@@ -65,9 +97,15 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="Agent" store:Type="Tables" />
+          <EntitySet Name="Emails" EntityType="Self.Emails" Schema="Agent" store:Type="Tables" />
           <EntitySet Name="Forfaits" EntityType="Self.Forfaits" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="PhotoPropriete" EntityType="Self.PhotoPropriete" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
+          <AssociationSet Name="FK_Agent_Emails_EmailID" Association="Self.FK_Agent_Emails_EmailID">
+            <End Role="Agent" EntitySet="Agent" />
+            <End Role="Emails" EntitySet="Emails" />
+          </AssociationSet>
           <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="Self.FK_RDVs_Forfaits_ForfaitID">
             <End Role="Forfaits" EntitySet="Forfaits" />
             <End Role="RDVs" EntitySet="RDVs" />
@@ -82,9 +120,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agents" EntityType="H15_PROJET_E05Model.Agent" />
+          <EntitySet Name="Emails" EntityType="H15_PROJET_E05Model.Email" />
           <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
           <EntitySet Name="PhotoProprietes" EntityType="H15_PROJET_E05Model.PhotoPropriete" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
+          <AssociationSet Name="FK_Agent_Emails_EmailID" Association="H15_PROJET_E05Model.FK_Agent_Emails_EmailID">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Email" EntitySet="Emails" />
+          </AssociationSet>
           <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID">
             <End Role="Forfait" EntitySet="Forfaits" />
             <End Role="RDV" EntitySet="RDVs" />
@@ -94,6 +138,28 @@
             <End Role="PhotoPropriete" EntitySet="PhotoProprietes" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomPrenomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NomEntreprise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelPrincipal" Type="Int32" Nullable="false" />
+          <Property Name="TelSecondaire" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Emails" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Agent" ToRole="Email" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Agent" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Email" ToRole="Agent" />
+        </EntityType>
         <EntityType Name="Forfait">
           <Key>
             <PropertyRef Name="ForfaitID" />
@@ -133,6 +199,18 @@
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
           <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
         </EntityType>
+        <Association Name="FK_Agent_Emails_EmailID">
+          <End Type="H15_PROJET_E05Model.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="H15_PROJET_E05Model.Email" Role="Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RDVs_Forfaits_ForfaitID">
           <End Type="H15_PROJET_E05Model.Forfait" Role="Forfait" Multiplicity="1" />
           <End Type="H15_PROJET_E05Model.RDV" Role="RDV" Multiplicity="*" />
@@ -163,6 +241,28 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
+                <ScalarProperty Name="TelPrincipal" ColumnName="TelPrincipal" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+                <ScalarProperty Name="NomPrenomAgent" ColumnName="NomPrenomAgent" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Email">
+              <MappingFragment StoreEntitySet="Emails">
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="Email1" ColumnName="Email" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Forfaits">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.Forfait">
               <MappingFragment StoreEntitySet="Forfaits">

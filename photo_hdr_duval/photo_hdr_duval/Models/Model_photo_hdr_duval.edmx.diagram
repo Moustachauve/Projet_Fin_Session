@@ -5,9 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d6f44eac57b44873a11a3deb2f23e203" Name="Diagram1">
+        <EntityTypeShape EntityType="H15_PROJET_E05Model.Agent" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="H15_PROJET_E05Model.Email" Width="1.5" PointX="3" PointY="6.125" />
         <EntityTypeShape EntityType="H15_PROJET_E05Model.Forfait" Width="1.5" PointX="0.75" PointY="1.875" />
         <EntityTypeShape EntityType="H15_PROJET_E05Model.PhotoPropriete" Width="1.5" PointX="5.25" PointY="1.875" />
         <EntityTypeShape EntityType="H15_PROJET_E05Model.RDV" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" />
         <AssociationConnector Association="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" />
         <AssociationConnector Association="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" />
       </Diagram>
