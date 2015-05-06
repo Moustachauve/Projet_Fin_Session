@@ -83,6 +83,7 @@ namespace photo_hdr_duval.Controllers
 			{
 				return HttpNotFound();
 			}
+			ViewBag.Forfaits = uow.ForfaitRepository.Get();
 			return View(rDV);
 		}
 
@@ -91,7 +92,7 @@ namespace photo_hdr_duval.Controllers
 		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire")] RDV rDV)
+		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,DateDemande,HeureRDV,Commentaire,NomPrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville")] RDV rDV)
 		{
 			if (ModelState.IsValid)
 			{
@@ -99,6 +100,7 @@ namespace photo_hdr_duval.Controllers
 				uow.Save();
 				return RedirectToAction("Index");
 			}
+			ViewBag.Forfaits = uow.ForfaitRepository.Get();
 			return View(rDV);
 		}
 
