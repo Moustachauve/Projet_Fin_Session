@@ -49,6 +49,7 @@ namespace photo_hdr_duval.Controllers
 		// GET: RDVs/Create
 		public ActionResult Create()
 		{
+			ViewBag.Forfaits = uow.ForfaitRepository.Get();
 			return View();
 		}
 
@@ -66,7 +67,7 @@ namespace photo_hdr_duval.Controllers
 				uow.Save();
 				return RedirectToAction("Index");
 			}
-
+			ViewBag.Forfaits = uow.ForfaitRepository.Get();
 			return View(rDV);
 		}
 
