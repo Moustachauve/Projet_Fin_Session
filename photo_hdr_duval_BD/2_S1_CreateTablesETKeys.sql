@@ -11,8 +11,8 @@ CREATE TABLE RDV.RDVs(
 	HeureRDV TIME NULL,
 	Commentaire NVARCHAR(MAX) NULL,
 	NomPrenomProprietaire NVARCHAR(70) NOT NULL,
-	TelPrincipalProprietaire INT NOT NULL,
-	TelSecondaire INT NULL,
+	TelPrincipalProprietaire BIGINT NOT NULL,
+	TelSecondaire BIGINT NULL,
 	AdressePropriete NVARCHAR(70) NOT NULL,
 	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'), -- ajouté 2015-05-06 11:34
 	EmailProprietaire NVARCHAR(30) NULL,
