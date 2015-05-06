@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>RDV</h4>
         <hr />
@@ -71,11 +71,19 @@
             </div>
         </div>
 
+
+
         <div class="form-group">
-            @Html.LabelFor(model => model.ForfaitID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ForfaitID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ForfaitID, "", new { @class = "text-danger" })
+                @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
+                {
+                    <div class="row">
+                        @Html.RadioButtonFor(model => model.Forfait, new { htmlAttributes = new { @class = "form-control" } })
+                        @forfait.Nom
+                        @Html.ValidationMessageFor(model => model.Forfait, "", new { @class = "text-danger" })
+                    </div>
+                }
             </div>
         </div>
 

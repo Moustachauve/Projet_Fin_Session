@@ -25,6 +25,19 @@ namespace photo_hdr_duval.DAL
 				return this.rdvRepository;
 			}
 		}
+
+        private ForfaitRepository forfaitRepository;
+        public ForfaitRepository ForfaitRepository
+        {
+            get
+            {
+                if (this.forfaitRepository == null)
+                {
+                    this.forfaitRepository = new ForfaitRepository(context);
+                }
+                return this.forfaitRepository;
+            }
+        }
         
 
 		public void Save()

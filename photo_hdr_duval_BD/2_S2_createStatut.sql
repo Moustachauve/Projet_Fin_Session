@@ -13,6 +13,7 @@ CREATE TABLE RDV.Statut(
 
 
 --Foreign Keys
+-------------------------------------------------------------------
 
 ALTER TABLE RDV.Statut
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
