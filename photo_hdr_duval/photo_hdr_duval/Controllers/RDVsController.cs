@@ -16,24 +16,19 @@ namespace photo_hdr_duval.Controllers
 		private UnitOfWork uow = new UnitOfWork();
 
 		// GET: RDVs
-		public ActionResult Index(string sortString)
+		public ActionResult Index(string sortString, bool? asc)
 		{
-			if (uow.RDVRepository.Get() != null)
-			{
-				IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
-				switch (sortString)
-				{
-					case "dateRdv":
-						rdvs.OrderBy(x => x.DateRDV);
-						break;
-					default:
-						rdvs.OrderBy(x => x.DateDemande);
-						break;
-				}
-				
-				return View(rdvs);
-			}
-			return View();
+			IEnumerable<RDV> rdvs = null;
+
+			ViewBag.isAsc = asc;
+			ViewBag.orderBy = sortString;
+
+			if (sortString == null)
+				rdvs = uow.RDVRepository.Get();
+			else
+				rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
+
+			return View(rdvs.ToList());
 		}
 
 		// GET: RDVs/Details/5

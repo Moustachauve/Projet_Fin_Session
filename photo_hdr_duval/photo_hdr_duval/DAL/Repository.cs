@@ -77,5 +77,7 @@ namespace photo_hdr_duval.DAL
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
+
+
     }
 }

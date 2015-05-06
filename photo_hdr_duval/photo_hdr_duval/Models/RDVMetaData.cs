@@ -60,6 +60,7 @@ namespace photo_hdr_duval.Models
             public string EmailProprietaire { get; set; }
 
             [DataType(DataType.Date)]
+			[Display(Name = "Date de demande")]
             public DateTime DateDemande { get; set; }
         }
     }
