@@ -14,11 +14,7 @@ ON RDV.RDVs
 AFTER UPDATE, INSERT
 AS
 	DECLARE @NouveauStatut NVARCHAR(50)
-	DECLARE @RDVIDaChanger INT
 	DECLARE @DateRdvUpdate DATE
-
-	SELECT @RDVIDaChanger = RDVID
-	FROM inserted
 
 	SELECT @DateRdvUpdate = DateRDV
 	FROM updated
@@ -41,12 +37,12 @@ AS
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	IF (inserted IS NOT NULL) BEGIN
 		INSERT INTO RDV.Statut
-		SET StatutID = @NouveauStatut
-		WHERE RDVID = @RDVIDaChanger
-	END ELSE IF( updated IS NOT NULL) BEGIN
+		VALUES (GETDATE(), @NouveauStatut, RDVID)
+	END
+	/*ELSE IF( updated IS NOT NULL) BEGIN
 		INSERT INTO RDV.RDVs
 		SET StatutID = @NouveauStatut
 		WHERE RDVID = @RDVIDaChanger
-	END
+	END*/
 GO
 
