@@ -2,9 +2,7 @@ USE [H15_PROJET_E05]
 GO
 
 --RDV
--------------------------------------------------------------------
-
---DROP TABLE RDV.RDVs
+-------------------------------------------------------------------  --DROP TABLE RDV.RDVs
 
 CREATE TABLE RDV.RDVs(
 	RDVID INT NOT NULL IDENTITY,
@@ -17,17 +15,15 @@ CREATE TABLE RDV.RDVs(
 	TelSecondaire NVARCHAR(10) NULL,
 	AdressePropriete NVARCHAR(70) NOT NULL,
 	EmailProprietaire NVARCHAR(30) NULL,
-	ForfaitID INT NOT NULL
-
-	--NOUVEAU SPRINT 1 (ENLEVER POUR SCREENSHOT)  -- !!! PAS BON !!!
-	--Etat nvarchar(50) NOT NULL DEFAULT 'Aucun statut',
+	ForfaitID INT NOT NULL,
+	StatutID INT NOT NULL DEFAULT 1
 
 	PRIMARY KEY (RDVID)
 ) ON [PRIMARY];
 GO
 
---Forfait
--------------------------------------------------------------------
+--Forfaits
+------------------------------------------------------------------- --DROP TABLE RDV.Forfaits
 
 CREATE TABLE RDV.Forfaits(
 	ForfaitID INT NOT NULL IDENTITY,
@@ -38,7 +34,7 @@ CREATE TABLE RDV.Forfaits(
 	PRIMARY KEY (ForfaitID)
 ) ON [PRIMARY];
 
---Keys
+--Foreign Keys
 -------------------------------------------------------------------
 
 ALTER TABLE RDV.RDVs
