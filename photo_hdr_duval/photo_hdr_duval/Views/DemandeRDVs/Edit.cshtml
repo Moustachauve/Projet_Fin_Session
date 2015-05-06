@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    
 }
 
 <h2>Modification</h2>
@@ -16,6 +17,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.RDVID)
+        @Html.HiddenFor(model => model.DateDemande)
 
         <div class="form-group">
             @Html.LabelFor(model => model.DateRDV, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -66,10 +68,45 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Ville, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ville, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ville, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.EmailProprietaire, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EmailProprietaire, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.EmailProprietaire, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.Nom)</th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.DescriptionForfait)</th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.Prix)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
+                        {
+                            <tr>
+                                <td>@Html.RadioButtonFor(model => model.ForfaitID, forfait.ForfaitID)</td>
+                                <td>@forfait.Nom</td>
+                                <td>@forfait.DescriptionForfait</td>
+                                <td>@forfait.Prix.ToString("C2")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
 

@@ -64,6 +64,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Ville, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ville, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ville, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.EmailProprietaire, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.EmailProprietaire, new { htmlAttributes = new { @class = "form-control" } })
@@ -87,19 +95,14 @@
                         @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
                         {
                             <tr>
-                                <td>
-                                    @Html.RadioButtonFor(model => model.Forfait, new { htmlAttributes = new { @class = "form-control" } })
-                                </td>
+                                <td>@Html.RadioButtonFor(model => model.ForfaitID, forfait.ForfaitID)</td>
                                 <td>@forfait.Nom</td>
                                 <td>@forfait.DescriptionForfait</td>
                                 <td>@forfait.Prix.ToString("C2")</td>
                             </tr>
                         }
                     </tbody>
-
-
                 </table>
-
             </div>
         </div>
 
