@@ -25,6 +25,7 @@ namespace photo_hdr_duval.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Forfait> Forfaits { get; set; }
         public virtual DbSet<RDV> RDVs { get; set; }
     }
 }

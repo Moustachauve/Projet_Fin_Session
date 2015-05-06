@@ -5,12 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="H15_PROJET_E05Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Forfaits">
+          <Key>
+            <PropertyRef Name="ForfaitID" />
+          </Key>
+          <Property Name="ForfaitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DescriptionForfait" Type="nvarchar(max)" />
+          <Property Name="Prix" Type="money" Nullable="false" />
+        </EntityType>
         <EntityType Name="RDVs">
           <Key>
             <PropertyRef Name="RDVID" />
           </Key>
           <Property Name="RDVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DateRDV" Type="datetime" />
+          <Property Name="DateDemande" Type="datetime" Nullable="false" />
+          <Property Name="DateRDV" Type="date" />
           <Property Name="HeureRDV" Type="time" Precision="7" />
           <Property Name="Commentaire" Type="nvarchar(max)" />
           <Property Name="NomPrenomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
@@ -18,24 +28,57 @@
           <Property Name="TelSecondaire" Type="nvarchar" MaxLength="10" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
-          <Property Name="DateDemande" Type="datetime" Nullable="false" />
+          <Property Name="ForfaitID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_RDVs_Forfaits_ForfaitID">
+          <End Role="Forfaits" Type="Self.Forfaits" Multiplicity="1" />
+          <End Role="RDVs" Type="Self.RDVs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forfaits">
+              <PropertyRef Name="ForfaitID" />
+            </Principal>
+            <Dependent Role="RDVs">
+              <PropertyRef Name="ForfaitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
+          <EntitySet Name="Forfaits" EntityType="Self.Forfaits" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
+          <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="Self.FK_RDVs_Forfaits_ForfaitID">
+            <End Role="Forfaits" EntitySet="Forfaits" />
+            <End Role="RDVs" EntitySet="RDVs" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
+          <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID">
+            <End Role="Forfait" EntitySet="Forfaits" />
+            <End Role="RDV" EntitySet="RDVs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Forfait">
+          <Key>
+            <PropertyRef Name="ForfaitID" />
+          </Key>
+          <Property Name="ForfaitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionForfait" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prix" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="RDVs" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="Forfait" ToRole="RDV" />
+        </EntityType>
         <EntityType Name="RDV">
           <Key>
             <PropertyRef Name="RDVID" />
           </Key>
           <Property Name="RDVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DateRDV" Type="DateTime" Precision="3" />
+          <Property Name="DateDemande" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateRDV" Type="DateTime" Precision="0" />
           <Property Name="HeureRDV" Type="Time" Precision="7" />
           <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NomPrenomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
@@ -43,18 +86,41 @@
           <Property Name="TelSecondaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DateDemande" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ForfaitID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
         </EntityType>
+        <Association Name="FK_RDVs_Forfaits_ForfaitID">
+          <End Type="H15_PROJET_E05Model.Forfait" Role="Forfait" Multiplicity="1" />
+          <End Type="H15_PROJET_E05Model.RDV" Role="RDV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forfait">
+              <PropertyRef Name="ForfaitID" />
+            </Principal>
+            <Dependent Role="RDV">
+              <PropertyRef Name="ForfaitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
+          <EntitySetMapping Name="Forfaits">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Forfait">
+              <MappingFragment StoreEntitySet="Forfaits">
+                <ScalarProperty Name="Prix" ColumnName="Prix" />
+                <ScalarProperty Name="DescriptionForfait" ColumnName="DescriptionForfait" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
-                <ScalarProperty Name="DateDemande" ColumnName="DateDemande" />
+                <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
@@ -63,6 +129,7 @@
                 <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
                 <ScalarProperty Name="HeureRDV" ColumnName="HeureRDV" />
                 <ScalarProperty Name="DateRDV" ColumnName="DateRDV" />
+                <ScalarProperty Name="DateDemande" ColumnName="DateDemande" />
                 <ScalarProperty Name="RDVID" ColumnName="RDVID" />
               </MappingFragment>
             </EntityTypeMapping>

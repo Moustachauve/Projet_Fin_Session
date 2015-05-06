@@ -130,6 +130,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Forfait.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Model_photo_hdr_duval.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
