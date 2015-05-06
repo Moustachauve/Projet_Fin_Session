@@ -75,10 +75,10 @@ CREATE TABLE RDV.Forfaits(
 ) ON [PRIMARY];
 
 -- RDV.Statut
+-------------------------------------------------------------------  --DROP TABLE RDV.Statut
 CREATE TABLE RDV.Statut(
 	StatutID INT NOT NULL IDENTITY,
 	DateModification DATETIME NOT NULL DEFAULT(GETDATE()), 
-	DescriptionStatut NVARCHAR(50) NOT NULL,
 	Statut INT NOT NULL,
 	RDVID INT NOT NULL
 
