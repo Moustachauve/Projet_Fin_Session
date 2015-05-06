@@ -7,8 +7,8 @@ CREATE TABLE Agent.Agent(
 	NomPrenomAgent NVARCHAR(50) NOT NULL,
 	NomEntreprise NVARCHAR(50) NOT NULL,
 	Adresse NVARCHAR(50) NOT NULL,
-	TelPrincipal NVARCHAR(10) NOT NULL,
-	TelSecondaire NVARCHAR(10) NOT NULL
+	TelPrincipal INT NOT NULL,
+	TelSecondaire INT NOT NULL
 
 	PRIMARY KEY (AgentID)
 ) ON [PRIMARY];
