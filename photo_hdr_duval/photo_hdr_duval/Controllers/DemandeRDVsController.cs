@@ -39,7 +39,7 @@ namespace photo_hdr_duval.Controllers
         // GET: DemandeRDVs/Create
         public ActionResult Create()
         {
-            ViewBag.Forfaits = new SelectList(uow.ForfaitRepository.Get(), "ForfaitID", "Nom");
+            ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace photo_hdr_duval.Controllers
                 uow.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.Forfaits = new SelectList(uow.ForfaitRepository.Get(), "ForfaitID", "Nom", rDV.ForfaitID);
+            ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View(rDV);
         }
 
