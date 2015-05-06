@@ -134,6 +134,7 @@
     <Compile Include="Models\Forfait.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForfaitMetaData.cs" />
     <Compile Include="Models\Model_photo_hdr_duval.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
