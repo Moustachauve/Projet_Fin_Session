@@ -12,20 +12,14 @@ namespace photo_hdr_duval.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Agent
+    public partial class Statut
     {
-        public Agent()
-        {
-            this.Emails = new HashSet<Email>();
-        }
+        public int StatutID { get; set; }
+        public System.DateTime DateModification { get; set; }
+        public string DescriptionStatut { get; set; }
+        public int Statut1 { get; set; }
+        public int RDVID { get; set; }
     
-        public int AgentID { get; set; }
-        public string NomPrenomAgent { get; set; }
-        public string NomEntreprise { get; set; }
-        public string Adresse { get; set; }
-        public long TelPrincipal { get; set; }
-        public long TelSecondaire { get; set; }
-    
-        public virtual ICollection<Email> Emails { get; set; }
+        public virtual RDV RDV { get; set; }
     }
 }

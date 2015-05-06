@@ -140,6 +140,9 @@
     <Compile Include="Models\Email.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Facture.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Forfait.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
@@ -166,6 +169,12 @@
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RDVMetaData.cs" />
+    <Compile Include="Models\Statut.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tax.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

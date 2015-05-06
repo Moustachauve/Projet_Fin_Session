@@ -4,6 +4,8 @@ CREATE SCHEMA RDV;
 GO
 CREATE SCHEMA Agent;
 GO
+CREATE SCHEMA Paiement
+GO
 
 --RDV
 -------------------------------------------------------------------  --DROP TABLE RDV.RDVs
@@ -106,3 +108,32 @@ ALTER TABLE RDV.Statut
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
 	FOREIGN KEY (StatutID)
 	REFERENCES RDV.RDVs
+
+	--Facture
+-------------------------------------------------------------------  --DROP TABLE Paiement.Factures
+
+CREATE TABLE Paiement.Factures(
+	FactureID INT NOT NULL IDENTITY,
+	CoutTotal INT NULL,
+	Deplacement INT NULL,
+	VisiteVirtuelle INT NULL,
+	AsVisiteVirtuelle binary NOT NULL DEFAULT 0,
+	RDVID INT NOT NULL
+
+	PRIMARY KEY (FactureID)
+) ON [PRIMARY];
+
+ALTER TABLE Paiement.Factures
+	ADD CONSTRAINT FK_RDVs_Factures_RDVID
+	FOREIGN KEY (RDVID) 
+	REFERENCES RDV.RDVs
+
+--Taxe
+-------------------------------------------------------------------  --DROP TABLE Paiement.Taxe
+CREATE TABLE Paiement.Taxes(
+	TaxeID INT NOT NULL IDENTITY,
+	Nom nvarchar(5) NOT NULL,
+	Pourcentage DECIMAL NOT NULL
+
+	PRIMARY KEY(TaxeID)
+)ON [PRIMARY]
