@@ -3,47 +3,27 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="pull-right alert alert-danger" style="margin-top:20px;"><strong>Demandée</strong></div>
 
-<h2>Détails</h2>
+<h2>Rendez-vous de @Html.DisplayFor(model => model.NomPrenomProprietaire)</h2>
 
 <div>
-    <h4>Rendez-vous</h4>
+    <h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
     <hr />
-    <dl class="dl-horizontal">
+
+    <h3>Informations de contact:</h3>
+    <dl>
+
         <dt>
-            @Html.DisplayNameFor(model => model.DateRDV)
+            Email
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DateRDV)
+            @Html.DisplayFor(model => model.EmailProprietaire)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.HeureRDV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HeureRDV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Commentaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Commentaire)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NomPrenomProprietaire)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+            Téléphone principal
         </dt>
 
         <dd>
@@ -59,21 +39,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AdressePropriete)
+            Adresse
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AdressePropriete)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailProprietaire)
-        </dt>
+        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Commentaire)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailProprietaire)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Commentaire)
+            </dd>
+        }
     </dl>
 </div>
 <p>

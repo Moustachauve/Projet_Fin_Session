@@ -9,43 +9,51 @@
 <p>
     @Html.ActionLink("Créer un nouveau", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateDemande);
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRDV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HeureRDV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateDemande)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRDV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HeureRDV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
-        </td>
-        <td>
-            @Html.ActionLink("Modifier", "Edit", new { id=item.RDVID }) |
-            @Html.ActionLink("Détails", "Details", new { id=item.RDVID }) |
-            @Html.ActionLink("Supprimer", "Delete", new { id=item.RDVID })
-        </td>
-    </tr>
-}
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDemande);
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRDV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HeureRDV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
+            </th>
+            <th>
+                État
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDemande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRDV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureRDV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
+            </td>
+            <td>
+                <div class="pull-left alert alert-danger" style="height:20px; padding-top:0; margin-bottom:0;"><strong>Demandée</strong></div>
+            </td>
+            <td>
+                @Html.ActionLink("Modifier", "Edit", new { id = item.RDVID }) |
+                @Html.ActionLink("Détails", "Details", new { id = item.RDVID }) |
+                @Html.ActionLink("Supprimer", "Delete", new { id = item.RDVID })
+            </td>
+        </tr>
+    }
 
 </table>
