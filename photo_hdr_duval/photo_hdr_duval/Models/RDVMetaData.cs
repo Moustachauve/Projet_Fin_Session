@@ -62,6 +62,7 @@ namespace photo_hdr_duval.Models
             [DataType(DataType.DateTime)]
 			[Display(Name = "Date de demande")]
             public DateTime DateDemande { get; set; }
+
         }
     }
 }

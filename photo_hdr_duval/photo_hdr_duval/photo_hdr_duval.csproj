@@ -131,6 +131,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Agent.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Email.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Forfait.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
