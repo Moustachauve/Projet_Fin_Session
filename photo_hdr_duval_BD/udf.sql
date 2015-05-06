@@ -22,6 +22,7 @@ AS
 
 	SELECT @DateRdvUpdate = DateRDV
 	FROM updated
+
 	--SET ID à DEMANDÉE
 	IF(StatutID = 0) BEGIN
 		SET @NouveauStatut = 1
@@ -48,3 +49,4 @@ AS
 		WHERE RDVID = @RDVIDaChanger
 	END
 GO
+

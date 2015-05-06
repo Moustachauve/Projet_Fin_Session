@@ -14,7 +14,7 @@ CREATE TABLE RDV.RDVs(
 	TelPrincipalProprietaire NVARCHAR(10) NOT NULL,
 	TelSecondaire NVARCHAR(10) NULL,
 	AdressePropriete NVARCHAR(70) NOT NULL,
-	Ville NVARCHAR(70) NOT NULL, -- ajouté 2015-05-06 11:34
+	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'), -- ajouté 2015-05-06 11:34
 	EmailProprietaire NVARCHAR(30) NULL,
 	ForfaitID INT NOT NULL,
 	--StatutID INT NOT NULL DEFAULT 0

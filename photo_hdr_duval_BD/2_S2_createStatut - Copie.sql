@@ -6,7 +6,10 @@ GO
 
 CREATE TABLE RDV.Statut(
 	StatutID INT NOT NULL IDENTITY,
-	DescriptionStatut NVARCHAR(50) NOT NULL UNIQUE,
+	DateModification DateTime NOT NULL DEFAULT(GETDATE()), 
+	DescriptionStatut NVARCHAR(50) NOT NULL,
+	Statut int NOT NULL,
+	RDVID int NOT NULL
 
 	PRIMARY KEY (StatutID)
 ) ON [PRIMARY];
