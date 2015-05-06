@@ -16,19 +16,9 @@ namespace photo_hdr_duval.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: DemandeRDVs
-        public ActionResult Index(string sortString, bool? asc)
+        public ActionResult Index()
         {
-            IEnumerable<RDV> rdvs = null;
-
-            ViewBag.isAsc = asc;
-            ViewBag.orderBy = sortString;
-
-            if (sortString == null)
-                rdvs = uow.RDVRepository.Get();
-            else
-                rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
-
-            return View(rdvs.ToList());
+            return View(uow.RDVRepository.Get());
         }
 
         // GET: DemandeRDVs/Details/5
