@@ -6,10 +6,10 @@ GO
 
 CREATE TABLE RDV.Statut(
 	StatutID INT NOT NULL IDENTITY,
-	DateModification DateTime NOT NULL DEFAULT(GETDATE()), 
+	DateModification DATETIME NOT NULL DEFAULT(GETDATE()), 
 	DescriptionStatut NVARCHAR(50) NOT NULL,
-	Statut int NOT NULL,
-	RDVID int NOT NULL
+	Statut INT NOT NULL,
+	RDVID INT NOT NULL
 
 	PRIMARY KEY (StatutID)
 ) ON [PRIMARY];
@@ -26,4 +26,4 @@ ALTER TABLE RDV.Statut
 --DONNÉES DE LA TABLE RDV.STATUT
 -------------------------------------------------------------------
 
-INSERT INTO RDV.Statut(DescriptionStatut) VALUES ('Demandée'), ('Confirmée'), ('Reportée'), ('Réalisée'), ('Livrée'), ('Facturée')
+--INSERT INTO RDV.Statut(DescriptionStatut) VALUES ('Demandée'), ('Confirmée'), ('Reportée'), ('Réalisée'), ('Livrée'), ('Facturée')

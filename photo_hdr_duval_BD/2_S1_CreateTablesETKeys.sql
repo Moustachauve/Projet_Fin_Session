@@ -39,6 +39,7 @@ INSERT INTO RDV.Forfaits
 VALUES('Bronze', '20 photos et 35 minutes', 90),
 ('Argent', '26 photos et 50 mintues', 105),
 ('Or', '32 photos et 70 mintues', 120),
+('Personnalisé', 'À la discretion du photographe', 0)
 
 --Foreign Keys
 -------------------------------------------------------------------
