@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
+    bool futureAsc = ViewBag.isAsc != null ? !ViewBag.isAsc : false;
+    string arrow = futureAsc ? "▲" : "▼";
 }
 
 <h2>Liste de Rendez-vous</h2>
@@ -13,16 +15,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateDemande);
+                @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande", asc = futureAsc })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateRDV)
+                @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeureRDV)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
+                @Html.ActionLink(Html.DisplayNameFor(model => model.NomPrenomProprietaire) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
             </th>
             <th>
                 État
@@ -37,10 +36,7 @@
                 @Html.DisplayFor(modelItem => item.DateDemande)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateRDV)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeureRDV)
+                @Html.DisplayFor(modelItem => item.DateRDV) @Html.DisplayFor(modelItem => item.HeureRDV)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
