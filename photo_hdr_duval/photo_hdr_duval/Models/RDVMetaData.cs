@@ -43,15 +43,11 @@ namespace photo_hdr_duval.Models
             [Display(Name = "Nom et Prénom du Propriétaire")]
             public string NomPrenomProprietaire { get; set; }
 
-            [MaxLength(10, ErrorMessage="Les numéros de téléhone ne peuvent avoir plus de 10 charactères")]
-            [MinLength(10, ErrorMessage = "Les numéros de téléhone ne peuvent avoir moins de 10 charactères")]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone principal du propriétaire")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}", ApplyFormatInEditMode = true)]
             public long TelPrincipalProprietaire { get; set; }
 
-            [MaxLength(10, ErrorMessage = "Les numéros de téléhone ne peuvent avoir plus de 10 charactères")]
-            [MinLength(10, ErrorMessage = "Les numéros de téléhone ne peuvent avoir moins de 10 charactères")]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone secondaire")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}", ApplyFormatInEditMode = true)]
