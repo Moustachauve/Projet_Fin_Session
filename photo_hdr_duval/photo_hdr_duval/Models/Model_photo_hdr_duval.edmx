@@ -85,8 +85,7 @@
           </Key>
           <Property Name="StatutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DateModification" Type="datetime" Nullable="false" />
-          <Property Name="DescriptionStatut" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Statut" Type="int" Nullable="false" />
+          <Property Name="Statut" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="RDVID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agent_Emails_EmailID">
@@ -302,8 +301,7 @@
           </Key>
           <Property Name="StatutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateModification" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DescriptionStatut" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Statut1" Type="Int32" Nullable="false" />
+          <Property Name="Statut1" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="RDVID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="Statut" ToRole="RDV" />
         </EntityType>
@@ -459,7 +457,6 @@
               <MappingFragment StoreEntitySet="Statut">
                 <ScalarProperty Name="RDVID" ColumnName="RDVID" />
                 <ScalarProperty Name="Statut1" ColumnName="Statut" />
-                <ScalarProperty Name="DescriptionStatut" ColumnName="DescriptionStatut" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
                 <ScalarProperty Name="StatutID" ColumnName="StatutID" />
               </MappingFragment>
