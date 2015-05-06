@@ -14,6 +14,15 @@
           <Property Name="DescriptionForfait" Type="nvarchar(max)" />
           <Property Name="Prix" Type="money" Nullable="false" />
         </EntityType>
+        <EntityType Name="PhotoPropriete">
+          <Key>
+            <PropertyRef Name="PhotoProprieteID" />
+          </Key>
+          <Property Name="PhotoProprieteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DescriptionPhoto" Type="nvarchar" MaxLength="300" />
+          <Property Name="RDVID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="RDVs">
           <Key>
             <PropertyRef Name="RDVID" />
@@ -27,6 +36,7 @@
           <Property Name="TelPrincipalProprietaire" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="TelSecondaire" Type="nvarchar" MaxLength="10" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
           <Property Name="ForfaitID" Type="int" Nullable="false" />
         </EntityType>
@@ -42,12 +52,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RDVs_PhotoPropriete_RDVID">
+          <End Role="RDVs" Type="Self.RDVs" Multiplicity="1" />
+          <End Role="PhotoPropriete" Type="Self.PhotoPropriete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDVs">
+              <PropertyRef Name="RDVID" />
+            </Principal>
+            <Dependent Role="PhotoPropriete">
+              <PropertyRef Name="RDVID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
           <EntitySet Name="Forfaits" EntityType="Self.Forfaits" Schema="RDV" store:Type="Tables" />
+          <EntitySet Name="PhotoPropriete" EntityType="Self.PhotoPropriete" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
           <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="Self.FK_RDVs_Forfaits_ForfaitID">
             <End Role="Forfaits" EntitySet="Forfaits" />
             <End Role="RDVs" EntitySet="RDVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDVs_PhotoPropriete_RDVID" Association="Self.FK_RDVs_PhotoPropriete_RDVID">
+            <End Role="RDVs" EntitySet="RDVs" />
+            <End Role="PhotoPropriete" EntitySet="PhotoPropriete" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -56,10 +83,15 @@
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
+          <EntitySet Name="PhotoProprietes" EntityType="H15_PROJET_E05Model.PhotoPropriete" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
           <AssociationSet Name="FK_RDVs_Forfaits_ForfaitID" Association="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID">
             <End Role="Forfait" EntitySet="Forfaits" />
             <End Role="RDV" EntitySet="RDVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RDVs_PhotoPropriete_RDVID" Association="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID">
+            <End Role="RDV" EntitySet="RDVs" />
+            <End Role="PhotoPropriete" EntitySet="PhotoProprietes" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Forfait">
@@ -71,6 +103,16 @@
           <Property Name="DescriptionForfait" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Prix" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="RDVs" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="Forfait" ToRole="RDV" />
+        </EntityType>
+        <EntityType Name="PhotoPropriete">
+          <Key>
+            <PropertyRef Name="PhotoProprieteID" />
+          </Key>
+          <Property Name="PhotoProprieteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionPhoto" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RDVID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="PhotoPropriete" ToRole="RDV" />
         </EntityType>
         <EntityType Name="RDV">
           <Key>
@@ -85,9 +127,11 @@
           <Property Name="TelPrincipalProprietaire" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="TelSecondaire" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ForfaitID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
+          <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
         </EntityType>
         <Association Name="FK_RDVs_Forfaits_ForfaitID">
           <End Type="H15_PROJET_E05Model.Forfait" Role="Forfait" Multiplicity="1" />
@@ -101,7 +145,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_RDVs_PhotoPropriete_RDVID">
+          <End Type="H15_PROJET_E05Model.RDV" Role="RDV" Multiplicity="1" />
+          <End Type="H15_PROJET_E05Model.PhotoPropriete" Role="PhotoPropriete" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RDV">
+              <PropertyRef Name="RDVID" />
+            </Principal>
+            <Dependent Role="PhotoPropriete">
+              <PropertyRef Name="RDVID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -117,11 +173,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PhotoProprietes">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.PhotoPropriete">
+              <MappingFragment StoreEntitySet="PhotoPropriete">
+                <ScalarProperty Name="RDVID" ColumnName="RDVID" />
+                <ScalarProperty Name="DescriptionPhoto" ColumnName="DescriptionPhoto" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="PhotoProprieteID" ColumnName="PhotoProprieteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
                 <ScalarProperty Name="TelPrincipalProprietaire" ColumnName="TelPrincipalProprietaire" />

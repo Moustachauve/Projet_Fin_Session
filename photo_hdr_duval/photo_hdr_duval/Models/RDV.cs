@@ -14,6 +14,11 @@ namespace photo_hdr_duval.Models
     
     public partial class RDV
     {
+        public RDV()
+        {
+            this.PhotoProprietes = new HashSet<PhotoPropriete>();
+        }
+    
         public int RDVID { get; set; }
         public System.DateTime DateDemande { get; set; }
         public Nullable<System.DateTime> DateRDV { get; set; }
@@ -23,9 +28,11 @@ namespace photo_hdr_duval.Models
         public string TelPrincipalProprietaire { get; set; }
         public string TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
+        public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
     
         public virtual Forfait Forfait { get; set; }
+        public virtual ICollection<PhotoPropriete> PhotoProprietes { get; set; }
     }
 }

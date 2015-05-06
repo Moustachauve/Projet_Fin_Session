@@ -150,6 +150,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_photo_hdr_duval.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PhotoPropriete.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RDV.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
