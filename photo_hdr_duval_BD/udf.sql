@@ -13,7 +13,7 @@ CREATE TRIGGER trg_RDV.GererStatut
 ON RDV.RDVs
 AFTER UPDATE, INSERT
 AS
-	DECLARE @NouveauStatut INT
+	DECLARE @NouveauStatut NVARCHAR(50)
 	DECLARE @RDVIDaChanger INT
 	DECLARE @DateRdvUpdate DATE
 
@@ -25,26 +25,26 @@ AS
 
 	--SET ID à DEMANDÉE
 	IF(StatutID = 0) BEGIN
-		SET @NouveauStatut = 1
+		SET @NouveauStatut = 'Demandée'
 	END
 
 	--SET ID à CONFIRMÉE
 	IF (DateRDV IS NOT NULL) BEGIN
-		SET @NouveauStatut = 2
+		SET @NouveauStatut = 'Confrimée'
 	END
 
 	--SET ID à Reportée
 	IF(DateRDV != @DateRdvUpdate) BEGIN
-		SET @NouveauStatut = 3
+		SET @NouveauStatut = 'Reportée'
 	END
 
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	IF (inserted IS NOT NULL) BEGIN
-		UPDATE RDV.RDVs
+		INSERT INTO RDV.Statut
 		SET StatutID = @NouveauStatut
 		WHERE RDVID = @RDVIDaChanger
 	END ELSE IF( updated IS NOT NULL) BEGIN
-		UPDATE RDV.RDVs
+		INSERT INTO RDV.RDVs
 		SET StatutID = @NouveauStatut
 		WHERE RDVID = @RDVIDaChanger
 	END
