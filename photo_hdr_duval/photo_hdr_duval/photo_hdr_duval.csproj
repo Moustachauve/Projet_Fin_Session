@@ -119,6 +119,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\DemandeRDVsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RDVsController.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Models\Agent.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgentMetaData.cs" />
     <Compile Include="Models\Email.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
@@ -228,6 +230,11 @@
     <Content Include="Views\DemandeRDVs\Edit.cshtml" />
     <Content Include="Views\DemandeRDVs\Index.cshtml" />
     <Content Include="Views\RDVs\UploadPhoto.cshtml" />
+    <Content Include="Views\Agents\Create.cshtml" />
+    <Content Include="Views\Agents\Delete.cshtml" />
+    <Content Include="Views\Agents\Details.cshtml" />
+    <Content Include="Views\Agents\Edit.cshtml" />
+    <Content Include="Views\Agents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

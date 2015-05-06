@@ -1,0 +1,57 @@
+﻿@model IEnumerable<photo_hdr_duval.Models.Agent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomPrenomAgent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomEntreprise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelPrincipal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelSecondaire)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomPrenomAgent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomEntreprise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelPrincipal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelSecondaire)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AgentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AgentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AgentID })
+        </td>
+    </tr>
+}
+
+</table>

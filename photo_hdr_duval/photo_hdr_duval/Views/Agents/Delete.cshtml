@@ -1,0 +1,64 @@
+﻿@model photo_hdr_duval.Models.Agent
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Agent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPrenomAgent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPrenomAgent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomEntreprise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomEntreprise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelPrincipal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelPrincipal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelSecondaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelSecondaire)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -38,7 +38,19 @@ namespace photo_hdr_duval.DAL
                 return this.forfaitRepository;
             }
         }
-        
+
+        private AgentRepository agentRepository;
+        public AgentRepository AgentRepository
+        {
+            get
+            {
+                if (this.agentRepository == null)
+                {
+                    this.agentRepository = new AgentRepository(context);
+                }
+                return this.agentRepository;
+            }
+        }
 
 		public void Save()
 		{

@@ -6,21 +6,6 @@ using System.Web;
 
 namespace photo_hdr_duval.Models
 {
-    //[MetadataType(typeof(RDVMetaData))]
-    //public partial class RDV
-    //{
-    //    public int RDVID { get; set; }
-    //    public DateTime DateRDV { get; set; }
-    //    public DateTime HeureRDV { get; set; }
-    //    public string Commentaire { get; set; }
-    //    public string NomPrenomPropietaire { get; set; }
-    //    public int TelPrincipalProprietaire { get; set; }
-    //    public int TelSecondaire { get; set; }
-    //    public string AdresseProprietaire { get; set; }
-    //    public string EmailProprietaire { get; set; }
-    //    public DateTime DateDemande { get; set; }
-    //}
-
     [MetadataType(typeof(RDVMetaData))]
     public partial class RDV
     {

@@ -1,0 +1,58 @@
+﻿@model photo_hdr_duval.Models.Agent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Agent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPrenomAgent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPrenomAgent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomEntreprise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomEntreprise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelPrincipal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelPrincipal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelSecondaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelSecondaire)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AgentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

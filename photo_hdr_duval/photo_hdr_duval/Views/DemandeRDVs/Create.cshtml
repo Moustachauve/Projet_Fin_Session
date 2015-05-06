@@ -73,15 +73,33 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
-                {
-                    <div class="row">
-                        @Html.RadioButtonFor(model => model.Forfait, new { htmlAttributes = new { @class = "form-control" } })
-                        @forfait.Nom
-                        @Html.ValidationMessageFor(model => model.Forfait, "", new { @class = "text-danger" })
-                    </div>
-                }
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.Nom)</th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.DescriptionForfait)</th>
+                            <th>@Html.DisplayNameFor(x => x.Forfait.Prix)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.RadioButtonFor(model => model.Forfait, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td>@forfait.Nom</td>
+                                <td>@forfait.DescriptionForfait</td>
+                                <td>@forfait.Prix.ToString("C2")</td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+                </table>
+
             </div>
         </div>
 
@@ -95,7 +113,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Sauvegarder" class="btn btn-default" />
             </div>
         </div>
     </div>
