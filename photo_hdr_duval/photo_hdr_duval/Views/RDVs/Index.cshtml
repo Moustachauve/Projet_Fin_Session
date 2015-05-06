@@ -14,16 +14,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.sortString == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande" })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande", asc = futureAsc })
         </th>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.sortString == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv" })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
         </th>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.HeureRDV)+ (ViewBag.sortString == "HeureRdv" ? arrow : ""), "Index", new { sortString = "HeureRdv" })
-        </th>
-        <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.NomPrenomProprietaire) + (ViewBag.sortString == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom" })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.NomPrenomProprietaire) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
         </th>
         <th></th>
     </tr>
@@ -34,10 +31,7 @@
             @Html.DisplayFor(modelItem => item.DateDemande)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateRDV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HeureRDV)
+            @Html.DisplayFor(modelItem => item.DateRDV) à @Html.DisplayFor(modelItem => item.HeureRDV)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
