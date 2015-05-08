@@ -22,3 +22,33 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar {
+    background-color:#158cba;
+}
+
+.navbar .navbar-brand {
+    color:#fff;
+    text-shadow:2px 2px 2px #333;
+}
+
+.navbar .navbar-brand:hover {
+    color:#ddd;
+    text-shadow:2px 2px 2px #333;
+}
+.navbar-default .navbar-nav > li > a {
+    color:#fff;
+    text-shadow:2px 2px 2px #333;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color:#ddd;
+    text-shadow:2px 2px 2px #333;
+}
+
+.navbar-default .navbar-nav > .open > a,
+ .navbar-default .navbar-nav > .open > a:hover,
+ .navbar-default .navbar-nav > .open > a:focus {
+    color:#ddd;
+    text-shadow:2px 2px 2px #333;
+}
