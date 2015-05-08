@@ -42,7 +42,7 @@
           </Key>
           <Property Name="TaxeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nom" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="Pourcentage" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Pourcentage" Type="decimal" Precision="3" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Forfaits">
           <Key>
@@ -186,7 +186,6 @@
           <EntitySet Name="Agents" EntityType="H15_PROJET_E05Model.Agent" />
           <EntitySet Name="Emails" EntityType="H15_PROJET_E05Model.Email" />
           <EntitySet Name="Factures" EntityType="H15_PROJET_E05Model.Facture" />
-          <EntitySet Name="Taxes" EntityType="H15_PROJET_E05Model.Tax" />
           <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
           <EntitySet Name="PhotoProprietes" EntityType="H15_PROJET_E05Model.PhotoPropriete" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
@@ -211,6 +210,7 @@
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Statut" EntitySet="Statuts" />
           </AssociationSet>
+          <EntitySet Name="Taxes" EntityType="H15_PROJET_E05Model.Tax" />
         </EntityContainer>
         <EntityType Name="Agent">
           <Key>
@@ -245,14 +245,6 @@
           <Property Name="AsVisiteVirtuelle" Type="Binary" Nullable="false" MaxLength="1" FixedLength="true" />
           <Property Name="RDVID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDVs_Factures_RDVID" FromRole="Facture" ToRole="RDV" />
-        </EntityType>
-        <EntityType Name="Tax">
-          <Key>
-            <PropertyRef Name="TaxeID" />
-          </Key>
-          <Property Name="TaxeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nom" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="Pourcentage" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Forfait">
           <Key>
@@ -365,6 +357,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tax">
+          <Key>
+            <PropertyRef Name="TaxeID" />
+          </Key>
+          <Property Name="TaxeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Pourcentage" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -402,15 +402,6 @@
                 <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
                 <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
                 <ScalarProperty Name="FactureID" ColumnName="FactureID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Taxes">
-            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Tax">
-              <MappingFragment StoreEntitySet="Taxes">
-                <ScalarProperty Name="Pourcentage" ColumnName="Pourcentage" />
-                <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="TaxeID" ColumnName="TaxeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -459,6 +450,15 @@
                 <ScalarProperty Name="Statut1" ColumnName="Statut" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
                 <ScalarProperty Name="StatutID" ColumnName="StatutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Taxes">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Tax">
+              <MappingFragment StoreEntitySet="Taxes">
+                <ScalarProperty Name="Pourcentage" ColumnName="Pourcentage" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="TaxeID" ColumnName="TaxeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

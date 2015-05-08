@@ -28,10 +28,10 @@ namespace photo_hdr_duval.Models
         public virtual DbSet<Agent> Agents { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Facture> Factures { get; set; }
-        public virtual DbSet<Tax> Taxes { get; set; }
         public virtual DbSet<Forfait> Forfaits { get; set; }
         public virtual DbSet<PhotoPropriete> PhotoProprietes { get; set; }
         public virtual DbSet<RDV> RDVs { get; set; }
         public virtual DbSet<Statut> Statuts { get; set; }
+        public virtual DbSet<Tax> Taxes { get; set; }
     }
 }

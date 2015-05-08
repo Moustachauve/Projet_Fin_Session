@@ -129,11 +129,11 @@ ALTER TABLE Paiement.Factures
 	REFERENCES RDV.RDVs
 
 --Taxe
--------------------------------------------------------------------  --DROP TABLE Paiement.Taxe
+-------------------------------------------------------------------  --DROP TABLE Paiement.Taxes
 CREATE TABLE Paiement.Taxes(
 	TaxeID INT NOT NULL IDENTITY,
 	Nom nvarchar(5) NOT NULL,
-	Pourcentage DECIMAL NOT NULL
+	Pourcentage DECIMAL(3,2) NOT NULL
 
 	PRIMARY KEY(TaxeID)
 )ON [PRIMARY]
