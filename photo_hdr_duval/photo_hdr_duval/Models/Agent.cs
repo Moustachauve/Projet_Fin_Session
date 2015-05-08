@@ -20,7 +20,8 @@ namespace photo_hdr_duval.Models
         }
     
         public int AgentID { get; set; }
-        public string NomPrenomAgent { get; set; }
+        public string NomAgent { get; set; }
+        public string PrenomAgent { get; set; }
         public string NomEntreprise { get; set; }
         public string Adresse { get; set; }
         public long TelPrincipal { get; set; }

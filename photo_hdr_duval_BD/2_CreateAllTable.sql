@@ -7,6 +7,17 @@ GO
 CREATE SCHEMA Paiement
 GO
 
+/*
+DROP TABLE Agent.Agents
+DROP TABLE Agent.Emails
+DROP TABLE RDV.PhotoProprietes
+DROP TABLE RDV.Statuts
+DROP TABLE Paiement.Factures
+DROP TABLE Paiement.Taxes
+DROP TABLE RDV.Forfaits
+DROP TABLE RDV.RDVs
+*/
+
 --RDV
 -------------------------------------------------------------------  --DROP TABLE RDV.RDVs
 
@@ -16,23 +27,27 @@ CREATE TABLE RDV.RDVs(
 	DateRDV DATE NULL,
 	HeureRDV TIME NULL,
 	Commentaire NVARCHAR(MAX) NULL DEFAULT('N/A'),
-	NomPrenomProprietaire NVARCHAR(70) NOT NULL,
+	NomProprietaire NVARCHAR(70) NOT NULL,
+	PrenomProprietaire NVARCHAR(70) NOT NULL,
 	TelPrincipalProprietaire BIGINT NOT NULL,
 	TelSecondaire BIGINT NULL,
 	AdressePropriete NVARCHAR(70) NOT NULL,
 	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'), -- ajouté 2015-05-06 11:34
 	EmailProprietaire NVARCHAR(30) NULL,
 	ForfaitID INT NOT NULL,
+	FactureID INT NULL
 	--StatutID INT NOT NULL DEFAULT 0
 
 	PRIMARY KEY (RDVID)
 ) ON [PRIMARY];
 GO
 
---Agent
-CREATE TABLE Agent.Agent(
+--Agent.Agents
+-------------------------------------------------------------------  --DROP TABLE Agent.Agents
+CREATE TABLE Agent.Agents(
 	AgentID INT NOT NULL IDENTITY,
-	NomPrenomAgent NVARCHAR(50) NOT NULL,
+	NomAgent NVARCHAR(50) NOT NULL,
+	PrenomAgent NVARCHAR(50) NOT NULL,
 	NomEntreprise NVARCHAR(50) NOT NULL,
 	Adresse NVARCHAR(50) NOT NULL,
 	TelPrincipal BIGINT NOT NULL,
@@ -42,7 +57,8 @@ CREATE TABLE Agent.Agent(
 ) ON [PRIMARY];
 GO
 
---Emails
+--Agent.Emails
+-------------------------------------------------------------------  --DROP TABLE Agent.Emails
 CREATE TABLE Agent.Emails(
 	EmailID int NOT NULL IDENTITY,
 	Email NVARCHAR(50) NOT NULL,
@@ -53,8 +69,9 @@ CREATE TABLE Agent.Emails(
 ) ON [PRIMARY]
 GO
 
---PhotoPropriete
-CREATE TABLE RDV.PhotoPropriete(
+--RDV.PhotoProprietes
+-------------------------------------------------------------------  --DROP TABLE RDV.PhotoProprietes
+CREATE TABLE RDV.PhotoProprietes(
 	PhotoProprieteID INT NOT NULL IDENTITY,
 	Url NVARCHAR(100) NOT NULL,
 	DescriptionPhoto NVARCHAR(300) NULL,
@@ -64,7 +81,8 @@ CREATE TABLE RDV.PhotoPropriete(
 ) ON [PRIMARY];
 
 
---Forfaits
+--RDV.Forfaits
+-------------------------------------------------------------------  --DROP TABLE RDV.Forfaits
 CREATE TABLE RDV.Forfaits(
 	ForfaitID INT NOT NULL IDENTITY,
 	Nom NVARCHAR(30) NOT NULL,
@@ -74,12 +92,12 @@ CREATE TABLE RDV.Forfaits(
 	PRIMARY KEY (ForfaitID)
 ) ON [PRIMARY];
 
--- RDV.Statut
-CREATE TABLE RDV.Statut(
+-- RDV.Statuts
+-------------------------------------------------------------------  --DROP TABLE RDV.Statuts
+CREATE TABLE RDV.Statuts(
 	StatutID INT NOT NULL IDENTITY,
 	DateModification DATETIME NOT NULL DEFAULT(GETDATE()), 
 	DescriptionStatut NVARCHAR(50) NOT NULL,
-	Statut INT NOT NULL,
 	RDVID INT NOT NULL
 
 	PRIMARY KEY (StatutID)
@@ -97,14 +115,14 @@ ALTER TABLE RDV.RDVs
 ALTER TABLE Agent.Emails
 	ADD CONSTRAINT FK_Agent_Emails_EmailID
 	FOREIGN KEY (AgentID)
-	REFERENCES Agent.Agent
+	REFERENCES Agent.Agents
 
-ALTER TABLE RDV.PhotoPropriete
+ALTER TABLE RDV.PhotoProprietes
 	ADD CONSTRAINT FK_RDVs_PhotoPropriete_RDVID
 	FOREIGN KEY (RDVID) 
 	REFERENCES RDV.RDVs
 
-ALTER TABLE RDV.Statut
+ALTER TABLE RDV.Statuts
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
 	FOREIGN KEY (StatutID)
 	REFERENCES RDV.RDVs

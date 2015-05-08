@@ -25,13 +25,15 @@ namespace photo_hdr_duval.Models
         public Nullable<System.DateTime> DateRDV { get; set; }
         public Nullable<System.TimeSpan> HeureRDV { get; set; }
         public string Commentaire { get; set; }
-        public string NomPrenomProprietaire { get; set; }
+        public string NomProprietaire { get; set; }
+        public string PrenomProprietaire { get; set; }
         public long TelPrincipalProprietaire { get; set; }
         public Nullable<long> TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
         public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
+        public Nullable<int> FactureID { get; set; }
     
         public virtual ICollection<Facture> Factures { get; set; }
         public virtual Forfait Forfait { get; set; }

@@ -16,7 +16,7 @@ namespace photo_hdr_duval.Models
     {
         public int StatutID { get; set; }
         public System.DateTime DateModification { get; set; }
-        public string Statut1 { get; set; }
+        public string DescriptionStatut { get; set; }
         public int RDVID { get; set; }
     
         public virtual RDV RDV { get; set; }
