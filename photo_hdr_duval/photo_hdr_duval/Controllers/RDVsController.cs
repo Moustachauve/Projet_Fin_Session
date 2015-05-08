@@ -130,13 +130,34 @@ namespace photo_hdr_duval.Controllers
 			return RedirectToAction("Index");
 		}
 
-		protected override void Dispose(bool disposing)
+		public ActionResult UploadPhoto()
 		{
-			if (disposing)
-			{
-				uow.Dispose();
-			}
-			base.Dispose(disposing);
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult UploadPhoto(HttpPostedFileBase[] files)
+		{
+			//try
+			//{
+				/*Lopp for multiple files*/
+				foreach (HttpPostedFileBase file in files)
+				{
+					/*Geting the file name*/
+					string filename = System.IO.Path.GetFileName(file.FileName);
+					/*Saving the file in server folder*/
+					file.SaveAs(Server.MapPath("~/Images/" + filename));
+					string filepathtosave = "Images/" + filename;
+					/*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
+				}
+
+				ViewBag.Message = "Les images ont été téléverser avec succès.";
+			//}
+			//catch
+			//{
+			//	ViewBag.Message = "Une erreur est survenue.";
+			//}
+			return View();
 		}
 	}
 }
