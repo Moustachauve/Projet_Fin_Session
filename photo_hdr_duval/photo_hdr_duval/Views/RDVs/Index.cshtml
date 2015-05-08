@@ -20,7 +20,7 @@
             @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
         </th>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.NomPrenomProprietaire) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
+            @Html.ActionLink(Server.HtmlDecode(Html.DisplayNameFor(model => model.NomPrenomProprietaire).ToString()) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
         </th>
         <th></th>
     </tr>
