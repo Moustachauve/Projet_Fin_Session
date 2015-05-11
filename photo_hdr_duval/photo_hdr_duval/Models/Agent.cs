@@ -25,7 +25,7 @@ namespace photo_hdr_duval.Models
         public string NomEntreprise { get; set; }
         public string Adresse { get; set; }
         public long TelPrincipal { get; set; }
-        public long TelSecondaire { get; set; }
+        public Nullable<long> TelSecondaire { get; set; }
     
         public virtual ICollection<Email> Emails { get; set; }
     }

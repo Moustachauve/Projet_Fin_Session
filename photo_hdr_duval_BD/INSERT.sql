@@ -4,9 +4,9 @@ GO
 --RDV.RDVs
 
 INSERT INTO RDV.RDVs VALUES
-(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc, Eric', 4501231234, 0, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 2),
-(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard, Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 1),
-(GETDATE(), NULL, NULL, 'N/A', 'Bastien, Ève', 4501231236, 0, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 3)
+(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 5,null),
+(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 4,null),
+(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 6,null)
 
 
 --RDV.forfaits
@@ -17,10 +17,10 @@ VALUES('Bronze', '20 photos et 35 minutes', 90),
 ('Personnalisé', 'À la discretion du photographe', 0)
 
 --Agent.Agent
-INSERT INTO Agent.Agent VALUES
-('Monette, Jamy-jeff', 'société 1', '123 une adresse', '1231231234', 0),
-('Despins, Francis', '1 société', '321 adresse une', '4321321321', 0),
-('Fortier, Kevin', 'société 2', '472 rue secondaire', '7531594862', 0)
+INSERT INTO Agent.Agents VALUES
+('Monette','Jamy-jeff', 'société 1', '123 une adresse', '1231231234', NULL),
+('Despins','Francis', '1 société', '321 adresse une', '4321321321', NULL),
+('Fortier','Kevin', 'société 2', '472 rue secondaire', '7531594862', NULL)
 
 --Agent.Emails
 INSERT INTO Agent.Emails VALUES

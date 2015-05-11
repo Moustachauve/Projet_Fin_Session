@@ -48,7 +48,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AgentID,NomPrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire")] Agent agent)
+        public ActionResult Create([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire")] Agent agent)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AgentID,NomPrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire")] Agent agent)
+        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire")] Agent agent)
         {
             if (ModelState.IsValid)
             {

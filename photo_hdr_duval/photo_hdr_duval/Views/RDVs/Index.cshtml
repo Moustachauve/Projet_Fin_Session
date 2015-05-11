@@ -20,7 +20,7 @@
             @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
         </th>
         <th>
-            @Html.ActionLink(Server.HtmlDecode(Html.DisplayNameFor(model => model.NomPrenomProprietaire).ToString()) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
+            @Html.ActionLink(Server.HtmlDecode(Html.DisplayNameFor(model => model.NomProprietaire).ToString()) + Server.HtmlDecode(Html.DisplayNameFor(model => model.PrenomProprietaire).ToString()) + (ViewBag.orderBy == "Nom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
         </th>
         <th></th>
     </tr>
@@ -34,7 +34,7 @@
             @Html.DisplayFor(modelItem => item.DateRDV) @Html.DisplayFor(modelItem => item.HeureRDV)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NomPrenomProprietaire)
+            @Html.DisplayFor(modelItem => item.NomProprietaire), @Html.DisplayFor(modelItem => item.PrenomProprietaire)
         </td>
         <td>
             @Html.ActionLink("Modifier", "Edit", new { id=item.RDVID }) |

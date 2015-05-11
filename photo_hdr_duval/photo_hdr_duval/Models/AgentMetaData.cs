@@ -14,8 +14,11 @@ namespace photo_hdr_duval.Models
 
             public int AgentID { get; set; }
 
-            [Display(Name = "Nom et prénom")]
-            public string NomPrenomAgent { get; set; }
+            [Display(Name = "Nom de l'agent")]
+            public string NomAgent { get; set; }
+
+			[Display(Name = "Prénom de l'agent")]
+			public string PrenomAgent { get; set; }
 
             [Display(Name = "Nom de l'entreprise")]
             public string NomEntreprise { get; set; }

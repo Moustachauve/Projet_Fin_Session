@@ -51,7 +51,7 @@ CREATE TABLE Agent.Agents(
 	NomEntreprise NVARCHAR(50) NOT NULL,
 	Adresse NVARCHAR(50) NOT NULL,
 	TelPrincipal BIGINT NOT NULL,
-	TelSecondaire BIGINT NOT NULL
+	TelSecondaire BIGINT NULL
 
 	PRIMARY KEY (AgentID)
 ) ON [PRIMARY];

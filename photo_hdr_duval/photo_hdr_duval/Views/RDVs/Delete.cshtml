@@ -44,11 +44,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NomPrenomProprietaire)
+            @Html.DisplayNameFor(model => model.NomProprietaire)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NomPrenomProprietaire)
+            @Html.DisplayFor(model => model.NomProprietaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrenomProprietaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrenomProprietaire)
         </dd>
 
         <dt>
@@ -106,7 +114,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            <input type="submit" value="Supprimer" class="btn btn-primary" /> |
             @Html.ActionLink("Retour à la liste", "Index")
         </div>
     }

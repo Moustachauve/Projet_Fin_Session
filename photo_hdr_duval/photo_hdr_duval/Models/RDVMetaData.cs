@@ -25,19 +25,23 @@ namespace photo_hdr_duval.Models
             [Display(Name = "Information supplémentaire")]
             public string Commentaire { get; set; }
 
-            [Display(Name = "Nom et Prénom du Propriétaire")]
+            [Display(Name = "Nom Propriétaire")]
             [Required]
-            public string NomPrenomProprietaire { get; set; }
+            public string NomProprietaire { get; set; }
+
+			[Display(Name = "Prenom du Propriétaire")]
+			[Required]
+			public string PrenomProprietaire { get; set; }
 
             [DataType(DataType.PhoneNumber)]
             [Required]
             [Display(Name = "Téléphone principal du propriétaire")]
-            [DisplayFormat(DataFormatString = "{0:###-###-####}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelPrincipalProprietaire { get; set; }
 
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone secondaire")]
-            [DisplayFormat(DataFormatString = "{0:###-###-####}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelSecondaire { get; set; }
 
             [Display(Name = "Adresse de la propriété")]
