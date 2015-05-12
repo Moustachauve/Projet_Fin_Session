@@ -52,6 +52,20 @@ namespace photo_hdr_duval.DAL
             }
         }
 
+        private PhotoProprieteRepository photoProprieteRepository;
+        public PhotoProprieteRepository PhotoProprieteRepository
+        {
+            get
+            {
+                if (this.photoProprieteRepository == null)
+                {
+                    this.photoProprieteRepository = new PhotoProprieteRepository(context);
+                }
+                return this.photoProprieteRepository;
+            }
+        }
+
+
 		public void Save()
 		{
 			context.SaveChanges();

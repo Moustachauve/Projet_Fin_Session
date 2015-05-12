@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using photo_hdr_duval.Models;
 using photo_hdr_duval.DAL;
+using System.Security.AccessControl;
+using System.Configuration;
+using System.IO;
 
 namespace photo_hdr_duval.Controllers
 {
@@ -132,33 +135,57 @@ namespace photo_hdr_duval.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public ActionResult UploadPhoto()
+        public ActionResult UploadPhoto(int? id)
 		{
-			return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
+            return View(rDV);
 		}
 
 		[HttpPost]
-		public ActionResult UploadPhoto(HttpPostedFileBase[] files)
+		public ActionResult UploadPhoto(int? id, HttpPostedFileBase[] files)
 		{
-			//try
-			//{
-			/*Lopp for multiple files*/
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            DirectoryInfo imageFolderPath = new DirectoryInfo(Server.MapPath("~/Images/") + id);
+
+            if (!imageFolderPath.Exists)
+            {
+                DirectorySecurity securityRules = new DirectorySecurity();
+                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserProf"], FileSystemRights.FullControl, AccessControlType.Allow));
+                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserChristophe"], FileSystemRights.FullControl, AccessControlType.Allow));
+                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserMatthieu"], FileSystemRights.FullControl, AccessControlType.Allow));
+
+                imageFolderPath.Create(securityRules);
+            }
+
+
+            try
+            {
 			foreach (HttpPostedFileBase file in files)
 			{
-				/*Geting the file name*/
-				string filename = System.IO.Path.GetFileName(file.FileName);
-				/*Saving the file in server folder*/
-				file.SaveAs(Server.MapPath("~/Images/" + filename));
-				string filepathtosave = "Images/" + filename;
-				/*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
+                string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
+
+                file.SaveAs(imageFolderPath + "/" + filename);
+                string fullPath = id + "/" + filename;
+                uow.PhotoProprieteRepository.Insert(new PhotoPropriete() { Url = fullPath, RDVID = (int)id });
 			}
 
+            uow.Save();
+
 			ViewBag.Message = "Les images ont été téléverser avec succès.";
-			//}
-			//catch
-			//{
-			//	ViewBag.Message = "Une erreur est survenue.";
-			//}
+			}
+			catch
+			{
+                throw;
+				//ViewBag.Message = "Une erreur est survenue.";
+			}
 			return View();
 		}
 	}
