@@ -30,8 +30,8 @@
           <Key>
             <PropertyRef Name="RDVID" />
           </Key>
-          <Property Name="RDVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FactureID" Type="int" Nullable="false" />
+          <Property Name="RDVID" Type="int" Nullable="false" />
+          <Property Name="FactureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CoutTotal" Type="money" Nullable="false" />
           <Property Name="Deplacement" Type="money" Nullable="false" />
           <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
@@ -240,8 +240,8 @@
           <Key>
             <PropertyRef Name="RDVID" />
           </Key>
-          <Property Name="RDVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FactureID" Type="Int32" Nullable="false" />
+          <Property Name="RDVID" Type="Int32" Nullable="false" />
+          <Property Name="FactureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CoutTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />

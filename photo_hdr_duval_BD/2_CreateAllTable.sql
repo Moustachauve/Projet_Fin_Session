@@ -13,8 +13,8 @@ DROP TABLE RDV.PhotoProprietes
 DROP TABLE Paiement.Taxes
 DROP TABLE Agent.Emails
 DROP TABLE Agent.Agents
-DROP TABLE RDV.RDVs
 DROP TABLE Paiement.Factures
+DROP TABLE RDV.RDVs
 DROP TABLE RDV.Forfaits
 */
 
@@ -130,8 +130,8 @@ ALTER TABLE RDV.Statuts
 -------------------------------------------------------------------  --DROP TABLE Paiement.Factures
 
 CREATE TABLE Paiement.Factures(
-	RDVID INT NOT NULL IDENTITY,
-	FactureID INT NOT NULL,
+	RDVID INT NOT NULL,
+	FactureID INT NOT NULL IDENTITY,
 	CoutTotal MONEY NOT NULL DEFAULT 0,
 	Deplacement MONEY NOT NULL DEFAULT 0,
 	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
