@@ -14,12 +14,11 @@ namespace photo_hdr_duval.Models
     
     public partial class Facture
     {
-        public int FactureID { get; set; }
-        public Nullable<int> CoutTotal { get; set; }
-        public Nullable<int> Deplacement { get; set; }
-        public Nullable<int> VisiteVirtuelle { get; set; }
-        public byte[] AsVisiteVirtuelle { get; set; }
         public int RDVID { get; set; }
+        public int FactureID { get; set; }
+        public decimal CoutTotal { get; set; }
+        public decimal Deplacement { get; set; }
+        public decimal VisiteVirtuelle { get; set; }
     
         public virtual RDV RDV { get; set; }
     }

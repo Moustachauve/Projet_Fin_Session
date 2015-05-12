@@ -92,10 +92,11 @@ namespace photo_hdr_duval.Controllers
 		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,DateDemande,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville")] RDV rDV)
+		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,DateDemande,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,Facture")] RDV rDV)
 		{
 			if (ModelState.IsValid)
 			{
+				uow.FactureRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Update(rDV);
 				uow.Save();
 				return RedirectToAction("Index");
@@ -140,18 +141,18 @@ namespace photo_hdr_duval.Controllers
 		{
 			//try
 			//{
-				/*Lopp for multiple files*/
-				foreach (HttpPostedFileBase file in files)
-				{
-					/*Geting the file name*/
-					string filename = System.IO.Path.GetFileName(file.FileName);
-					/*Saving the file in server folder*/
-					file.SaveAs(Server.MapPath("~/Images/" + filename));
-					string filepathtosave = "Images/" + filename;
-					/*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
-				}
+			/*Lopp for multiple files*/
+			foreach (HttpPostedFileBase file in files)
+			{
+				/*Geting the file name*/
+				string filename = System.IO.Path.GetFileName(file.FileName);
+				/*Saving the file in server folder*/
+				file.SaveAs(Server.MapPath("~/Images/" + filename));
+				string filepathtosave = "Images/" + filename;
+				/*HERE WILL BE YOUR CODE TO SAVE THE FILE DETAIL IN DATA BASE*/
+			}
 
-				ViewBag.Message = "Les images ont été téléverser avec succès.";
+			ViewBag.Message = "Les images ont été téléverser avec succès.";
 			//}
 			//catch
 			//{

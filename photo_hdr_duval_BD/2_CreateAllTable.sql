@@ -8,14 +8,14 @@ CREATE SCHEMA Paiement
 GO
 
 /*
-DROP TABLE Agent.Agents
-DROP TABLE Agent.Emails
-DROP TABLE RDV.PhotoProprietes
 DROP TABLE RDV.Statuts
-DROP TABLE Paiement.Factures
+DROP TABLE RDV.PhotoProprietes
 DROP TABLE Paiement.Taxes
-DROP TABLE RDV.Forfaits
+DROP TABLE Agent.Emails
+DROP TABLE Agent.Agents
 DROP TABLE RDV.RDVs
+DROP TABLE Paiement.Factures
+DROP TABLE RDV.Forfaits
 */
 
 --RDV
@@ -35,7 +35,6 @@ CREATE TABLE RDV.RDVs(
 	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'), -- ajouté 2015-05-06 11:34
 	EmailProprietaire NVARCHAR(30) NULL,
 	ForfaitID INT NOT NULL,
-	FactureID INT NULL
 	--StatutID INT NOT NULL DEFAULT 0
 
 	PRIMARY KEY (RDVID)
@@ -131,14 +130,14 @@ ALTER TABLE RDV.Statuts
 -------------------------------------------------------------------  --DROP TABLE Paiement.Factures
 
 CREATE TABLE Paiement.Factures(
-	FactureID INT NOT NULL IDENTITY,
-	CoutTotal INT NULL,
-	Deplacement INT NULL,
-	VisiteVirtuelle INT NULL,
-	AsVisiteVirtuelle binary NOT NULL DEFAULT 0,
-	RDVID INT NOT NULL
+	RDVID INT NOT NULL IDENTITY,
+	FactureID INT NOT NULL,
+	CoutTotal MONEY NOT NULL DEFAULT 0,
+	Deplacement MONEY NOT NULL DEFAULT 0,
+	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
 
-	PRIMARY KEY (FactureID)
+
+	PRIMARY KEY (RDVID)
 ) ON [PRIMARY];
 
 ALTER TABLE Paiement.Factures

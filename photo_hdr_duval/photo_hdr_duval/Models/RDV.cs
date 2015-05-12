@@ -16,7 +16,6 @@ namespace photo_hdr_duval.Models
     {
         public RDV()
         {
-            this.Factures = new HashSet<Facture>();
             this.PhotoProprietes = new HashSet<PhotoPropriete>();
         }
     
@@ -33,9 +32,8 @@ namespace photo_hdr_duval.Models
         public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
-        public Nullable<int> FactureID { get; set; }
     
-        public virtual ICollection<Facture> Factures { get; set; }
+        public virtual Facture Facture { get; set; }
         public virtual Forfait Forfait { get; set; }
         public virtual ICollection<PhotoPropriete> PhotoProprietes { get; set; }
         public virtual Statut Statut { get; set; }

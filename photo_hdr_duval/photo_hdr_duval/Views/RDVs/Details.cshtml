@@ -15,7 +15,7 @@
     <dl>
 
         <dt>
-            Email
+            @Html.DisplayNameFor(model => model.EmailProprietaire)
         </dt>
 
         <dd>
@@ -23,39 +23,56 @@
         </dd>
 
         <dt>
-            Téléphone principal
+            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TelPrincipalProprietaire)
         </dd>
+        @if (Model.TelSecondaire != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.TelSecondaire)
+            </dt>
 
+            <dd>
+                @Html.DisplayFor(model => model.TelSecondaire)
+            </dd>
+        }
         <dt>
-            @Html.DisplayNameFor(model => model.TelSecondaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TelSecondaire)
-        </dd>
-
-        <dt>
-            Adresse
+            @Html.DisplayNameFor(model => model.AdressePropriete)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AdressePropriete)
         </dd>
 
-        @if(Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-        { 
+        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Commentaire)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Commentaire)
+            </dd>
+        }
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Commentaire)
+            @Html.DisplayNameFor(model => model.Facture.Deplacement)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Commentaire)
+            @Html.DisplayNameFor(model => model.Facture.Deplacement)
         </dd>
-        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facture.CoutTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayNameFor(model => model.Facture.CoutTotal)
+        </dd>
     </dl>
 </div>
 <p>

@@ -30,7 +30,7 @@ namespace photo_hdr_duval.DAL
 					else
 						orderLambda = x => x.OrderByDescending(y => y.DateDemande);
 					break;
-				case "Nom":
+				case "NomProprietaire":
 					if (asc)
 						orderLambda = x => x.OrderBy(y => y.NomProprietaire);
 					else

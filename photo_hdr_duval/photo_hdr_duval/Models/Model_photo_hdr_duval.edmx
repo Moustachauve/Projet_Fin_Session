@@ -28,14 +28,13 @@
         </EntityType>
         <EntityType Name="Factures">
           <Key>
-            <PropertyRef Name="FactureID" />
+            <PropertyRef Name="RDVID" />
           </Key>
-          <Property Name="FactureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CoutTotal" Type="int" />
-          <Property Name="Deplacement" Type="int" />
-          <Property Name="VisiteVirtuelle" Type="int" />
-          <Property Name="AsVisiteVirtuelle" Type="binary" MaxLength="1" Nullable="false" />
-          <Property Name="RDVID" Type="int" Nullable="false" />
+          <Property Name="RDVID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FactureID" Type="int" Nullable="false" />
+          <Property Name="CoutTotal" Type="money" Nullable="false" />
+          <Property Name="Deplacement" Type="money" Nullable="false" />
+          <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Taxes">
           <Key>
@@ -80,7 +79,6 @@
           <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
           <Property Name="ForfaitID" Type="int" Nullable="false" />
-          <Property Name="FactureID" Type="int" />
         </EntityType>
         <EntityType Name="Statuts">
           <Key>
@@ -117,7 +115,7 @@
         </Association>
         <Association Name="FK_RDVs_Factures_RDVID">
           <End Role="RDVs" Type="Self.RDVs" Multiplicity="1" />
-          <End Role="Factures" Type="Self.Factures" Multiplicity="*" />
+          <End Role="Factures" Type="Self.Factures" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="RDVs">
               <PropertyRef Name="RDVID" />
@@ -186,12 +184,18 @@
     <edmx:ConceptualModels>
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agents" EntityType="H15_PROJET_E05Model.Agent" />
+          <EntitySet Name="Emails" EntityType="H15_PROJET_E05Model.Email" />
           <EntitySet Name="Factures" EntityType="H15_PROJET_E05Model.Facture" />
           <EntitySet Name="Taxes" EntityType="H15_PROJET_E05Model.Tax" />
           <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
           <EntitySet Name="PhotoProprietes" EntityType="H15_PROJET_E05Model.PhotoPropriete" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
           <EntitySet Name="Statuts" EntityType="H15_PROJET_E05Model.Statut" />
+          <AssociationSet Name="FK_Agent_Emails_EmailID" Association="H15_PROJET_E05Model.FK_Agent_Emails_EmailID">
+            <End Role="Agent" EntitySet="Agents" />
+            <End Role="Email" EntitySet="Emails" />
+          </AssociationSet>
           <AssociationSet Name="FK_RDVs_Factures_RDVID" Association="H15_PROJET_E05Model.FK_RDVs_Factures_RDVID">
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Facture" EntitySet="Factures" />
@@ -208,23 +212,39 @@
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Statut" EntitySet="Statuts" />
           </AssociationSet>
-          <EntitySet Name="Agents" EntityType="H15_PROJET_E05Model.Agent" />
-          <EntitySet Name="Emails" EntityType="H15_PROJET_E05Model.Email" />
-          <AssociationSet Name="FK_Agent_Emails_EmailID" Association="H15_PROJET_E05Model.FK_Agent_Emails_EmailID">
-            <End Role="Agent" EntitySet="Agents" />
-            <End Role="Email" EntitySet="Emails" />
-          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentID" />
+          </Key>
+          <Property Name="AgentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrenomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NomEntreprise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TelPrincipal" Type="Int64" Nullable="false" />
+          <Property Name="TelSecondaire" Type="Int64" />
+          <NavigationProperty Name="Emails" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Agent" ToRole="Email" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AgentID" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Agent" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Email" ToRole="Agent" />
+        </EntityType>
         <EntityType Name="Facture">
           <Key>
-            <PropertyRef Name="FactureID" />
+            <PropertyRef Name="RDVID" />
           </Key>
-          <Property Name="FactureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CoutTotal" Type="Int32" />
-          <Property Name="Deplacement" Type="Int32" />
-          <Property Name="VisiteVirtuelle" Type="Int32" />
-          <Property Name="AsVisiteVirtuelle" Type="Binary" Nullable="false" MaxLength="1" FixedLength="true" />
-          <Property Name="RDVID" Type="Int32" Nullable="false" />
+          <Property Name="RDVID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FactureID" Type="Int32" Nullable="false" />
+          <Property Name="CoutTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDVs_Factures_RDVID" FromRole="Facture" ToRole="RDV" />
         </EntityType>
         <EntityType Name="Tax">
@@ -272,8 +292,7 @@
           <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ForfaitID" Type="Int32" Nullable="false" />
-          <Property Name="FactureID" Type="Int32" />
-          <NavigationProperty Name="Factures" Relationship="H15_PROJET_E05Model.FK_RDVs_Factures_RDVID" FromRole="RDV" ToRole="Facture" />
+          <NavigationProperty Name="Facture" Relationship="H15_PROJET_E05Model.FK_RDVs_Factures_RDVID" FromRole="RDV" ToRole="Facture" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
           <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
           <NavigationProperty Name="Statut" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="RDV" ToRole="Statut" />
@@ -288,9 +307,21 @@
           <Property Name="RDVID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="Statut" ToRole="RDV" />
         </EntityType>
+        <Association Name="FK_Agent_Emails_EmailID">
+          <End Type="H15_PROJET_E05Model.Agent" Role="Agent" Multiplicity="1" />
+          <End Type="H15_PROJET_E05Model.Email" Role="Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agent">
+              <PropertyRef Name="AgentID" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="AgentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RDVs_Factures_RDVID">
           <End Type="H15_PROJET_E05Model.RDV" Role="RDV" Multiplicity="1" />
-          <End Type="H15_PROJET_E05Model.Facture" Role="Facture" Multiplicity="*" />
+          <End Type="H15_PROJET_E05Model.Facture" Role="Facture" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="RDV">
               <PropertyRef Name="RDVID" />
@@ -336,56 +367,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Agent">
-          <Key>
-            <PropertyRef Name="AgentID" />
-          </Key>
-          <Property Name="AgentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PrenomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NomEntreprise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Adresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TelPrincipal" Type="Int64" Nullable="false" />
-          <Property Name="TelSecondaire" Type="Int64" />
-          <NavigationProperty Name="Emails" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Agent" ToRole="Email" />
-        </EntityType>
-        <EntityType Name="Email">
-          <Key>
-            <PropertyRef Name="EmailID" />
-          </Key>
-          <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AgentID" Type="Int32" Nullable="false" />
-          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Agent" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Email" ToRole="Agent" />
-        </EntityType>
-        <Association Name="FK_Agent_Emails_EmailID">
-          <End Type="H15_PROJET_E05Model.Agent" Role="Agent" Multiplicity="1" />
-          <End Type="H15_PROJET_E05Model.Email" Role="Email" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Agent">
-              <PropertyRef Name="AgentID" />
-            </Principal>
-            <Dependent Role="Email">
-              <PropertyRef Name="AgentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Agent">
+              <MappingFragment StoreEntitySet="Agents">
+                <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
+                <ScalarProperty Name="TelPrincipal" ColumnName="TelPrincipal" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+                <ScalarProperty Name="PrenomAgent" ColumnName="PrenomAgent" />
+                <ScalarProperty Name="NomAgent" ColumnName="NomAgent" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Email">
+              <MappingFragment StoreEntitySet="Emails">
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="Email1" ColumnName="Email" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Factures">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.Facture">
               <MappingFragment StoreEntitySet="Factures">
-                <ScalarProperty Name="RDVID" ColumnName="RDVID" />
-                <ScalarProperty Name="AsVisiteVirtuelle" ColumnName="AsVisiteVirtuelle" />
                 <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
                 <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
                 <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
                 <ScalarProperty Name="FactureID" ColumnName="FactureID" />
+                <ScalarProperty Name="RDVID" ColumnName="RDVID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -421,7 +439,6 @@
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
-                <ScalarProperty Name="FactureID" ColumnName="FactureID" />
                 <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
                 <ScalarProperty Name="Ville" ColumnName="Ville" />
@@ -445,29 +462,6 @@
                 <ScalarProperty Name="DescriptionStatut" ColumnName="DescriptionStatut" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
                 <ScalarProperty Name="StatutID" ColumnName="StatutID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Agents">
-            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Agent">
-              <MappingFragment StoreEntitySet="Agents">
-                <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
-                <ScalarProperty Name="TelPrincipal" ColumnName="TelPrincipal" />
-                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
-                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
-                <ScalarProperty Name="PrenomAgent" ColumnName="PrenomAgent" />
-                <ScalarProperty Name="NomAgent" ColumnName="NomAgent" />
-                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Emails">
-            <EntityTypeMapping TypeName="H15_PROJET_E05Model.Email">
-              <MappingFragment StoreEntitySet="Emails">
-                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
-                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-                <ScalarProperty Name="Email1" ColumnName="Email" />
-                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

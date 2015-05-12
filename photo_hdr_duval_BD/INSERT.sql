@@ -1,14 +1,6 @@
 USE [H15_PROJET_E05]
 GO
 
---RDV.RDVs
-
-INSERT INTO RDV.RDVs VALUES
-(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 5,null),
-(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 4,null),
-(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 6,null)
-
-
 --RDV.forfaits
 INSERT INTO RDV.Forfaits
 VALUES('Bronze', '20 photos et 35 minutes', 90),
@@ -28,3 +20,10 @@ INSERT INTO Agent.Emails VALUES
 ('francisDespins', 2, 1),
 ('FrancisCool123@hotmail.com', 2, 0),
 ('KevinFortier@hotmail.com', 3, 1)
+
+--RDV.RDVs
+
+INSERT INTO RDV.RDVs VALUES
+(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 2,null),
+(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 1,null),
+(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 3,null)

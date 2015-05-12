@@ -52,6 +52,19 @@ namespace photo_hdr_duval.DAL
             }
         }
 
+		private FactureRepository factureRepository;
+		public FactureRepository FactureRepository
+		{
+			get
+			{
+				if (this.factureRepository == null)
+				{
+					this.factureRepository = new FactureRepository(context);
+				}
+				return this.factureRepository;
+			}
+		}
+
 		public void Save()
 		{
 			context.SaveChanges();
