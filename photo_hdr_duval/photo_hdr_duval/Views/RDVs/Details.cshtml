@@ -59,11 +59,27 @@
         }
         
         <dt>
+            @Html.DisplayNameFor(model => model.Forfait.Prix)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Forfait.Prix)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Facture.Deplacement)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Facture.Deplacement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facture.VisiteVirtuelle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facture.VisiteVirtuelle)
         </dd>
 
         <dt>
@@ -76,6 +92,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RDVID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }) |
+    @Html.ActionLink("Retourner à la liste", "Index")
 </p>
