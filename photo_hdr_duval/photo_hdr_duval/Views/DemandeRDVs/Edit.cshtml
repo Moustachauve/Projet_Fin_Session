@@ -20,22 +20,6 @@
         @Html.HiddenFor(model => model.DateDemande)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DateRDV, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateRDV, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateRDV, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HeureRDV, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HeureRDV, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HeureRDV, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.NomProprietaire, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NomProprietaire, new { htmlAttributes = new { @class = "form-control" } })
@@ -54,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TelPrincipalProprietaire, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TelPrincipalProprietaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TelPrincipalProprietaire, new { htmlAttributes = new { @class = "form-control phone" } })
                 @Html.ValidationMessageFor(model => model.TelPrincipalProprietaire, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TelSecondaire, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TelSecondaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TelSecondaire, new { htmlAttributes = new { @class = "form-control phone" } })
                 @Html.ValidationMessageFor(model => model.TelSecondaire, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -92,6 +76,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Commentaire, "Dates et heures où le photographe pourrait visiter la propriété", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Commentaire, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-6">
                 <table class="table table-striped">
@@ -110,7 +102,7 @@
                                 <td>@Html.RadioButtonFor(model => model.ForfaitID, forfait.ForfaitID)</td>
                                 <td>@forfait.Nom</td>
                                 <td>@forfait.DescriptionForfait</td>
-                                <td>@forfait.Prix.ToString("C2")</td>
+                                <td>@forfait.PrixToString()</td>
                             </tr>
                         }
                     </tbody>
@@ -118,17 +110,11 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Commentaire, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Commentaire, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Commentaire, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Sauvegarder" class="btn btn-primary" />
             </div>
         </div>
     </div>
@@ -138,6 +124,21 @@
     @Html.ActionLink("Retour à la liste", "Index")
 </div>
 
+<script type="text/javascript">
+
+$(function () {
+    $('.phone').inputmask({ "mask": "(999) 999-9999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
+});
+</script>
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.inputmask.js")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.phone').inputmask({ "mask": "(999) 999-9999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
+        });
+    </script>
 }

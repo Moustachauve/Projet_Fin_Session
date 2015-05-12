@@ -29,7 +29,7 @@ namespace photo_hdr_duval.Models
             [Required]
             public string NomProprietaire { get; set; }
 
-			[Display(Name = "Prenom du Propriétaire")]
+			[Display(Name = "Prénom Propriétaire")]
 			[Required]
 			public string PrenomProprietaire { get; set; }
 

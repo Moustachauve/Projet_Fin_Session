@@ -19,6 +19,16 @@ namespace photo_hdr_duval.Models
 			public string DescriptionForfait { get; set; }
 			[DisplayFormat(DataFormatString="${0:c2}")]
 			public decimal Prix { get; set; }
+
+            
 		}
+        public string PrixToString()
+        {
+            if (Prix == 0)
+            {
+                return "--";
+            }
+            return Prix.ToString("C2");
+        }
 	}
 }
