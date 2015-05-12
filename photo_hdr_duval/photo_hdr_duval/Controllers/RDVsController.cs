@@ -58,10 +58,13 @@ namespace photo_hdr_duval.Controllers
 		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville")] RDV rDV)
+		public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,Facture")] RDV rDV)
 		{
 			if (ModelState.IsValid)
 			{
+				rDV.Facture.RDVID = rDV.RDVID;
+				uow.FactureRepository.Insert(rDV.Facture);
+				uow.FactureRepository.UpdateCoutTotal(rDV);
 				rDV.DateDemande = DateTime.Now;
 				uow.RDVRepository.Insert(rDV);
 				uow.Save();
@@ -96,13 +99,9 @@ namespace photo_hdr_duval.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				/*Facture facture = new Facture();
-				facture.RDVID = rDV.RDVID;
-				facture.VisiteVirtuelle = rDV.Facture.VisiteVirtuelle;
-				facture.Deplacement = rDV.Facture.Deplacement;*/
-				rDV.Facture.RDVID = rDV.RDVID;
-				uow.FactureRepository.Insert(rDV.Facture);
+				uow.FactureRepository.Update(uow.FactureRepository.GetByID(rDV.RDVID));
 				uow.FactureRepository.UpdateCoutTotal(rDV);
+				rDV.Facture = uow.FactureRepository.GetByID(rDV.RDVID);
 				uow.RDVRepository.Update(rDV);
 				uow.Save();
 				return RedirectToAction("Index");

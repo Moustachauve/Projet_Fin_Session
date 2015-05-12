@@ -24,6 +24,12 @@ INSERT INTO Agent.Emails VALUES
 --RDV.RDVs
 
 INSERT INTO RDV.RDVs VALUES
-(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 2,null),
-(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 1,null),
-(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 3,null)
+(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'Longueuil', 'EricCoolFriend@hotmail.com', 2),
+(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'Saint-Amable', 'unEmail@email.com', 1),
+(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal', 'Saint-Amable', 'unAutreEmail@email.com', 3)
+
+--Paiement.Taxes
+
+INSERT INTO Paiement.Taxes VALUES
+('TPS', 5),
+('TVQ', 9.975)
