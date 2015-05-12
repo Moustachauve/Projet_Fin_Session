@@ -96,6 +96,12 @@ namespace photo_hdr_duval.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				/*Facture facture = new Facture();
+				facture.RDVID = rDV.RDVID;
+				facture.VisiteVirtuelle = rDV.Facture.VisiteVirtuelle;
+				facture.Deplacement = rDV.Facture.Deplacement;*/
+				rDV.Facture.RDVID = rDV.RDVID;
+				uow.FactureRepository.Insert(rDV.Facture);
 				uow.FactureRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Update(rDV);
 				uow.Save();
