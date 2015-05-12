@@ -32,8 +32,10 @@ namespace photo_hdr_duval.Models
         public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
+        public decimal CoutTotal { get; set; }
+        public decimal Deplacement { get; set; }
+        public decimal VisiteVirtuelle { get; set; }
     
-        public virtual Facture Facture { get; set; }
         public virtual Forfait Forfait { get; set; }
         public virtual ICollection<PhotoPropriete> PhotoProprietes { get; set; }
         public virtual Statut Statut { get; set; }

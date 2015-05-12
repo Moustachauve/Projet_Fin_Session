@@ -35,6 +35,9 @@ CREATE TABLE RDV.RDVs(
 	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'), -- ajouté 2015-05-06 11:34
 	EmailProprietaire NVARCHAR(30) NULL,
 	ForfaitID INT NOT NULL,
+	CoutTotal MONEY NOT NULL DEFAULT 0,
+	Deplacement MONEY NOT NULL DEFAULT 0,
+	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
 	--StatutID INT NOT NULL DEFAULT 0
 
 	PRIMARY KEY (RDVID)
@@ -124,25 +127,6 @@ ALTER TABLE RDV.PhotoProprietes
 ALTER TABLE RDV.Statuts
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
 	FOREIGN KEY (StatutID)
-	REFERENCES RDV.RDVs
-
-	--Facture
--------------------------------------------------------------------  --DROP TABLE Paiement.Factures
-
-CREATE TABLE Paiement.Factures(
-	RDVID INT NOT NULL,
-	FactureID INT NOT NULL IDENTITY,
-	CoutTotal MONEY NOT NULL DEFAULT 0,
-	Deplacement MONEY NOT NULL DEFAULT 0,
-	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
-
-
-	PRIMARY KEY (RDVID)
-) ON [PRIMARY];
-
-ALTER TABLE Paiement.Factures
-	ADD CONSTRAINT FK_RDVs_Factures_RDVID
-	FOREIGN KEY (RDVID) 
 	REFERENCES RDV.RDVs
 
 --Taxe

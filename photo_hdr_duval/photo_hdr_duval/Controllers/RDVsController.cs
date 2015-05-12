@@ -58,14 +58,12 @@ namespace photo_hdr_duval.Controllers
 		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,Facture")] RDV rDV)
+		public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,VisiteVirtuelle,Deplacement")] RDV rDV)
 		{
 			if (ModelState.IsValid)
 			{
-				rDV.Facture.RDVID = rDV.RDVID;
-				uow.FactureRepository.Insert(rDV.Facture);
-				uow.FactureRepository.UpdateCoutTotal(rDV);
 				rDV.DateDemande = DateTime.Now;
+				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Insert(rDV);
 				uow.Save();
 				return RedirectToAction("Index");
@@ -95,13 +93,11 @@ namespace photo_hdr_duval.Controllers
 		// plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,DateDemande,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Forfait,Ville,Facture")] RDV rDV)
+		public ActionResult Edit([Bind(Include = "RDVID,DateRDV,DateDemande,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Forfait,Ville,VisiteVirtuelle,Deplacement")] RDV rDV)
 		{
 			if (ModelState.IsValid)
 			{
-				uow.FactureRepository.Update(uow.FactureRepository.GetByID(rDV.RDVID));
-				uow.FactureRepository.UpdateCoutTotal(rDV);
-				rDV.Facture = uow.FactureRepository.GetByID(rDV.RDVID);
+				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Update(rDV);
 				uow.Save();
 				return RedirectToAction("Index");

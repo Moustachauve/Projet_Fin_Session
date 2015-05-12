@@ -39,5 +39,17 @@ namespace photo_hdr_duval.DAL
 			}
 			return Get(orderBy: orderLambda);
 		}
+
+		public void UpdateCoutTotal(RDV rdv)
+		{
+			decimal deplacement = rdv.Deplacement;
+			decimal visiteVirtuelle = rdv.VisiteVirtuelle;
+			decimal prixForfait = context.Forfaits.Where(x => x.ForfaitID == rdv.ForfaitID).First().Prix;
+			decimal tps = context.Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100;
+			decimal tvq = context.Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100;
+			decimal coutTotalBeforeTaxes = prixForfait + deplacement + visiteVirtuelle;
+			decimal coutTotalAfterTaxes = (coutTotalBeforeTaxes * tps) + (coutTotalBeforeTaxes * tvq) + coutTotalBeforeTaxes;
+			rdv.CoutTotal = coutTotalAfterTaxes;
+		}
 	}
 }

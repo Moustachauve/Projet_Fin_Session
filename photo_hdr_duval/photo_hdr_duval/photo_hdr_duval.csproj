@@ -124,7 +124,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\AgentRepository.cs" />
-    <Compile Include="DAL\FactureRepository.cs" />
     <Compile Include="DAL\ForfaitRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
@@ -139,9 +138,6 @@
     </Compile>
     <Compile Include="Models\AgentMetaData.cs" />
     <Compile Include="Models\Email.cs">
-      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Facture.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Forfait.cs">
