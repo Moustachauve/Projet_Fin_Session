@@ -17,9 +17,19 @@ namespace photo_hdr_duval.Controllers
         UnitOfWork uow = new UnitOfWork();
 
         // GET: Agents
-        public ActionResult Index()
+        public ActionResult Index(string sortString, bool? asc)
         {
-            return View(uow.AgentRepository.Get());
+            IEnumerable<Agent> agents = null;
+
+            ViewBag.isAsc = asc;
+            ViewBag.orderBy = sortString;
+
+            if (sortString == null)
+                agents = uow.AgentRepository.Get();
+            else
+                agents = uow.AgentRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
+
+            return View(agents.ToList());
         }
 
         // GET: Agents/Details/5

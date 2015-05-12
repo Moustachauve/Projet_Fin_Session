@@ -21,7 +21,7 @@
                 @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
             </th>
             <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.NomProprietaire) + (ViewBag.orderBy == "NomPrenom" ? arrow : ""), "Index", new { sortString = "NomPrenom", asc = futureAsc })
+                @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), "Index", new { sortString = "NomProprietaire", asc = futureAsc })
             </th>
             <th>
                 État
@@ -39,10 +39,7 @@
                 @Html.DisplayFor(modelItem => item.DateRDV) @Html.DisplayFor(modelItem => item.HeureRDV)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NomProprietaire)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrenomProprietaire)
+                @Html.DisplayFor(modelItem => item.NomProprietaire), @Html.DisplayFor(modelItem => item.PrenomProprietaire)
             </td>
             <td>
                 <div class="pull-left alert alert-danger" style="height:20px; padding-top:0; margin-bottom:0;"><strong>Demandée</strong></div>
