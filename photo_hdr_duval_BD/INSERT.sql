@@ -3,10 +3,10 @@ GO
 
 --RDV.forfaits
 INSERT INTO RDV.Forfaits
-VALUES('Bronze', '20 photos et 35 minutes', 90),
-('Argent', '26 photos et 50 mintues', 105),
-('Or', '32 photos et 70 mintues', 120),
-('Personnalisé', 'À la discretion du photographe', 0)
+VALUES('Bronze', '20 photos et 35 minutes', 90, 0),
+('Argent', '26 photos et 50 mintues', 105, 0),
+('Or', '32 photos et 70 mintues', 120, 0),
+('Personnalisé', 'À la discretion du photographe', 0, 0)
 
 --Agent.Agent
 INSERT INTO Agent.Agents VALUES
