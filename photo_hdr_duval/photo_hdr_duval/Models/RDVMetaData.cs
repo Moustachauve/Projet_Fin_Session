@@ -55,6 +55,23 @@ namespace photo_hdr_duval.Models
 			[Display(Name = "Date de demande")]
             public DateTime DateDemande { get; set; }
 
+			[Required]
+			[StringLength(70)]
+			[Display(Name = "Ville de la propriété")]
+			public string Ville { get; set; }
+
+			[Display(Name="Coût total")]
+			[DisplayFormat(DataFormatString = "{0:c2}")]
+			public decimal CoutTotal { get; set; }
+
+			[Display(Name = "Coût de déplacement")]
+			[DisplayFormat(DataFormatString = "{0:c2}")]
+			public decimal Deplacement { get; set; }
+
+			[Display(Name = "Coût de la visite virtuelle")]
+			[DisplayFormat(DataFormatString = "{0:c2}")]
+			public decimal VisiteVirtuelle { get; set; }
+
         }
     }
 }
