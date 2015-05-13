@@ -17,7 +17,7 @@ namespace photo_hdr_duval.Models
 			public string Nom { get; set; }
 			[Display(Name = "Description du forfait")]
 			public string DescriptionForfait { get; set; }
-			[DisplayFormat(DataFormatString="${0:c2}")]
+			[DisplayFormat(DataFormatString="{0:c2}")]
 			public decimal Prix { get; set; }
 
             
