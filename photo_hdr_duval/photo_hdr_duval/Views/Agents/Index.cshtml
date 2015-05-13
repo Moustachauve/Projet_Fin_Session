@@ -5,11 +5,8 @@
     string arrow = futureAsc ? "▲" : "▼";
 }
 
-<h2>Agents</h2>
+<h2>Agents @Html.ActionLink("Ajouter un agent", "Create", "Agents", null, new { @class = "btn btn-success pull-right" })</h2>
 
-<p>
-    @Html.ActionLink("Créer un nouveau", "Create")
-</p>
 <table class="table table-hover table-striped">
     <thead>
         <tr>
@@ -63,11 +60,13 @@
                 }
                     
             </td>
-            <td>
-                @Html.ActionLink("Modifier", "Edit", new { id = item.AgentID }) |
-                @Html.ActionLink("Détails", "Details", new { id = item.AgentID }) |
-                @Html.ActionLink("Supprimer", "Delete", new { id = item.AgentID })
-            </td>
+			<td class ="text-right">
+				<div class="btn-group">
+					@Html.ActionLink("Détails", "Details", new { id = item.AgentID }, new { @class = "btn btn-primary btn-sm" })
+					@Html.ActionLink("Modifier", "Edit", new { id = item.AgentID }, new { @class = "btn btn-primary btn-sm" })
+					@Html.ActionLink("Supprimer", "Delete", new { id = item.AgentID }, new { @class = "btn btn-danger btn-sm" })
+				</div>
+			</td>
         </tr>
     }
 
