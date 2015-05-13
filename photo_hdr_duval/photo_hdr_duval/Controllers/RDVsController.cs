@@ -11,6 +11,7 @@ using photo_hdr_duval.DAL;
 using System.Security.AccessControl;
 using System.Configuration;
 using System.IO;
+using System.Security.Principal;
 
 namespace photo_hdr_duval.Controllers
 {
@@ -158,9 +159,14 @@ namespace photo_hdr_duval.Controllers
             if (!imageFolderPath.Exists)
             {
                 DirectorySecurity securityRules = new DirectorySecurity();
-                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserProf"], FileSystemRights.FullControl, AccessControlType.Allow));
-                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserChristophe"], FileSystemRights.FullControl, AccessControlType.Allow));
-                securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserMatthieu"], FileSystemRights.FullControl, AccessControlType.Allow));
+                //securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserProf"], FileSystemRights.FullControl, AccessControlType.Allow));
+                //securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserChristophe"], FileSystemRights.FullControl, AccessControlType.Allow));
+                //securityRules.AddAccessRule(new FileSystemAccessRule(ConfigurationManager.AppSettings["UserMatthieu"], FileSystemRights.FullControl, AccessControlType.Allow));
+				SecurityIdentifier everyone = new SecurityIdentifier(WellKnownSidType.WorldSid, null);
+
+				securityRules.AddAccessRule(new FileSystemAccessRule(everyone, FileSystemRights.Modify | FileSystemRights.Synchronize,
+											InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit,
+											PropagationFlags.None, AccessControlType.Allow));
 
                 imageFolderPath.Create(securityRules);
             }

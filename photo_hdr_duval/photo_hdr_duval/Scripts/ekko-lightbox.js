@@ -56,6 +56,12 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
       _this.modal.remove();
       return _this.options.onHidden.call(_this);
     }).modal('show', options);
+
+
+    $(window).on('resize', function () {
+    	_this.onWindowResize();
+    });
+
     return this.modal;
   };
 
@@ -71,7 +77,7 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
           if (this.options.gallery_parent_selector === 'document.body' || this.options.gallery_parent_selector === '') {
             this.gallery_items = $(document.body).find('*[data-toggle="lightbox"][data-gallery="' + this.gallery + '"]');
           } else {
-            this.gallery_items = this.$element.parents(this.options.gallery_parent_selector).first().find('*[data-toggle="lightbox"][data-gallery="' + this.gallery + '"]');
+            this.gallery_items = this.$element.parent().parents(this.options.gallery_parent_selector).first().find('*[data-toggle="lightbox"][data-gallery="' + this.gallery + '"]');
           }
           this.gallery_index = this.gallery_items.index(this.$element);
           $(document).on('keydown.ekkoLightbox', this.navigate.bind(this));
@@ -327,7 +333,7 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
           if (_this.modal_arrows) {
             _this.modal_arrows.css('display', 'block');
           }
-          _this.resize(img.width);
+          _this.resize(image.width());
           return _this.options.onContentLoaded.call(_this);
         };
         img.onerror = function() {
@@ -340,7 +346,7 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
     resize: function(width) {
       var width_total;
       width_total = width + this.border.left + this.padding.left + this.padding.right + this.border.right;
-      this.modal_dialog.css('width', 'auto').css('max-width', width_total);
+      this.modal_dialog.css('width', 'auto').css('width', width_total);
       this.lightbox_container.find('a').css('line-height', function() {
         return $(this).parent().height() + 'px';
       });
@@ -363,6 +369,10 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
         url += '/';
       }
       return url;
+    },
+    onWindowResize: function () {
+    	var width = this.lightbox_body.find("img").width();
+    	this.resize(width);
     }
   };
 
@@ -386,7 +396,7 @@ License: https://github.com/ashleydw/lightbox/blob/master/LICENSE
     right_arrow_class: '.glyphicon .glyphicon-chevron-right',
     directional_arrows: true,
     type: null,
-    always_show_close: true,
+    always_show_close: false,
     onShow: function() {},
     onShown: function() {},
     onHide: function() {},

@@ -1,112 +1,127 @@
 ﻿@model photo_hdr_duval.Models.RDV
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
 }
 <div class="pull-right alert alert-danger" style="margin-top:20px;"><strong>Demandée</strong></div>
 
 <h2>Rendez-vous avec @Html.DisplayFor(model => model.NomProprietaire), @Html.DisplayFor(model => model.PrenomProprietaire) </h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
-    <hr />
+	<h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
+	<hr />
 
-    <h3>Informations de contact:</h3>
-    <dl>
+	<h3>Informations de contact:</h3>
+	<dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailProprietaire)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.EmailProprietaire)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailProprietaire)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.EmailProprietaire)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TelPrincipalProprietaire)
-        </dd>
-        @if (Model.TelSecondaire != null)
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.TelSecondaire)
-            </dt>
+		<dd>
+			@Html.DisplayFor(model => model.TelPrincipalProprietaire)
+		</dd>
+		@if (Model.TelSecondaire != null)
+		{
+			<dt>
+				@Html.DisplayNameFor(model => model.TelSecondaire)
+			</dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TelSecondaire)
-            </dd>
-        }
-        <dt>
-            @Html.DisplayNameFor(model => model.AdressePropriete)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.TelSecondaire)
+			</dd>
+		}
+		<dt>
+			@Html.DisplayNameFor(model => model.AdressePropriete)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AdressePropriete)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.AdressePropriete)
+		</dd>
 
-        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-        {
-            <dt>
-                @Html.DisplayNameFor(model => model.Commentaire)
-            </dt>
+		@if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
+		{
+			<dt>
+				@Html.DisplayNameFor(model => model.Commentaire)
+			</dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Commentaire)
-            </dd>
-        }
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Forfait.Prix)
-        </dt>
+			<dd>
+				@Html.DisplayFor(model => model.Commentaire)
+			</dd>
+		}
 
-        <dd>
-            @Html.DisplayFor(model => model.Forfait.Prix)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Forfait.Prix)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deplacement)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.Forfait.Prix)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Deplacement)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Deplacement)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VisiteVirtuelle)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.Deplacement)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.VisiteVirtuelle)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.VisiteVirtuelle)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CoutTotal)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.VisiteVirtuelle)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CoutTotal)
-        </dd>
-    </dl>
+		<dt>
+			@Html.DisplayNameFor(model => model.CoutTotal)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.CoutTotal)
+		</dd>
+	</dl>
 </div>
 
-<div>
-    <h2>Photos:</h2>
-    <div>
-        @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
-        {
-            string chemin = @Url.Content("~/Images/" + photo.Url);
-            
-            <div>
-                <img src="@chemin" alt="@photo.DescriptionPhoto" />
-            </div>
-        }
-    </div>
+<div class="row">
+	<h2>Photos:</h2>
+		@foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
+		{
+			string chemin = @Url.Content("~/Images/" + photo.Url);
+
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				<a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
+					<img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
+				</a>
+			</div>
+		}
 </div>
 
 <p>
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }) |
-    @Html.ActionLink("Retourner à la liste", "Index")
+	@Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }) |
+	@Html.ActionLink("Retourner à la liste", "Index")
 </p>
+
+
+@section Scripts {
+
+	@Scripts.Render("~/Scripts/ekko-lightbox.js")
+	@Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
+	<script type="text/javascript">
+		$(".thumbnail").matchHeight();
+
+		$(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+			event.preventDefault();
+			$(this).ekkoLightbox();
+		});
+	</script>
+}
