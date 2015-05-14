@@ -14,27 +14,30 @@ namespace photo_hdr_duval.Models
 
             public int AgentID { get; set; }
 
-            [Display(Name = "Nom de l'agent")]
+            [Display(Name = "Nom*")]
             public string NomAgent { get; set; }
 
-			[Display(Name = "Prénom de l'agent")]
+			[Display(Name = "Prénom*")]
 			public string PrenomAgent { get; set; }
 
-            [Display(Name = "Nom de l'entreprise")]
+            [Display(Name = "Nom de l'entreprise*")]
             public string NomEntreprise { get; set; }
+
+            [Display(Name = "Adresse*")]
             public string Adresse { get; set; }
 
-            [StringLength(10)]
-            [DataType(DataType.PhoneNumber)]
-            [Display(Name = "Téléphone principal")]
-            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
-            public int TelPrincipal { get; set; }
+            [Display(Name = "Code Postal*")]
+            public string CodePostal { get; set; }
 
-            [StringLength(10)]
+            [DataType(DataType.PhoneNumber)]
+            [Display(Name = "Téléphone principal*")]
+            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
+            public long TelPrincipal { get; set; }
+
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone secondaire")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
-            public int TelSecondaire { get; set; }
+            public long TelSecondaire { get; set; }
 
         }
     }
