@@ -1,0 +1,32 @@
+﻿@model photo_hdr_duval.Models.RDV
+@{
+    ViewBag.Title = "FormForfait";
+}
+
+<div class="form-group">
+    @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-6">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.Nom)</th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.DescriptionForfait)</th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.Prix)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (photo_hdr_duval.Models.Forfait forfait in ViewBag.Forfaits)
+                {
+                    <tr>
+                        <td>@Html.RadioButtonFor(model => model.ForfaitID, forfait.ForfaitID)</td>
+                        <td>@forfait.Nom</td>
+                        <td>@forfait.DescriptionForfait</td>
+                        <td>@forfait.PrixToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
