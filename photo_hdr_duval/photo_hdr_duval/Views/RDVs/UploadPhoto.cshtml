@@ -8,15 +8,49 @@
 
 @using (Html.BeginForm("UploadPhoto", "RDVs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-	<input type="file" name="files" value="" multiple="multiple" />
-	<input type="submit" value="Envoyer" title="Upload" />
-	<div style="color:Red;font-size:14px">@ViewBag.Message</div>
+    <input type="file" name="files" value="" multiple="multiple" id="upload" />
+    <input type="submit" value="Envoyer" title="Upload" />
+    <div style="color:Red;font-size:14px">@ViewBag.Message</div>
 }
+
+<div id="preview">
+
+</div>
 
 
 @section Scripts {
-@Scripts.Render("~/Scripts/jquery.ui.widget.js")
-	@Scripts.Render("~/Scripts/jquery.fileupload.js")
+    @Scripts.Render("~/Scripts/ekko-lightbox.js")
+    @Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
+
+    <script>
+        $(function () {
+            $('#upload').change(function () {
+                var _this = this;
+                $("#preview").empty();
+
+                for (var i = 0; i < this.files.length; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img alt="test" class="class="img-responsive" />');
+                        $(img).attr('src', e.target.result);
+
+                        $("#preview").append(img);
+                        img.wrap('<div class="col-xs-6 col-sm-4 col-md-3">' +
+			            '<a class="thumbnail" data-toggle="lightbox" href="' + e.target.result + '" data-gallery="photos">' +
+                        '</a></div>')
+                    }
+                    reader.readAsDataURL(_this.files[i]);
+                }
+            });
+
+            $(".thumbnail").matchHeight();
+
+            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+        });
+    </script>
 }
 
 
