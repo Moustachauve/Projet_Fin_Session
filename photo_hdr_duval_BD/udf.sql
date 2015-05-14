@@ -71,7 +71,7 @@ AS
 	
 	DECLARE @NouveauStatut NVARCHAR(50)
 
-	IF((SELECT FactureFinal FROM RDV.Forfaits) = 1)BEGIN
+	IF((SELECT FactureFinal FROM RDV.RDVs WHERE RDVID = @RDVID) = 1)BEGIN
 		SET @NouveauStatut = 'Facturée'
 	END
 
