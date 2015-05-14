@@ -60,9 +60,13 @@ namespace photo_hdr_duval.Models
 			[Display(Name = "Ville de la propriété")]
 			public string Ville { get; set; }
 
-			[Display(Name="Coût total")]
+			[Display(Name="Coût total avant taxes")]
 			[DisplayFormat(DataFormatString = "{0:c2}")]
-			public decimal CoutTotal { get; set; }
+			public decimal CoutTotalAvantTaxes { get; set; }
+
+			[Display(Name = "Coût total après taxes")]
+			[DisplayFormat(DataFormatString = "{0:c2}")]
+			public decimal CoutTotalApresTaxes { get; set; }
 
 			[Display(Name = "Coût de déplacement")]
 			[DisplayFormat(DataFormatString = "{0:c2}")]

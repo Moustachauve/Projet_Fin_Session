@@ -50,7 +50,6 @@ namespace photo_hdr_duval.DAL
 			decimal coutTotalBeforeTaxes = prixForfait + deplacement + visiteVirtuelle;
 			decimal coutTotalAfterTaxes = (coutTotalBeforeTaxes * tps) + (coutTotalBeforeTaxes * tvq) + coutTotalBeforeTaxes;
 			rdv.CoutTotalAvantTaxes = coutTotalAfterTaxes;
-			//TODO: Add in BD rdv.CoutTotalAvantTaxe
 		}
 	}
 }

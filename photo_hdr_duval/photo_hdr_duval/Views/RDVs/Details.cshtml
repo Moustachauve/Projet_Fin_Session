@@ -47,6 +47,14 @@
 			@Html.DisplayFor(model => model.AdressePropriete)
 		</dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CodePostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodePostal)
+        </dd>
+
 		@if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
 		{
 			<dt>
@@ -83,11 +91,11 @@
 		</dd>
 
 		<dt>
-			@Html.DisplayNameFor(model => model.CoutTotal)
+			@Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
 		</dt>
 
 		<dd>
-			@Html.DisplayFor(model => model.CoutTotal)
+			@Html.DisplayFor(model => model.CoutTotalApresTaxes)
 		</dd>
 	</dl>
 </div>
