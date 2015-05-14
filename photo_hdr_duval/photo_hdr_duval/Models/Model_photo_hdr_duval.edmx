@@ -14,6 +14,7 @@
           <Property Name="PrenomAgent" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NomEntreprise" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Adresse" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="TelPrincipal" Type="bigint" Nullable="false" />
           <Property Name="TelSecondaire" Type="bigint" />
         </EntityType>
@@ -66,12 +67,16 @@
           <Property Name="TelPrincipalProprietaire" Type="bigint" Nullable="false" />
           <Property Name="TelSecondaire" Type="bigint" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
           <Property Name="ForfaitID" Type="int" Nullable="false" />
-          <Property Name="CoutTotal" Type="money" Nullable="false" />
+          <Property Name="CoutTotalAvantTaxes" Type="money" Nullable="false" />
+          <Property Name="CoutTotalApresTaxes" Type="money" Nullable="false" />
           <Property Name="Deplacement" Type="money" Nullable="false" />
           <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
+          <Property Name="FactureFinal" Type="bit" Nullable="false" />
+          <Property Name="StatutID" Type="int" />
         </EntityType>
         <EntityType Name="Statuts">
           <Key>
@@ -193,6 +198,7 @@
           <Property Name="PrenomAgent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NomEntreprise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Adresse" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="TelPrincipal" Type="Int64" Nullable="false" />
           <Property Name="TelSecondaire" Type="Int64" />
           <NavigationProperty Name="Emails" Relationship="H15_PROJET_E05Model.FK_Agent_Emails_EmailID" FromRole="Agent" ToRole="Email" />
@@ -249,12 +255,16 @@
           <Property Name="TelPrincipalProprietaire" Type="Int64" Nullable="false" />
           <Property Name="TelSecondaire" Type="Int64" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ForfaitID" Type="Int32" Nullable="false" />
-          <Property Name="CoutTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CoutTotalAvantTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="CoutTotalApresTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="FactureFinal" Type="Boolean" Nullable="false" />
+          <Property Name="StatutID" Type="Int32" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
           <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
           <NavigationProperty Name="Statut" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="RDV" ToRole="Statut" />
@@ -328,6 +338,7 @@
               <MappingFragment StoreEntitySet="Agents">
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
                 <ScalarProperty Name="TelPrincipal" ColumnName="TelPrincipal" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="Adresse" ColumnName="Adresse" />
                 <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
                 <ScalarProperty Name="PrenomAgent" ColumnName="PrenomAgent" />
@@ -378,12 +389,16 @@
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
+                <ScalarProperty Name="StatutID" ColumnName="StatutID" />
+                <ScalarProperty Name="FactureFinal" ColumnName="FactureFinal" />
                 <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
                 <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
-                <ScalarProperty Name="CoutTotal" ColumnName="CoutTotal" />
+                <ScalarProperty Name="CoutTotalApresTaxes" ColumnName="CoutTotalApresTaxes" />
+                <ScalarProperty Name="CoutTotalAvantTaxes" ColumnName="CoutTotalAvantTaxes" />
                 <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
                 <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
                 <ScalarProperty Name="TelPrincipalProprietaire" ColumnName="TelPrincipalProprietaire" />

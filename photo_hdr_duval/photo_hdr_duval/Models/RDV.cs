@@ -29,12 +29,16 @@ namespace photo_hdr_duval.Models
         public long TelPrincipalProprietaire { get; set; }
         public Nullable<long> TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
+        public string CodePostal { get; set; }
         public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
-        public decimal CoutTotal { get; set; }
+        public decimal CoutTotalAvantTaxes { get; set; }
+        public decimal CoutTotalApresTaxes { get; set; }
         public decimal Deplacement { get; set; }
         public decimal VisiteVirtuelle { get; set; }
+        public bool FactureFinal { get; set; }
+        public Nullable<int> StatutID { get; set; }
     
         public virtual Forfait Forfait { get; set; }
         public virtual ICollection<PhotoPropriete> PhotoProprietes { get; set; }

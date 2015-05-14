@@ -24,6 +24,7 @@ namespace photo_hdr_duval.Models
         public string PrenomAgent { get; set; }
         public string NomEntreprise { get; set; }
         public string Adresse { get; set; }
+        public string CodePostal { get; set; }
         public long TelPrincipal { get; set; }
         public Nullable<long> TelSecondaire { get; set; }
     

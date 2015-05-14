@@ -106,7 +106,7 @@
                                 <td>@Html.RadioButtonFor(model => model.ForfaitID, forfait.ForfaitID)</td>
                                 <td>@forfait.Nom</td>
                                 <td>@forfait.DescriptionForfait</td>
-                                <td>@forfait.Prix.ToString("C2")</td>
+                                <td>@forfait.PrixToString()</td>
                             </tr>
                         }
                     </tbody>
