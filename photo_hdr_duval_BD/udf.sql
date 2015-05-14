@@ -105,3 +105,61 @@ prix calcul après taxes
 
 taxe = prix * 1.15
 */
+
+CREATE FUNCTION RDV.udf_CoutTotalAvantTaxes (
+	@RDVID AS INT
+)
+RETURNS MONEY
+AS 
+BEGIN
+	DECLARE @ForfaitIDselonRDVID INT
+	DECLARE @prixBaseForfait MONEY
+	DECLARE @CoutDeplacement MONEY
+	DECLARE @CoutVisiteVirtuelle MONEY
+	DECLARE @CoutTotalAvantTaxes MONEY
+
+	--SET ForfaitID SELON LE RDVID (PLUS SIMPLE QU'UN INNER JOIN ET ON A BESOIN DE SE SELECT), LE COUT DE DEPLACEMENT ET LE COUT DE LA VISITE VIRTUELLE
+	SELECT	@ForfaitIDselonRDVID = ForfaitID,
+			@CoutDeplacement = Deplacement,
+			@CoutVisiteVirtuelle = VisiteVirtuelle
+	FROM RDV.RDVs
+	WHERE RDVID = @RDVID
+	
+	--SET LE PRIX
+	SELECT @prixBaseForfait = Prix
+	FROM RDV.Forfaits
+	WHERE ForfaitID = @ForfaitIDselonRDVID
+	
+	--CALCULE LE @CoutTotalAvantTaxes
+	SET @CoutTotalAvantTaxes = (@prixBaseForfait + @CoutDeplacement + @CoutVisiteVirtuelle)
+
+	RETURN @CoutTotalAvantTaxes
+END
+
+
+GO
+CREATE FUNCTION RDV.udf_CoutTotalApresTaxes (
+	@RDVID AS INT
+)
+RETURNS MONEY
+AS 
+BEGIN
+	DECLARE @CoutFinalAvecTaxes MONEY
+	DECLARE @CoutTotalAvantTaxes MONEY
+	DECLARE @PrixTPS MONEY
+	DECLARE @PrixTVQ MONEY
+
+	SET @CoutTotalAvantTaxes = RDV.udf_CoutTotalAvantTaxes(@RDVID)
+	
+	--CALCULE LES PRIX SELON LA TPS ET LA TVQ
+	SELECT @PrixTPS = ROUND((@CoutTotalAvantTaxes*(Pourcentage/100)), 2,1) FROM [Paiement].[Taxes] WHERE Nom = 'TPS'
+	SELECT @PrixTVQ = ROUND((@CoutTotalAvantTaxes*(Pourcentage/100)), 2,1) FROM Paiement.Taxes WHERE Nom = 'TVQ'
+
+	SET @CoutFinalAvecTaxes = @CoutTotalAvantTaxes + @PrixTPS + @PrixTVQ
+
+	RETURN @CoutFinalAvecTaxes
+END
+GO
+
+
+SELECT RDVID, NomProprietaire + ', '+ PrenomProprietaire AS 'Nom, Prénom', RDV.udf_CoutTotalAvantTaxes(RDVID) AS 'Cout Avant Taxes', RDV.udf_CoutTotalApresTaxes(RDVID) AS 'Cout Après Taxes', Deplacement, VisiteVirtuelle FROM RDV.RDVs
