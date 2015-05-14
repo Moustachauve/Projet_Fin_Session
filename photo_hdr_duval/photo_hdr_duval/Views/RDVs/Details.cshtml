@@ -29,6 +29,7 @@
 		<dd>
 			@Html.DisplayFor(model => model.TelPrincipalProprietaire)
 		</dd>
+
 		@if (Model.TelSecondaire != null)
 		{
 			<dt>
@@ -39,6 +40,7 @@
 				@Html.DisplayFor(model => model.TelSecondaire)
 			</dd>
 		}
+        
 		<dt>
 			@Html.DisplayNameFor(model => model.AdressePropriete)
 		</dt>
@@ -89,6 +91,27 @@
 		<dd>
 			@Html.DisplayFor(model => model.VisiteVirtuelle)
 		</dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoutTotalAvantTaxes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
+        </dd>
+
+        @foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
+        {
+
+            <dt>
+                @item.Nom
+            </dt>
+
+            <dd>
+                @item.PourcentageToString()
+            </dd>
+
+        }
 
 		<dt>
 			@Html.DisplayNameFor(model => model.CoutTotalApresTaxes)

@@ -49,7 +49,8 @@ namespace photo_hdr_duval.DAL
 			decimal tvq = context.Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100;
 			decimal coutTotalBeforeTaxes = prixForfait + deplacement + visiteVirtuelle;
 			decimal coutTotalAfterTaxes = (coutTotalBeforeTaxes * tps) + (coutTotalBeforeTaxes * tvq) + coutTotalBeforeTaxes;
-			rdv.CoutTotalAvantTaxes = coutTotalAfterTaxes;
+			rdv.CoutTotalAvantTaxes = coutTotalBeforeTaxes;
+			rdv.CoutTotalApresTaxes = coutTotalAfterTaxes;
 		}
 	}
 }

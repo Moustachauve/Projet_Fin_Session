@@ -1,0 +1,36 @@
+﻿@model IEnumerable<photo_hdr_duval.Models.Agent>
+@{
+    ViewBag.Title = "IndexTableDataRDVs";
+
+    photo_hdr_duval.Models.Agent item = ViewBag.Agent;
+}
+
+<td>
+    @Html.DisplayFor(modelItem => item.NomAgent)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.PrenomAgent)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.NomEntreprise)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.Adresse)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.TelPrincipal)
+</td>
+<td>
+    @if (item.TelSecondaire > 0)
+    {
+        Html.DisplayFor(modelItem => item.TelSecondaire);
+    }
+    else
+    {
+        <text>N/D</text>
+    }
+
+</td>
+
+
+

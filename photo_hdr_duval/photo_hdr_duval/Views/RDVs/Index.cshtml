@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<photo_hdr_duval.Models.RDV>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Gestion des rendez-vous demandé";
     bool futureAsc = ViewBag.isAsc != null ? !ViewBag.isAsc : false;
     string arrow = futureAsc ? "▲" : "▼";
 }
@@ -9,33 +9,13 @@
 <h2>Index @Html.ActionLink("Demander un rendez-vous", "Create", "RDVs", null, new { @class = "btn btn-success pull-right" })</h2>
 
 <table class="table table-hover table-striped">
-	<thead>
-		<tr>
-			<th>
-				@Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande", asc = futureAsc })
-			</th>
-			<th>
-				@Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
-			</th>
-			<th>
-				@Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), "Index", new { sortString = "NomProprietaire", asc = futureAsc })
-			</th>
-			<th></th>
-		</tr>
-	</thead>
+    @Html.Partial("../Shared/IndexTableHeaderRDVs")
 	<tbody>
 		@foreach (var item in Model)
 		{
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.DateDemande)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.DateRDV) @Html.DisplayFor(modelItem => item.HeureRDV)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.NomProprietaire), @Html.DisplayFor(modelItem => item.PrenomProprietaire)
-				</td>
+                @{ViewBag.item = item;}
+                @Html.Partial("../Shared/IndexTableDataRDVs")
 				<td class="text-right">
 					<div class="btn-group">
 						@Html.ActionLink("Détails", "Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
