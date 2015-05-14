@@ -48,6 +48,14 @@
 			@Html.DisplayFor(model => model.AdressePropriete)
 		</dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CodePostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodePostal)
+        </dd>
+
 		@if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
 		{
 			<dt>
