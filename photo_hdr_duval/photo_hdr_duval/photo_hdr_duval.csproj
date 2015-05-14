@@ -124,6 +124,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\AgentRepository.cs" />
+    <Compile Include="DAL\EmailRepository.cs" />
     <Compile Include="DAL\ForfaitRepository.cs" />
     <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
