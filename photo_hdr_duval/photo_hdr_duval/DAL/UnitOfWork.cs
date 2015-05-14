@@ -26,57 +26,70 @@ namespace photo_hdr_duval.DAL
 			}
 		}
 
-        private ForfaitRepository forfaitRepository;
-        public ForfaitRepository ForfaitRepository
-        {
-            get
-            {
-                if (this.forfaitRepository == null)
-                {
-                    this.forfaitRepository = new ForfaitRepository(context);
-                }
-                return this.forfaitRepository;
-            }
-        }
+		private ForfaitRepository forfaitRepository;
+		public ForfaitRepository ForfaitRepository
+		{
+			get
+			{
+				if (this.forfaitRepository == null)
+				{
+					this.forfaitRepository = new ForfaitRepository(context);
+				}
+				return this.forfaitRepository;
+			}
+		}
 
-        private AgentRepository agentRepository;
-        public AgentRepository AgentRepository
-        {
-            get
-            {
-                if (this.agentRepository == null)
-                {
-                    this.agentRepository = new AgentRepository(context);
-                }
-                return this.agentRepository;
-            }
-        }
+		private AgentRepository agentRepository;
+		public AgentRepository AgentRepository
+		{
+			get
+			{
+				if (this.agentRepository == null)
+				{
+					this.agentRepository = new AgentRepository(context);
+				}
+				return this.agentRepository;
+			}
+		}
 
-        private EmailRepository emailRepository;
-        public EmailRepository EmailRepository
-        {
-            get
-            {
-                if (this.emailRepository == null)
-                {
-                    this.emailRepository = new EmailRepository(context);
-                }
-                return this.emailRepository;
-            }
-        }
+		private EmailRepository emailRepository;
+		public EmailRepository EmailRepository
+		{
+			get
+			{
+				if (this.emailRepository == null)
+				{
+					this.emailRepository = new EmailRepository(context);
+				}
+				return this.emailRepository;
+			}
+		}
 
-        private PhotoProprieteRepository photoProprieteRepository;
-        public PhotoProprieteRepository PhotoProprieteRepository
-        {
-            get
-            {
-                if (this.photoProprieteRepository == null)
-                {
-                    this.photoProprieteRepository = new PhotoProprieteRepository(context);
-                }
-                return this.photoProprieteRepository;
-            }
-        }
+		private PhotoProprieteRepository photoProprieteRepository;
+		public PhotoProprieteRepository PhotoProprieteRepository
+		{
+			get
+			{
+				if (this.photoProprieteRepository == null)
+				{
+					this.photoProprieteRepository = new PhotoProprieteRepository(context);
+				}
+				return this.photoProprieteRepository;
+			}
+		}
+
+		private TaxRepository taxRepository;
+		public TaxRepository TaxRepository
+		{
+			get
+			{
+				if (this.taxRepository == null)
+				{
+					this.taxRepository = new TaxRepository(context);
+				}
+				return this.taxRepository;
+			}
+		}
 
 
 		public void Save()
