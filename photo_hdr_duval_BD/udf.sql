@@ -32,21 +32,28 @@ AS
 		SET @NouveauStatut = 'Confirmée'
 	END
 
-	--SET NouveauStatut à Reportée
-	IF((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
-		SET @NouveauStatut = 'Reportée'
+	IF(UPDATE(DateRDV)) BEGIN
+		--SET NouveauStatut à Reportée
+		IF((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
+			SET @NouveauStatut = 'Reportée'
+		END
 	END
 
 	--SET NouveauStatut à réalisée
-	--IF () BEGIN
-	--	SET @NouveauStatut = 'Réalisée'
-	--END
-
-	--SET NouveauStatut à Livré
 	IF ((SELECT Url FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
+		SET @NouveauStatut = 'Réalisée'
+	END
+
+	--Date livraison
+	--SET NouveauStatut à Livré
+	IF ((SELECT DateLivraison FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Livré'
 	END
 
+	--SET NouveauStatut à Facturée
+	IF((SELECT DateFacturation FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
+		SET @NouveauStatut = 'Facturée'
+	END
 
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	INSERT INTO RDV.Statuts
@@ -58,23 +65,13 @@ SET DateRDV = '2015-07-07'
 WHERE RDVID = 26
 GO
 
-CREATE TRIGGER RDV.trg_Forfait
-ON RDV.Forfaits
-AFTER UPDATE, INSERT
-AS
-	DECLARE @ForfaitID int
-	SELECT @ForfaitID = ForfaitID FROM inserted
 
-	DECLARE @RDVID INT
-	select @RDVID = RDVID from RDV.RDVs
-	where ForfaitID = @ForfaitID 
-	
-	DECLARE @NouveauStatut NVARCHAR(50)
+--UDF
+/* Quand prix change(update prix)/créer rdv, va falloir additionne prix forfait + frais déplacement + visite virtuel
 
-	IF((SELECT FactureFinal FROM RDV.RDVs WHERE RDVID = @RDVID) = 1)BEGIN
-		SET @NouveauStatut = 'Facturée'
-	END
+prix = cout total avant taxe
 
-	INSERT INTO RDV.Statuts
-	VALUES (GETDATE(), @NouveauStatut, @RDVID)
-GO
+prix calcul après taxes
+
+taxe = prix * 1.15
+*/
