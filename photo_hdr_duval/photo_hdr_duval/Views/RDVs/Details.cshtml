@@ -100,7 +100,9 @@
             @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
         </dd>
 
-        @foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
+        @* Charles, ne met pas de truc qui ne fonctionne pas stp *@
+
+        @*@foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
         {
 
             <dt>
@@ -108,11 +110,10 @@
             </dt>
 
             <dd>
-                @*@item.PourcentageToString()*@
-                @* Charles, ne met pas de truc qui ne fonctionne pas stp *@
+                @item.PourcentageToString()
             </dd>
 
-        }
+        }*@
 
 		<dt>
 			@Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
