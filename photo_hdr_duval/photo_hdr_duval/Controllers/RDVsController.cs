@@ -47,6 +47,8 @@ namespace photo_hdr_duval.Controllers
 			{
 				return HttpNotFound();
 			}
+			uow.RDVRepository.UpdateCoutTotal(rDV);
+			ViewBag.Taxes = uow.TaxRepository.Get();
 			return View(rDV);
 		}
 
@@ -69,6 +71,7 @@ namespace photo_hdr_duval.Controllers
 				rDV.DateDemande = DateTime.Now;
 				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Insert(rDV);
+				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.Save();
 				return RedirectToAction("Index");
 			}
@@ -89,6 +92,7 @@ namespace photo_hdr_duval.Controllers
 				return HttpNotFound();
 			}
 			ViewBag.Forfaits = uow.ForfaitRepository.Get();
+			uow.RDVRepository.UpdateCoutTotal(rDV);
 			return View(rDV);
 		}
 
@@ -103,6 +107,7 @@ namespace photo_hdr_duval.Controllers
 			{
 				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.RDVRepository.Update(rDV);
+				uow.RDVRepository.UpdateCoutTotal(rDV);
 				uow.Save();
 				return RedirectToAction("Index");
 			}
