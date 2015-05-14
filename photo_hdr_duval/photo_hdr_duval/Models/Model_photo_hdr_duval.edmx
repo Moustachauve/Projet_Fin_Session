@@ -77,7 +77,6 @@
           <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
           <Property Name="DateFacturation" Type="date" />
           <Property Name="DateLivraison" Type="date" />
-          <Property Name="StatutID" Type="int" />
         </EntityType>
         <EntityType Name="Statuts">
           <Key>
@@ -102,13 +101,13 @@
         </Association>
         <Association Name="FK_RDV_Statut_StatutID">
           <End Role="RDVs" Type="Self.RDVs" Multiplicity="1" />
-          <End Role="Statuts" Type="Self.Statuts" Multiplicity="0..1" />
+          <End Role="Statuts" Type="Self.Statuts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RDVs">
               <PropertyRef Name="RDVID" />
             </Principal>
             <Dependent Role="Statuts">
-              <PropertyRef Name="StatutID" />
+              <PropertyRef Name="RDVID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -266,10 +265,9 @@
           <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="DateFacturation" Type="DateTime" Precision="0" />
           <Property Name="DateLivraison" Type="DateTime" Precision="0" />
-          <Property Name="StatutID" Type="Int32" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
           <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
-          <NavigationProperty Name="Statut" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="RDV" ToRole="Statut" />
+          <NavigationProperty Name="Statuts" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="RDV" ToRole="Statut" />
         </EntityType>
         <EntityType Name="Statut">
           <Key>
@@ -319,13 +317,13 @@
         </Association>
         <Association Name="FK_RDV_Statut_StatutID">
           <End Type="H15_PROJET_E05Model.RDV" Role="RDV" Multiplicity="1" />
-          <End Type="H15_PROJET_E05Model.Statut" Role="Statut" Multiplicity="0..1" />
+          <End Type="H15_PROJET_E05Model.Statut" Role="Statut" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RDV">
               <PropertyRef Name="RDVID" />
             </Principal>
             <Dependent Role="Statut">
-              <PropertyRef Name="StatutID" />
+              <PropertyRef Name="RDVID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -391,7 +389,6 @@
           <EntitySetMapping Name="RDVs">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
-                <ScalarProperty Name="StatutID" ColumnName="StatutID" />
                 <ScalarProperty Name="DateLivraison" ColumnName="DateLivraison" />
                 <ScalarProperty Name="DateFacturation" ColumnName="DateFacturation" />
                 <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />

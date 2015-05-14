@@ -17,6 +17,7 @@ namespace photo_hdr_duval.Models
         public RDV()
         {
             this.PhotoProprietes = new HashSet<PhotoPropriete>();
+            this.Statuts = new HashSet<Statut>();
         }
     
         public int RDVID { get; set; }
@@ -39,10 +40,9 @@ namespace photo_hdr_duval.Models
         public decimal VisiteVirtuelle { get; set; }
         public Nullable<System.DateTime> DateFacturation { get; set; }
         public Nullable<System.DateTime> DateLivraison { get; set; }
-        public Nullable<int> StatutID { get; set; }
     
         public virtual Forfait Forfait { get; set; }
         public virtual ICollection<PhotoPropriete> PhotoProprietes { get; set; }
-        public virtual Statut Statut { get; set; }
+        public virtual ICollection<Statut> Statuts { get; set; }
     }
 }
