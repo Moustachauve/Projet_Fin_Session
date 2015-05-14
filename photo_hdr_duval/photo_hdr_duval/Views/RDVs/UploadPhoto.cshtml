@@ -4,16 +4,19 @@
     ViewBag.Title = "UploadPhoto";
 }
 
-<h2>UploadPhoto</h2>
+<h2>Téléverser des photos</h2>
 
 @using (Html.BeginForm("UploadPhoto", "RDVs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <input type="file" name="files" value="" multiple="multiple" id="upload" />
-    <input type="submit" value="Envoyer" title="Upload" />
+    <span class="btn btn-default btn-file">
+        Ajouter des photos... <input type="file" name="files" value="" multiple="multiple" id="upload" /><br />
+    </span>
+    <input type="submit" value="Téléverser" title="Téléverser" class="btn btn-primary" />
     <div style="color:Red;font-size:14px">@ViewBag.Message</div>
 }
 
-<div id="preview">
+<h2 id="preview_title">Prévisualiser: <span class="small">(0)</span></h2>
+<div id="preview" class="clearfix">
 
 </div>
 
@@ -22,35 +25,8 @@
     @Scripts.Render("~/Scripts/ekko-lightbox.js")
     @Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
 
-    <script>
-        $(function () {
-            $('#upload').change(function () {
-                var _this = this;
-                $("#preview").empty();
-
-                for (var i = 0; i < this.files.length; i++) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = $('<img alt="test" class="class="img-responsive" />');
-                        $(img).attr('src', e.target.result);
-
-                        $("#preview").append(img);
-                        img.wrap('<div class="col-xs-6 col-sm-4 col-md-3">' +
-			            '<a class="thumbnail" data-toggle="lightbox" href="' + e.target.result + '" data-gallery="photos">' +
-                        '</a></div>')
-                    }
-                    reader.readAsDataURL(_this.files[i]);
-                }
-            });
-
-            $(".thumbnail").matchHeight();
-
-            $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
-                event.preventDefault();
-                $(this).ekkoLightbox();
-            });
-        });
-    </script>
+    @Scripts.Render("~/Scripts/jquery.show-overlay.js")
+    @Scripts.Render("~/Scripts/jquery.upload.js")
 }
 
 
