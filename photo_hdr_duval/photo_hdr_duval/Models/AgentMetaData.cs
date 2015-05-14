@@ -14,21 +14,27 @@ namespace photo_hdr_duval.Models
 
             public int AgentID { get; set; }
 
+            [Required]
             [Display(Name = "Nom")]
             public string NomAgent { get; set; }
 
+            [Required]
 			[Display(Name = "Prénom")]
 			public string PrenomAgent { get; set; }
 
+            [Required]
             [Display(Name = "Nom de l'entreprise")]
             public string NomEntreprise { get; set; }
 
+            [Required]
             [Display(Name = "Adresse")]
             public string Adresse { get; set; }
 
+            [Required]
             [Display(Name = "Code Postal")]
             public string CodePostal { get; set; }
 
+            [Required]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone principal*")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
