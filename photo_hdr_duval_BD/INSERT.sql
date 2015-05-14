@@ -24,11 +24,15 @@ INSERT INTO Agent.Emails VALUES
 ('KevinFortier@hotmail.com', 3, 1)
 
 --RDV.RDVs
+--DELETE FROM RDV.Statuts
+--DELETE FROM RDV.RDVs
 GO
-INSERT INTO RDV.RDVs VALUES
-(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h', 'Leduc','Eric', 4501231234, NULL, '4321 Pas la vrai rue', 'H0H 0H0','Longueuil', 'EricCoolFriend@hotmail.com', 2,0,0,0,0,0, NULL),
-(GETDATE(), '2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'H0H 0H0','Saint-Amable', 'unEmail@email.com', 1,0,0,0,0,0, NULL),
-(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal','H0H 0H0', 'Saint-Amable', 'unAutreEmail@email.com', 3,0,0,0,0,0, NULL)
+INSERT INTO RDV.RDVs(DateDemande, DateRDV, HeureRDV, Commentaire, NomProprietaire, PrenomProprietaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, CodePostal, Ville, EmailProprietaire, ForfaitID, CoutTotalAvantTaxes, CoutTotalApresTaxes, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison) VALUES
+(GETDATE(),	NULL,  NULL,'Appeller telephone secondaire avant 17h', 'Leduc',	'Eric',	4501231234,	NULL, '4321 Pas la vrai rue', 'H0H 0H0', 'Longueuil', 'EricCoolFriend@hotmail.com', 2, 0, 0, 0, 0, NULL, NULL)
+INSERT INTO RDV.RDVs(DateDemande, DateRDV, HeureRDV, Commentaire, NomProprietaire, PrenomProprietaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, CodePostal, Ville, EmailProprietaire, ForfaitID, CoutTotalAvantTaxes, CoutTotalApresTaxes, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison) VALUES
+(GETDATE(),	'2015-06-06', '15:10', 'N/A', 'Fafard','Pamela', 4501231235, 5141231234, '123 Sesame Street', 'H0H 0H0','Saint-Amable', 'unEmail@email.com', 1, 0, 0, 0, 0,	NULL, NULL)
+INSERT INTO RDV.RDVs(DateDemande, DateRDV, HeureRDV, Commentaire, NomProprietaire, PrenomProprietaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, CodePostal, Ville, EmailProprietaire, ForfaitID, CoutTotalAvantTaxes, CoutTotalApresTaxes, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison) VALUES
+(GETDATE(), NULL, NULL, 'N/A', 'Bastien','Ève', 4501231236, NULL, 'rue Principal','H0H 0H0', 'Saint-Amable', 'unAutreEmail@email.com', 3, 0, 0, 0, 0, NULL, NULL)
 GO
 
 --Paiement.Taxes

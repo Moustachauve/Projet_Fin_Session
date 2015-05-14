@@ -19,13 +19,13 @@ AS
 
 	--SET NouveauStatut à DEMANDÉE
 	SELECT @RDVID = RDVID FROM inserted
-
-	IF((SELECT COUNT(StatutID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
-		SET @NouveauStatut = 'Demandée'
-	END
 		
 	SELECT @DateRdvUpdate = DateRDV
 	FROM deleted
+
+	IF((SELECT COUNT(RDVID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
+		SET @NouveauStatut = 'Demandée'
+	END
 
 	--SET NouveauStatut à CONFIRMÉE
 	IF ((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
@@ -39,6 +39,8 @@ AS
 		END
 	END
 
+	
+	
 	--SET NouveauStatut à réalisée
 	IF ((SELECT Url FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Réalisée'
@@ -46,7 +48,7 @@ AS
 
 	--Date livraison
 	--SET NouveauStatut à Livré
-	IF ((SELECT DateLivraison FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
+	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Livré'
 	END
 
@@ -55,16 +57,27 @@ AS
 		SET @NouveauStatut = 'Facturée'
 	END
 
+
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	INSERT INTO RDV.Statuts
 	VALUES (GETDATE(), @NouveauStatut, @RDVID)
 GO
 
+--test reporté
 UPDATE RDV.RDVS
 SET DateRDV = '2015-07-07'
-WHERE RDVID = 26
+WHERE RDVID = 2
 GO
 
+UPDATE RDV.RDVs
+SET DateFacturation = '2015-05-15'
+WHERE RDVID = 1
+GO
+
+UPDATE RDV.RDVs
+SET DateLivraison = '2015-08-12'
+WHERE RDVID = 3
+GO
 
 --UDF
 /* Quand prix change(update prix)/créer rdv, va falloir additionne prix forfait + frais déplacement + visite virtuel
