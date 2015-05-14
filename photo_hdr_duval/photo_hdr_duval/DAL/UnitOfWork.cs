@@ -11,6 +11,8 @@ namespace photo_hdr_duval.DAL
 
 		public int CurrentUserID { get { return 1; } }
 
+        public int CurrentAgentID { get; set; }
+
 		private H15_PROJET_E05_Context context = new H15_PROJET_E05_Context();
 
 		private RDVRepository rdvRepository;

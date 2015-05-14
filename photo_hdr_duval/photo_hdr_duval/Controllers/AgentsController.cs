@@ -47,6 +47,32 @@ namespace photo_hdr_duval.Controllers
             return View(agent);
         }
 
+        public ActionResult CreateEmail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(new Email() { AgentID = (int)id });
+        }
+
+        // POST: Agents/Create
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmail([Bind(Include = "EmailID,AgentID,Email1,IsPrimary")] Email email)
+        {
+            if (ModelState.IsValid)
+            {
+                uow.EmailRepository.Insert(email);
+                uow.Save();
+                return RedirectToAction("Edit/" + email.AgentID.ToString());
+            }
+
+            return View(email);
+        }
+
         // GET: Agents/Create
         public ActionResult Create()
         {
@@ -91,10 +117,14 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal,EmailID")] Agent agent)
+        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal,Emails")] Agent agent)
         {
             if (ModelState.IsValid)
             {
+                foreach (Email email in agent.Emails)
+                {
+                    email.AgentID = agent.AgentID;
+                }
                 uow.AgentRepository.Update(agent);
                 uow.Save();
                 return RedirectToAction("Index");
