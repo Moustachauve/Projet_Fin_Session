@@ -82,6 +82,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Emails = uow.EmailRepository.GetForAgent(agent.AgentID);
             return View(agent);
         }
 
@@ -90,7 +91,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal")] Agent agent)
+        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal,EmailID")] Agent agent)
         {
             if (ModelState.IsValid)
             {
@@ -98,6 +99,7 @@ namespace photo_hdr_duval.Controllers
                 uow.Save();
                 return RedirectToAction("Index");
             }
+            ViewBag.Emails = uow.EmailRepository.GetForAgent(agent.AgentID);
             return View(agent);
         }
 

@@ -52,6 +52,19 @@ namespace photo_hdr_duval.DAL
             }
         }
 
+        private EmailRepository emailRepository;
+        public EmailRepository EmailRepository
+        {
+            get
+            {
+                if (this.emailRepository == null)
+                {
+                    this.emailRepository = new EmailRepository(context);
+                }
+                return this.emailRepository;
+            }
+        }
+
         private PhotoProprieteRepository photoProprieteRepository;
         public PhotoProprieteRepository PhotoProprieteRepository
         {
