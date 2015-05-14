@@ -37,7 +37,8 @@ namespace photo_hdr_duval.Models
         public decimal CoutTotalApresTaxes { get; set; }
         public decimal Deplacement { get; set; }
         public decimal VisiteVirtuelle { get; set; }
-        public bool FactureFinal { get; set; }
+        public Nullable<System.DateTime> DateFacturation { get; set; }
+        public Nullable<System.DateTime> DateLivraison { get; set; }
         public Nullable<int> StatutID { get; set; }
     
         public virtual Forfait Forfait { get; set; }

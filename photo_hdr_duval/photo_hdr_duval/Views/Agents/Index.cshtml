@@ -20,7 +20,7 @@
                 @Html.ActionLink("Entreprise" + (ViewBag.orderBy == "NomEntreprise" ? arrow : ""), "Index", new { sortString = "NomEntreprise", asc = futureAsc })
             </th>
             <th>
-                @Html.ActionLink(Html.DisplayNameFor(model => model.Adresse) + (ViewBag.orderBy == "Adresse" ? arrow : ""), "Index", new { sortString = "Adresse", asc = futureAsc })
+                @Html.ActionLink("Adresse" + (ViewBag.orderBy == "Adresse" ? arrow : ""), "Index", new { sortString = "Adresse", asc = futureAsc })
             </th>
             <th>
                 @Html.ActionLink("Téléphone 1" + (ViewBag.orderBy == "TelPrincipal" ? arrow : ""), "Index", new { sortString = "TelPrincipal", asc = futureAsc })

@@ -75,7 +75,8 @@
           <Property Name="CoutTotalApresTaxes" Type="money" Nullable="false" />
           <Property Name="Deplacement" Type="money" Nullable="false" />
           <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
-          <Property Name="FactureFinal" Type="bit" Nullable="false" />
+          <Property Name="DateFacturation" Type="date" />
+          <Property Name="DateLivraison" Type="date" />
           <Property Name="StatutID" Type="int" />
         </EntityType>
         <EntityType Name="Statuts">
@@ -263,7 +264,8 @@
           <Property Name="CoutTotalApresTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="FactureFinal" Type="Boolean" Nullable="false" />
+          <Property Name="DateFacturation" Type="DateTime" Precision="0" />
+          <Property Name="DateLivraison" Type="DateTime" Precision="0" />
           <Property Name="StatutID" Type="Int32" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
           <NavigationProperty Name="PhotoProprietes" Relationship="H15_PROJET_E05Model.FK_RDVs_PhotoPropriete_RDVID" FromRole="RDV" ToRole="PhotoPropriete" />
@@ -390,7 +392,8 @@
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="StatutID" ColumnName="StatutID" />
-                <ScalarProperty Name="FactureFinal" ColumnName="FactureFinal" />
+                <ScalarProperty Name="DateLivraison" ColumnName="DateLivraison" />
+                <ScalarProperty Name="DateFacturation" ColumnName="DateFacturation" />
                 <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
                 <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
                 <ScalarProperty Name="CoutTotalApresTaxes" ColumnName="CoutTotalApresTaxes" />
