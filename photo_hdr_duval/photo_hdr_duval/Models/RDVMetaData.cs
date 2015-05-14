@@ -25,21 +25,21 @@ namespace photo_hdr_duval.Models
             [Display(Name = "Information supplémentaire")]
             public string Commentaire { get; set; }
 
-            [Display(Name = "Nom Propriétaire*")]
+            [Display(Name = "Nom Propriétaire")]
             [Required]
             public string NomProprietaire { get; set; }
 
-			[Display(Name = "Prénom Propriétaire*")]
+			[Display(Name = "Prénom Propriétaire")]
 			[Required]
 			public string PrenomProprietaire { get; set; }
 
-            [Display(Name = "Code Postal*")]
+            [Display(Name = "Code Postal")]
             [Required]
             public string CodePostal { get; set; }
 
             [DataType(DataType.PhoneNumber)]
             [Required]
-            [Display(Name = "Téléphone principal du propriétaire*")]
+            [Display(Name = "Téléphone principal du propriétaire")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelPrincipalProprietaire { get; set; }
 
@@ -48,7 +48,7 @@ namespace photo_hdr_duval.Models
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelSecondaire { get; set; }
 
-            [Display(Name = "Adresse de la propriété*")]
+            [Display(Name = "Adresse de la propriété")]
             [Required]
             public string AdressePropriete { get; set; }
 
@@ -61,7 +61,7 @@ namespace photo_hdr_duval.Models
 
 			[Required]
 			[StringLength(70)]
-			[Display(Name = "Ville de la propriété*")]
+			[Display(Name = "Ville de la propriété")]
 			public string Ville { get; set; }
 
 			[Display(Name="Coût total avant taxes")]
