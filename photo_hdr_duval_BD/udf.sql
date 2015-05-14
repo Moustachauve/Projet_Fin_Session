@@ -16,13 +16,11 @@ AS
 	DECLARE @RDVID INT
 	DECLARE @NouveauStatut NVARCHAR(50)
 	DECLARE @DateRdvUpdate DATE
+	
+	SELECT @RDVID = RDVID FROM inserted
+	SELECT @DateRdvUpdate = DateRDV	FROM deleted
 
 	--SET NouveauStatut à DEMANDÉE
-	SELECT @RDVID = RDVID FROM inserted
-		
-	SELECT @DateRdvUpdate = DateRDV
-	FROM deleted
-
 	IF((SELECT COUNT(RDVID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
 		SET @NouveauStatut = 'Demandée'
 	END
@@ -39,19 +37,11 @@ AS
 		END
 	END
 
-	
-	
-	--SET NouveauStatut à réalisée
-	IF ((SELECT Url FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Réalisée'
-	END
-
-	--Date livraison
 	--SET NouveauStatut à Livré
 	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Livré'
 	END
-
+	
 	--SET NouveauStatut à Facturée
 	IF((SELECT DateFacturation FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Facturée'
@@ -63,7 +53,27 @@ AS
 	VALUES (GETDATE(), @NouveauStatut, @RDVID)
 GO
 
---test reporté
+CREATE TRIGGER RDV.trg_GererPhotos
+ON [RDV].[PhotoProprietes]
+AFTER UPDATE, INSERT
+AS
+	DECLARE @RDVID INT
+	DECLARE @NouveauStatut NVARCHAR(50)
+	
+	SELECT @RDVID = RDVID FROM inserted
+
+	--SET NouveauStatut à réalisée
+	IF ((SELECT COUNT(Url) FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) != 0) BEGIN
+		SET @NouveauStatut = 'Réalisée'
+	END
+
+	INSERT INTO RDV.Statuts
+	VALUES (GETDATE(), @NouveauStatut, @RDVID)
+GO
+
+
+/*
+--TESTS STATUTS
 UPDATE RDV.RDVS
 SET DateRDV = '2015-07-07'
 WHERE RDVID = 2
@@ -78,6 +88,13 @@ UPDATE RDV.RDVs
 SET DateLivraison = '2015-08-12'
 WHERE RDVID = 3
 GO
+
+INSERT INTO [RDV].[PhotoProprietes]
+VALUES('testtt2', 'photo 2', 2)
+*/
+
+
+
 
 --UDF
 /* Quand prix change(update prix)/créer rdv, va falloir additionne prix forfait + frais déplacement + visite virtuel
