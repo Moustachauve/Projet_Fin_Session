@@ -1,65 +1,20 @@
 ﻿@model IEnumerable<photo_hdr_duval.Models.Agent>
 @{
     ViewBag.Title = "Index";
-    bool futureAsc = ViewBag.isAsc != null ? !ViewBag.isAsc : false;
-    string arrow = futureAsc ? "▲" : "▼";
+
 }
 
 <h2>Agents @Html.ActionLink("Ajouter un agent", "Create", "Agents", null, new { @class = "btn btn-success pull-right" })</h2>
 
 <table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.ActionLink("Nom" + (ViewBag.orderBy == "NomAgent" ? arrow : ""), "Index", new { sortString = "NomAgent", asc = futureAsc })
-            </th>
-            <th>
-                @Html.ActionLink("Prénom" + (ViewBag.orderBy == "PrenomAgent" ? arrow : ""), "Index", new { sortString = "PrenomAgent", asc = futureAsc })
-            </th>
-            <th>
-                @Html.ActionLink("Entreprise" + (ViewBag.orderBy == "NomEntreprise" ? arrow : ""), "Index", new { sortString = "NomEntreprise", asc = futureAsc })
-            </th>
-            <th>
-                @Html.ActionLink("Adresse" + (ViewBag.orderBy == "Adresse" ? arrow : ""), "Index", new { sortString = "Adresse", asc = futureAsc })
-            </th>
-            <th>
-                @Html.ActionLink("Téléphone 1" + (ViewBag.orderBy == "TelPrincipal" ? arrow : ""), "Index", new { sortString = "TelPrincipal", asc = futureAsc })
-            </th>
-            <th>
-                @Html.ActionLink("Téléphone 2" + (ViewBag.orderBy == "TelSecondaire" ? arrow : ""), "Index", new { sortString = "TelSecondaire", asc = futureAsc })
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach (var item in Model)
+
+    @Html.Partial("../Shared/IndexTableHeaderAgents")
+
+    @foreach (photo_hdr_duval.Models.Agent item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomAgent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrenomAgent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomEntreprise)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adresse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TelPrincipal)
-            </td>
-            <td>
-                @if (item.TelSecondaire > 0)
-                {
-                    Html.DisplayFor(modelItem => item.TelSecondaire);
-                }
-                else
-                {
-                    <text>N/D</text>
-                }
-                    
-            </td>
+            @{ViewBag.Agent = item;}
+            @Html.Partial("../Shared/IndexTableDataAgents")
 			<td class ="text-right">
 				<div class="btn-group">
 					@Html.ActionLink("Détails", "Details", new { id = item.AgentID }, new { @class = "btn btn-primary btn-sm" })

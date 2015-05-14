@@ -1,0 +1,26 @@
+﻿@model IEnumerable<photo_hdr_duval.Models.RDV>
+
+@{
+    ViewBag.Title = "IndexTableHeaderRDVs";
+    bool futureAsc = ViewBag.isAsc != null ? !ViewBag.isAsc : false;
+    string arrow = futureAsc ? "▲" : "▼";
+}
+
+<thead>
+    <tr>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande", asc = futureAsc })
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
+        </th>
+        <th>
+            @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), "Index", new { sortString = "NomProprietaire", asc = futureAsc })
+        </th>
+        <th>
+            État
+        </th>
+        <th></th>
+    </tr>
+</thead>
+
