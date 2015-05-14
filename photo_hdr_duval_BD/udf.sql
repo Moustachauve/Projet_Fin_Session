@@ -71,7 +71,6 @@ AS
 	VALUES (GETDATE(), @NouveauStatut, @RDVID)
 GO
 
-
 /*
 --TESTS STATUTS
 UPDATE RDV.RDVS
@@ -92,6 +91,7 @@ GO
 INSERT INTO [RDV].[PhotoProprietes]
 VALUES('testtt2', 'photo 2', 2)
 */
+
 
 
 
