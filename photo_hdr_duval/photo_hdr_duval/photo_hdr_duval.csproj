@@ -131,6 +131,7 @@
     <Compile Include="DAL\PhotoProprieteRepository.cs" />
     <Compile Include="DAL\RDVRepository.cs" />
     <Compile Include="DAL\Repository.cs" />
+    <Compile Include="DAL\TaxRepository.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
