@@ -14,7 +14,6 @@ ON RDV.RDVs
 AFTER UPDATE, INSERT
 AS
 	DECLARE @RDVID INT
-
 	DECLARE @NouveauStatut NVARCHAR(50)
 	DECLARE @DateRdvUpdate DATE
 
@@ -24,50 +23,52 @@ AS
 	IF((SELECT COUNT(StatutID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
 		SET @NouveauStatut = 'Demandée'
 	END
-	
-	--SI LA TABLE UPDATE N'EST PAS NULL 
-	IF((SELECT RDVID FROM updated) IS NOT NULL) BEGIN
-		SELECT @RDVID = RDVID FROM updated
 		
-		SELECT @DateRdvUpdate = DateRDV
-		FROM updated
+	SELECT @DateRdvUpdate = DateRDV
+	FROM deleted
 
-		--SET NouveauStatut à CONFIRMÉE
-		IF ((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
-			SET @NouveauStatut = 'Confirmée'
-		END
+	--SET NouveauStatut à CONFIRMÉE
+	IF ((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
+		SET @NouveauStatut = 'Confirmée'
+	END
 
-		--SET NouveauStatut à Reportée
-		IF((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
-			SET @NouveauStatut = 'Reportée'
-		END
+	--SET NouveauStatut à Reportée
+	IF((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
+		SET @NouveauStatut = 'Reportée'
+	END
 
-		--SET NouveauStatut à Reportée
-		--IF () BEGIN
-		--	SET @NouveauStatut = 'Facturée'
-		--END
+	--SET NouveauStatut à réalisée
+	--IF () BEGIN
+	--	SET @NouveauStatut = 'Réalisée'
+	--END
 
-		--SET NouveauStatut à réalisée
-		--IF () BEGIN
-		--	SET @NouveauStatut = 'Réalisée'
-		--END
-	END	
+	--SET NouveauStatut à Livré
+	IF ((SELECT Url FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
+		SET @NouveauStatut = 'Livré'
+	END
+
 
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	INSERT INTO RDV.Statuts
 	VALUES (GETDATE(), @NouveauStatut, @RDVID)
 GO
 
-INSERT INTO RDV.RDVs
-VALUES (GETDATE(), NULL, NULL, 'Ceci est le text #1', 'Leduc','Eric', 4501231234, NULL, 'rue', 'ville', 'EricCoolFriend@hotmail.com', 2,0,0,0)
+UPDATE RDV.RDVS
+SET DateRDV = '2015-07-07'
+WHERE RDVID = 26
+GO
 
-/*
-CREATE TRIGGER trg_Forfait
+CREATE TRIGGER RDV.trg_Forfait
 ON RDV.Forfaits
 AFTER UPDATE, INSERT
 AS
+	DECLARE @ForfaitID int
+	SELECT @ForfaitID = ForfaitID FROM inserted
+
 	DECLARE @RDVID INT
---	SELECT @RDVID = RDVID FROM updated
+	select @RDVID = RDVID from RDV.RDVs
+	where ForfaitID = @ForfaitID 
+	
 	DECLARE @NouveauStatut NVARCHAR(50)
 
 	IF((SELECT FactureFinal FROM RDV.Forfaits) = 1)BEGIN
@@ -77,4 +78,3 @@ AS
 	INSERT INTO RDV.Statuts
 	VALUES (GETDATE(), @NouveauStatut, @RDVID)
 GO
-*/
