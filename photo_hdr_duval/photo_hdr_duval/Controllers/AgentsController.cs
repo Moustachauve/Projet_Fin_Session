@@ -117,14 +117,14 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal,Emails")] Agent agent)
+        public ActionResult Edit([Bind(Include = "AgentID,NomAgent,PrenomAgent,NomEntreprise,Adresse,TelPrincipal,TelSecondaire,CodePostal")] Agent agent)
         {
             if (ModelState.IsValid)
             {
-                foreach (Email email in agent.Emails)
-                {
-                    email.AgentID = agent.AgentID;
-                }
+                //foreach (Email email in agent.Emails)
+                //{
+                //    email.AgentID = agent.AgentID;
+                //}
                 uow.AgentRepository.Update(agent);
                 uow.Save();
                 return RedirectToAction("Index");
