@@ -6,20 +6,20 @@
 
 <h2>Téléverser des photos</h2>
 
-@using (Html.BeginForm("UploadPhoto", "RDVs", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <span class="btn btn-default btn-file">
-        Ajouter des photos... <input type="file" name="files" value="" multiple="multiple" id="upload" /><br />
-    </span>
-    <input type="submit" value="Téléverser" title="Téléverser" class="btn btn-primary" />
-    <div style="color:Red;font-size:14px">@ViewBag.Message</div>
-}
 
-<h2 id="preview_title">Prévisualiser: <span class="small">(0)</span></h2>
+<span class="btn btn-default btn-file">
+    Ajouter des photos... <input type="file" name="files" value="" multiple="multiple" id="upload" /><br />
+</span>
+<input type="button" id="upload_imgs" value="Téléverser" title="Téléverser" class="btn btn-primary" />
+<div style="color:Red;font-size:14px">@ViewBag.Message</div>
+@Html.HiddenFor(m => m.RDVID, new { @id="RDVID" })
+
+<h2 id="preview_title">Prévisualiser: <small id="preview_number">(0)</small></h2>
 <div id="preview" class="clearfix">
 
 </div>
 
+@Html.ActionLink("Retour", "Details", "RDVs", new { id=1 }, new { @class=""})
 
 @section Scripts {
     @Scripts.Render("~/Scripts/ekko-lightbox.js")

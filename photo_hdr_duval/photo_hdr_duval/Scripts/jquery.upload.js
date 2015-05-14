@@ -1,10 +1,13 @@
 ﻿$(function () {
 	var id_overlay = 'upload_overlay';
 	var template_overlay = $('<div id="' + id_overlay + '"><div class="border"><div class="text">Téléverser</div></div></div>');
+    var template_loading = $('<div class="white">TEST</div>')
 
 	var fileList = new Array();
 	var currentID = 0;
 	var dragging = 0;
+
+	var id = $('#RDVID').val();
 
 	var template_preview = '<div class="col-xs-6 col-sm-4 col-md-3">' +
 				'<a class="thumbnail" data-toggle="lightbox" data-gallery="photos">' +
@@ -44,9 +47,11 @@
 		$("#preview").append(preview);
 
 		fileList[currentID] = file;
-		$(img).data('img_id', currentID);
+		preview.attr('id', 'photo_' + currentID);
 
 		currentID++;
+
+		$('#preview_number').text('(' + currentID + ')');
 	}
 
 	function showPreview() {
@@ -70,7 +75,6 @@
 		e.preventDefault();
 		e.stopPropagation();
 
-		console.log('Dragover');
 		showOverlay();
 	});
 
@@ -80,7 +84,6 @@
 
 		dragging++;
 
-		console.log('Dragenter');
 		showOverlay();
 	});
 
@@ -90,7 +93,6 @@
 
 		dragging--;
 		if (dragging === 0) {
-			console.log('Dragleave');
 			hideOverlay();
 		}
 	});
@@ -112,6 +114,41 @@
 			}
 		}
 	});
+
+    /* ===== Upload handler ===== */
+
+	$('#upload_imgs').click(uploadAllImages);
+
+	function uploadAllImages() {
+	    var totalImages = fileList.length;
+	    var imageDone = 0;
+
+	    for (var i = 0; i < fileList.length; i++) {
+	        if (typeof fileList[i] === "undefined")
+	            continue;
+
+	        var loadingBar = template_loading.clone()
+
+	        //"/RDVs/DoUploadPhoto/" + id
+
+	        var formData = new FormData();
+
+	        formData.append("file"+i, fileList[i]);
+
+	        jQuery.ajax({
+	            type: "POST",
+	            url: "/RDVs/DoUploadPhoto/" + id,
+	            processData: false,
+	            contentType: false,
+	            data: formData
+	        }).always(function () {
+	            imageDone++;
+	            if (imageDone == totalImages) {
+	                document.location = "/RDVs/details/" + id;
+	            }
+	        });
+	    }
+	}
 
 	/* ===== Lightroom ===== */
 
