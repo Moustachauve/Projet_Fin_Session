@@ -27,11 +27,13 @@ namespace photo_hdr_duval.Models
             [StringLength(10)]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone principal")]
+            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public int TelPrincipal { get; set; }
 
             [StringLength(10)]
             [DataType(DataType.PhoneNumber)]
             [Display(Name = "Téléphone secondaire")]
+            [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public int TelSecondaire { get; set; }
 
         }
