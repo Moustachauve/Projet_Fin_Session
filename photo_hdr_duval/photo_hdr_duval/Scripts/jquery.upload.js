@@ -9,8 +9,10 @@
 
     var id = $('#RDVID').val();
 
-    var template_preview = '<div class="col-xs-6 col-sm-4 col-md-3">' +
+    var template_preview = '<div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container">' +
+                '<div class="buttons">' +
                 '<a href="#" class="glyphicon glyphicon-remove delete_image"></a>' +
+                '</div>' +
 				'<a class="thumbnail" data-toggle="lightbox" data-gallery="photos">' +
 				'<img class="class="img-responsive" />' +
 				'</a></div>';
@@ -123,12 +125,11 @@
     function uploadAllImages() {
         var totalImages = getNumberImages();
 
-        if (totalImages == 0)
-        {
+        if (totalImages == 0) {
             alert('Veuillez sélectionner des photos');
             return;
         }
-        
+
         var imageDone = 0;
 
         for (var i = 0; i < fileList.length; i++) {
@@ -185,18 +186,18 @@
 
     /* ===== Delete ===== */
 
-    $('#preview').on("mouseover", ".thumbnail, .delete_image", function () {
-        $(this).parent().find('.delete_image').show();
+    $('#preview').on("mouseenter", ".thumbnail, .buttons", function () {
+        $(this).parent().find('.buttons').show();
     });
 
-    $('#preview').on("mouseleave", ".thumbnail, .delete_image", function () {
-        $(this).parent().find('.delete_image').hide();
+    $('#preview').on("mouseleave", ".thumbnail, .buttons", function () {
+        $(this).parent().find('.buttons').hide();
     });
 
     $('#preview').on('click', '.delete_image', function () {
-        var photo_id = $(this).parent().attr('data_photo_id');
+        var photo_id = $(this).parent().parent().attr('data_photo_id');
         fileList[photo_id] = undefined;
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
 
         showNumberImages();
     });

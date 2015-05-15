@@ -103,16 +103,23 @@ textarea {
     display:none;
 }
 
-.delete_image {
-    color:#fff;
+.thumbnail-container .buttons {
     position:absolute;
     right:27px;
     top:20px;
-    z-index:50;
-    text-shadow:2px 2px 2px #333;
+    background-color:rgba(0,0,0,0.5);
     display:none;
+    z-index:50;
+    padding:3px 5px;
+    border-radius:4px;
 }
-.delete_image:hover {
+
+.thumbnail-container .buttons a {
+    color:#fff;
+    text-shadow:2px 2px 2px #333;
+    padding:0 3px;
+}
+.thumbnail-container .buttons a:hover {
     color:#CCC;
     text-decoration:none;
 }

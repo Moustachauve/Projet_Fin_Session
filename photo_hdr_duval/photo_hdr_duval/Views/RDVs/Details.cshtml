@@ -126,13 +126,18 @@
 	</dl>
 </div>
 
-<div class="row">
+<div class="row" id="photo_gallery">
 	<h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "RDVs", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
 	@foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
 	{
 		string chemin = @Url.Content("~/Images/" + photo.Url);
 
-		<div class="col-xs-6 col-sm-4 col-md-3">
+		<div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
+            <div class="buttons">
+                <a href="#" class="glyphicon glyphicon-save"></a>
+                <a href="#" class="glyphicon glyphicon-edit delete_image"></a>
+                <a href="#" class="glyphicon glyphicon-remove delete_image"></a>
+            </div>
 			<a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
 				<!--@Html.ActionLink("X", "DeletePhoto", "RDVs", new {id = photo.PhotoProprieteID }, new { @class = "btn btn-danger pull-right" })-->
 				<img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
@@ -151,12 +156,49 @@
 
 	@Scripts.Render("~/Scripts/ekko-lightbox.js")
 	@Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
+
 	<script type="text/javascript">
 		$(".thumbnail").matchHeight();
 
 		$(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 			event.preventDefault();
 			$(this).ekkoLightbox();
+		});
+
+		$(function () {
+		    var hoverCount = 0;
+
+		    $('#photo_gallery').on("mouseenter", ".thumbnail, .buttons", function () {
+		        hoverCount++;
+		        $(this).parent().find('.buttons').show();
+		    });
+
+		    $('#photo_gallery').on("mouseleave", ".thumbnail, .buttons", function () {
+		        hoverCount--;
+		        var _this = this;
+		        setTimeout(function () {
+		            if (hoverCount == 0) {
+		                $(_this).parent().find('.buttons').fadeOut(150);
+		            }
+		        }, 30);
+		    });
+
+		    $('#photo_gallery').on('click', '.delete_image', function () {
+		        var photo_id = $(this).parent().parent().attr('id');
+
+		        jQuery.ajax({
+		            type: "POST",
+		            url: "/RDVs/DoDeletePhoto/" + photo_id
+		        }).success(function (dataRaw) {
+		            var id = JSON.parse(dataRaw);
+		            $('#' + id).remove();
+
+		        }).fail(function() {
+		            alert('Une erreur est survenue, veuillez réessayer');
+		        });
+		    });
+
+
 		});
 	</script>
 }
