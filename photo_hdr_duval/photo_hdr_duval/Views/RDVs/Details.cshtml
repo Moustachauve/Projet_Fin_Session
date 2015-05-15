@@ -135,7 +135,7 @@
 		<div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
             <div class="buttons">
                 <a href="#" class="glyphicon glyphicon-save"></a>
-                <a href="#" class="glyphicon glyphicon-edit delete_image"></a>
+                <a href="#" class="glyphicon glyphicon-pencil delete_image"></a>
                 <a href="#" class="glyphicon glyphicon-remove delete_image"></a>
             </div>
 			<a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
@@ -192,6 +192,7 @@
 		        }).success(function (dataRaw) {
 		            var id = JSON.parse(dataRaw);
 		            $('#' + id).remove();
+		            hoverCount = 0;
 
 		        }).fail(function() {
 		            alert('Une erreur est survenue, veuillez réessayer');

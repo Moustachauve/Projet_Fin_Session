@@ -173,8 +173,12 @@
         var nbElements = getNumberImages();
         $('#preview_number').text('(' + nbElements + ')');
 
-        if (nbElements == 0)
+        if (nbElements == 0) {
             $("#preview, #preview_title").hide();
+            $('#upload_imgs').addClass("disabled")
+        }
+        else
+            $('#upload_imgs').removeClass('disabled');
     }
 
     /* ===== Lightroom ===== */
