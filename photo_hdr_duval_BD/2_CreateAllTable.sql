@@ -46,7 +46,8 @@ CREATE TABLE RDV.RDVs(
 	Deplacement MONEY NOT NULL DEFAULT 0,
 	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
 	DateFacturation DATE NULL,					--AJOUT DU 2015-05-13, PERMET DE METTRE LE STATUT À FACTURÉE
-	DateLivraison DATE NULL
+	DateLivraison DATE NULL,
+	AgentID int NOT NULL
 
 	PRIMARY KEY (RDVID)
 ) ON [PRIMARY];
@@ -133,12 +134,15 @@ ALTER TABLE RDV.PhotoProprietes
 	FOREIGN KEY (RDVID) 
 	REFERENCES RDV.RDVs
 
---	DROP CONSTRAINT FK_RDV_Statut_StatutID
-
 ALTER TABLE RDV.Statuts
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
 	FOREIGN KEY (RDVID)
 	REFERENCES RDV.RDVs (RDVID)
+
+ALTER TABLE RDV.RDVs
+	ADD CONSTRAINT FK_RDVs_Agents_AgentID
+	FOREIGN KEY (AgentID) 
+	REFERENCES Agent.Agents
 
 --Taxe
 -------------------------------------------------------------------  --DROP TABLE Paiement.Taxes

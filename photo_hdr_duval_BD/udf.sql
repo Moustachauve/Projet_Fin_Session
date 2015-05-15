@@ -162,4 +162,16 @@ END
 GO
 
 
-SELECT RDVID, NomProprietaire + ', '+ PrenomProprietaire AS 'Nom, Prénom', RDV.udf_CoutTotalAvantTaxes(RDVID) AS 'Cout Avant Taxes', RDV.udf_CoutTotalApresTaxes(RDVID) AS 'Cout Après Taxes', Deplacement, VisiteVirtuelle FROM RDV.RDVs
+--SELECT RDVID, NomProprietaire + ', '+ PrenomProprietaire AS 'Nom, Prénom', RDV.udf_CoutTotalAvantTaxes(RDVID) AS 'Cout Avant Taxes', RDV.udf_CoutTotalApresTaxes(RDVID) AS 'Cout Après Taxes', Deplacement, VisiteVirtuelle FROM RDV.RDVs
+GO
+
+CREATE PROCEDURE Agent.RapportMensuel
+@mois int,
+@année int
+AS
+BEGIN
+	select a.AgentID, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise
+	from RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
+	WHERE	YEAR(r.DateFacturation) = @année AND
+			MONTH(r.DateFacturation) = @mois
+END
