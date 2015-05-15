@@ -11,5 +11,11 @@ namespace photo_hdr_duval.DAL
         public PhotoProprieteRepository(H15_PROJET_E05_Context context)
             : base(context)
         { }
+
+
+        public PhotoPropriete GetByID(int id)
+        {
+            return base.GetByID(id);
+        }
     }
 }

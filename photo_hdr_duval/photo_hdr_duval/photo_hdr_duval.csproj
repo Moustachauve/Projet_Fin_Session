@@ -257,6 +257,10 @@
     <Content Include="Views\Shared\FormForfait.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
     <Content Include="Views\Agents\CreateEmail.cshtml" />
+    <Content Include="Views\Shared\IndexTableDataAgents.cshtml" />
+    <Content Include="Views\Shared\IndexTableDataRDVs.cshtml" />
+    <Content Include="Views\Shared\IndexTableHeaderAgents.cshtml" />
+    <Content Include="Views\Shared\IndexTableHeaderRDVs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -81,6 +81,7 @@
             </div>
         </div>
 
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Sauvegarder" class="btn btn-primary" />
@@ -110,4 +111,8 @@ $(function () {
             $('.phone').inputmask({ "mask": "(999) 999-9999", 'autoUnmask': true, 'removeMaskOnSubmit': true });
         });
     </script>
+    <script type="text/javascript">
+    $(function () { $('#editors :input').attr("disabled", true); });
+    </script>
+
 }

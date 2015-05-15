@@ -103,6 +103,26 @@ textarea {
     display:none;
 }
 
+.thumbnail-container .buttons {
+    position:absolute;
+    right:27px;
+    top:20px;
+    background-color:rgba(0,0,0,0.5);
+    display:none;
+    z-index:50;
+    padding:3px 5px;
+    border-radius:4px;
+}
+
+.thumbnail-container .buttons a {
+    color:#fff;
+    text-shadow:2px 2px 2px #333;
+    padding:0 3px;
+}
+.thumbnail-container .buttons a:hover {
+    color:#CCC;
+    text-decoration:none;
+}
 
 .btn-file {
     position: relative;

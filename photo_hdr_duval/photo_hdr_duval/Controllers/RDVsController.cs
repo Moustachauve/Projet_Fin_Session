@@ -47,8 +47,8 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-			uow.RDVRepository.UpdateCoutTotal(rDV);
-			ViewBag.Taxes = uow.TaxRepository.Get();
+            uow.RDVRepository.UpdateCoutTotal(rDV);
+            ViewBag.Taxes = uow.TaxRepository.Get();
             return View(rDV);
         }
 
@@ -148,7 +148,7 @@ namespace photo_hdr_duval.Controllers
             return View(rDV);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult UploadPhoto(int? id, HttpPostedFileBase[] files)
         {
             if (id == null)
@@ -180,7 +180,7 @@ namespace photo_hdr_duval.Controllers
             //    //ViewBag.Message = "Une erreur est survenue.";
             //}
             return View();
-        }
+        }*/
 
         public JsonResult DoUploadPhoto(int? id)
         {
@@ -211,6 +211,25 @@ namespace photo_hdr_duval.Controllers
             uow.Save();
 
             return Json("File uploaded successfully");
+        }
+
+        public JsonResult DoDeletePhoto(int? id)
+        {
+            if (id == null)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json("No ID");
+            }
+
+            PhotoPropriete photo = uow.PhotoProprieteRepository.GetByID(id);
+            String path = HttpContext.Server.MapPath("~/images/" + photo.Url);
+            if (System.IO.File.Exists(path))
+                System.IO.File.Delete(path);
+
+            uow.PhotoProprieteRepository.Delete(photo);
+            uow.Save();
+
+            return Json(id);
         }
 
 
