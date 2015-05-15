@@ -60,7 +60,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.AgentID }) |
-    @Html.ActionLink("Retour à la liste", "Index")
-</p>
+<div class="btn-group">
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.AgentID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Retourner à la liste", "Index", null, new { @class = "btn btn-default" })
+</div>

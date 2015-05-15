@@ -61,12 +61,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Supprimer" class="btn btn-primary" /> |
-            @Html.ActionLink("Retour à la liste", "Index")
+        <div class="form-actions btn-group">
+            <input type="submit" value="Supprimer" class="btn btn-primary" />
+            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>
