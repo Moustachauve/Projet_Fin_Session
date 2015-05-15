@@ -86,10 +86,10 @@
 	</div>
 }
 
-<p>
-	@Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }) |
-	@Html.ActionLink("Retour à la liste", "Index")
-</p>
+<div class="btn-group">
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Retourner à la liste", "Index", null, new { @class = "btn btn-default" })
+</div>
 
 @section Scripts {
 
