@@ -1,4 +1,5 @@
-﻿using System;
+﻿using photo_hdr_duval.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace photo_hdr_duval.Models
 
             [DataType(DataType.Date)]
             [Display(Name= "Date du rendez-vous")]
+			[DateLimite]
             public DateTime DateRDV { get; set; }
 
             [DataType(DataType.Time)]
