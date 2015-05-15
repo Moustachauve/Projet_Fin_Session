@@ -103,6 +103,19 @@ textarea {
     display:none;
 }
 
+.delete_image {
+    color:#fff;
+    position:absolute;
+    right:27px;
+    top:20px;
+    z-index:50;
+    text-shadow:2px 2px 2px #333;
+    display:none;
+}
+.delete_image:hover {
+    color:#CCC;
+    text-decoration:none;
+}
 
 .btn-file {
     position: relative;
