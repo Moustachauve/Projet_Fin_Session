@@ -143,3 +143,7 @@ textarea {
     cursor: inherit;
     display: block;
 }
+
+input, select, textarea {
+    max-width:100%;
+}

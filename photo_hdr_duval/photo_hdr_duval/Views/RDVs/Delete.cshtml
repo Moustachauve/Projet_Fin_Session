@@ -10,7 +10,7 @@
 <div>
     <h4>Rendez-vous:</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl>
         <dt>
             @Html.DisplayNameFor(model => model.DateDemande)
         </dt>
@@ -104,7 +104,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Forfait)
+            @Html.DisplayFor(model => model.Forfait.Nom)
         </dd>
 
     </dl>
@@ -113,9 +113,9 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Supprimer" class="btn btn-primary" /> |
-            @Html.ActionLink("Retour à la liste", "Index")
-        </div>
+    <div class="form-actions btn-group">
+        <input type="submit" value="Supprimer" class="btn btn-primary" />
+        @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+    </div>
     }
 </div>
