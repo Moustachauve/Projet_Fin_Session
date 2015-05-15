@@ -8,6 +8,7 @@ namespace photo_hdr_duval.DAL
 {
     public class AgentRepository : Repository<Agent>
     {
+        UnitOfWork uow = new UnitOfWork();
         public AgentRepository(H15_PROJET_E05_Context context)
 			: base(context)
 		{ }
@@ -56,6 +57,30 @@ namespace photo_hdr_duval.DAL
                     break;
             }
             return Get(orderBy: orderLambda);
+        }
+
+        public void EditWithEmails(Agent agent)
+        {
+            foreach (Email aEmail in agent.Emails)
+            {
+                bool exists = false;
+                //uow.EmailRepository.Delete(aEmail);
+                foreach (Email email in uow.EmailRepository.Get())
+                {
+                    if (aEmail.AgentID == email.AgentID && aEmail.Email1 == email.Email1)
+                    {
+                        uow.EmailRepository.Delete(email);
+                        exists = true;
+                        break;
+                    }
+                }
+                //if (exists == false)
+                {
+                    uow.EmailRepository.Insert(aEmail);
+                }
+                //uow.EmailRepository.Update(aEmail);
+            }
+            //Update(agent);
         }
     }
 }
