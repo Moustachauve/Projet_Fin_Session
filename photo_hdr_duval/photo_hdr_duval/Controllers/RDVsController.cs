@@ -47,6 +47,8 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
+			uow.RDVRepository.UpdateCoutTotal(rDV);
+			ViewBag.Taxes = uow.TaxRepository.Get();
             return View(rDV);
         }
 

@@ -100,20 +100,21 @@
             @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
         </dd>
 
-        @* Charles, ne met pas de truc qui ne fonctionne pas stp *@
-
-        @*@foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
+        @if (ViewBag.Taxes != null)
         {
+            foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
+            {
 
-            <dt>
-                @item.Nom
-            </dt>
+                <dt>
+                    @item.Nom
+                </dt>
 
-            <dd>
-                @item.PourcentageToString()
-            </dd>
+                <dd>
+                    @item.PourcentageToString()
+                </dd>
 
-        }*@
+            }
+        }
 
 		<dt>
 			@Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
