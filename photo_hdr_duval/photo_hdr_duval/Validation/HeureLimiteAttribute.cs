@@ -24,40 +24,36 @@ namespace photo_hdr_duval.Validation
 			RDV RdvCourant = (RDV)validationContext.ObjectInstance;
 			if (value != null && RdvCourant != null)
 			{
-				TimeSpan timeOfDay = (TimeSpan)value;
-				DateTime date = (DateTime)RdvCourant.DateRDV;
-				date.AddHours(timeOfDay.Hours).AddMinutes(timeOfDay.Minutes);
-				if (!Is4hoursApart(date))
+				if (!Is4hoursApart(RdvCourant, (TimeSpan)value))
 				{
 					var ErrorMessage = FormatErrorMessage(validationContext.DisplayName);
-					return new ValidationResult("Le rendez-vous doit avoir un minimum de 4 heures de différence avec les autres rendez-vous de la journée");
+					return new ValidationResult("*Il y a déjà un rendez-vous dans cette plage horaire");
 				}
 			}
 			return ValidationResult.Success;
 		}
 
-		private bool Is4hoursApart(DateTime dt) 
+		private bool Is4hoursApart(RDV rdvCourant, TimeSpan timeOfDay)
 		{
+
+
 			IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
 			bool IsValid = true;
-			foreach (RDV rdv in rdvs) 
+			foreach (RDV rdv in rdvs)
 			{
-				if (rdv != null) 
+				if (rdv != null && rdv.RDVID != rdvCourant.RDVID)
 				{
-					if (rdv.DateRDV != null)
+					if (rdv.DateRDV != null && rdv.HeureRDV != null)
 					{
+						DateTime dateCourante = (DateTime)rdvCourant.DateRDV;
+						dateCourante = dateCourante.AddHours(timeOfDay.Hours).AddMinutes(timeOfDay.Minutes);
 						DateTime tempDate = (DateTime)rdv.DateRDV;
-                        if (rdv.HeureRDV != null)
-                        {
-                            tempDate.Add((TimeSpan)rdv.HeureRDV);
-                            if (tempDate.DayOfYear == dt.DayOfYear)
-                            {
-                                if (tempDate.TimeOfDay >= dt.TimeOfDay.Subtract(new TimeSpan(4, 0, 0)) && tempDate.TimeOfDay <= dt.TimeOfDay.Add(new TimeSpan(4, 0, 0)))
-                                {
-                                    IsValid = false;
-                                }
-                            }
-                        }
+						tempDate = tempDate.Add((TimeSpan)rdv.HeureRDV);
+						TimeSpan fourHours = new TimeSpan(4, 0, 0);
+						if (tempDate.DayOfYear == dateCourante.DayOfYear)
+							if (tempDate.TimeOfDay >= dateCourante.TimeOfDay.Subtract(fourHours)
+								&& tempDate.TimeOfDay <= dateCourante.TimeOfDay.Add(fourHours))
+								IsValid = false;
 					}
 				}
 			}
