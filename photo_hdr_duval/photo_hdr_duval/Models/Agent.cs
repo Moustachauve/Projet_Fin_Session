@@ -16,7 +16,7 @@ namespace photo_hdr_duval.Models
     {
         public Agent()
         {
-            this.Emails = new HashSet<Email>();
+            this.RDVs = new HashSet<RDV>();
         }
     
         public int AgentID { get; set; }
@@ -27,7 +27,10 @@ namespace photo_hdr_duval.Models
         public string CodePostal { get; set; }
         public long TelPrincipal { get; set; }
         public Nullable<long> TelSecondaire { get; set; }
+        public string Email1 { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
     
-        public virtual ICollection<Email> Emails { get; set; }
+        public virtual ICollection<RDV> RDVs { get; set; }
     }
 }
