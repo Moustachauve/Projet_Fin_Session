@@ -69,10 +69,8 @@ namespace photo_hdr_duval.Controllers
                 int i = 1;
                 foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
                 {
-                    //FileStream file = new FileStream(photo.Url, )
                     string ext = System.IO.Path.GetExtension(photo.Url);
-                    zip.AddFile(Server.MapPath(photo.Url), photo.Url);
-                    //zip.AddEntry(((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext,"lul");
+                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
                     i++;
                 }
                 zip.Save(outputStream);
