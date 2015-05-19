@@ -150,6 +150,19 @@ input, select, textarea {
 	max-width: 100%;
 }
 
+.th-buttons {
+	width:265px;
+}
+
+.th-buttons-small {
+	width:180px;
+}
+
+
+.th-statut {
+	width:100px;
+}
+
 .statut {
 	display: block;
 	width: 90px;

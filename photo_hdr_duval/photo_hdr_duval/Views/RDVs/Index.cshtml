@@ -15,7 +15,7 @@
 		{
 			<tr>
                 @Html.Partial("../Shared/IndexTableDataRDVs", item)
-				<td class="text-right">
+				<td class="text-right th-buttons">
 					<div class="btn-group">
 						@Html.ActionLink("Détails", "Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
 						@Html.ActionLink("Modifier", "Edit", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
