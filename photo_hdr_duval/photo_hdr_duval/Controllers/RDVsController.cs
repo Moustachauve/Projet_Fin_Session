@@ -162,6 +162,23 @@ namespace photo_hdr_duval.Controllers
             return View(photo);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPhoto(PhotoPropriete photo)
+        {
+            if (ModelState.IsValid)
+            {
+                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.GetByID(photo.PhotoProprieteID);
+                vraiPhoto.DescriptionPhoto = photo.DescriptionPhoto;
+
+                uow.PhotoProprieteRepository.Update(vraiPhoto);
+                uow.Save();
+                return RedirectToAction("Details", new { id = vraiPhoto.RDVID });
+            }
+            return View(photo);
+        }
+
+
         public JsonResult DoUploadPhoto(int? id)
         {
             if (id == null)

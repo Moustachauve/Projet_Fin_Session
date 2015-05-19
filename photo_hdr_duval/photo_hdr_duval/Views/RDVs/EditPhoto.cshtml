@@ -9,7 +9,9 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.HiddenFor(model => model.PhotoProprieteID)
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.PhotoProprieteID)
@@ -29,8 +31,9 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-6">
-                <input type="submit" value="Enregistrer" class="btn btn-primary" />
+            <div class="col-md-offset-2 col-md-6 btn-group">
+                @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Sauvegarder" class="btn btn-primary" />
             </div>
         </div>
     </div>
