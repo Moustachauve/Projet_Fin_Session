@@ -6,24 +6,24 @@
 }
 
 <td>
-    @Html.DisplayFor(modelItem => item.NomAgent)
+    @Html.DisplayFor(modelItem => modelItem.NomAgent)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.PrenomAgent)
+    @Html.DisplayFor(modelItem => modelItem.PrenomAgent)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.NomEntreprise)
+    @Html.DisplayFor(modelItem => modelItem.NomEntreprise)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.Adresse)
+    @Html.DisplayFor(modelItem => modelItem.Adresse)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.TelPrincipal)
+    @Html.DisplayFor(modelItem => modelItem.TelPrincipal)
 </td>
 <td>
     @if (item.TelSecondaire > 0)
     {
-        Html.DisplayFor(modelItem => item.TelSecondaire);
+		Html.DisplayFor(modelItem => modelItem.TelSecondaire);
     }
     else
     {
