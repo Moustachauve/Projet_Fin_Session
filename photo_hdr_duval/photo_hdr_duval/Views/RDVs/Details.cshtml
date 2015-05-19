@@ -134,8 +134,8 @@
 
         <div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
             <div class="buttons">
-                @Html.ActionLink(" ", "DownloadPhoto", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
-                @Html.ActionLink(" ", "EditPhoto", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-pencil", title = "Modifier la photo" }) @*Modifier*@
+                @Html.ActionLink(" ", "DownloadPhoto", "PhotoProprietes", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
+                @Html.ActionLink(" ", "EditPhoto", "PhotoProprietes", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-pencil", title = "Modifier la photo" }) @*Modifier*@
                 <a href="#" class="glyphicon glyphicon-remove delete_image"></a>
             </div>
             <a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">

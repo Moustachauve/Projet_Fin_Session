@@ -125,6 +125,7 @@
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\DemandeRDVsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhotoProprietesController.cs" />
     <Compile Include="Controllers\RDVsController.cs" />
     <Compile Include="DAL\AgentRepository.cs" />
     <Compile Include="DAL\ForfaitRepository.cs" />
@@ -251,7 +252,7 @@
     <Content Include="Views\DemandeRDVs\Details.cshtml" />
     <Content Include="Views\DemandeRDVs\Edit.cshtml" />
     <Content Include="Views\DemandeRDVs\Index.cshtml" />
-    <Content Include="Views\RDVs\UploadPhoto.cshtml" />
+    <Content Include="Views\PhotoProprietes\UploadPhoto.cshtml" />
     <Content Include="Views\Agents\Create.cshtml" />
     <Content Include="Views\Agents\Delete.cshtml" />
     <Content Include="Views\Agents\Details.cshtml" />
@@ -265,8 +266,7 @@
     <Content Include="Views\Shared\IndexTableHeaderAgents.cshtml" />
     <Content Include="Views\Shared\IndexTableHeaderRDVs.cshtml" />
     <Content Include="Views\Shared\RDVStatut.cshtml" />
-    <Content Include="Views\RDVs\EditPhoto.cshtml" />
-    <Content Include="Views\RDVs\DeletePhoto.cshtml" />
+    <Content Include="Views\PhotoProprietes\EditPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
