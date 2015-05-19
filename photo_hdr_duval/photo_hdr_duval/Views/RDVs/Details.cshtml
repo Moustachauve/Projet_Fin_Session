@@ -3,7 +3,7 @@
 @{
 	ViewBag.Title = "Details";
 }
-<h2>Rendez-vous avec @Html.DisplayFor(model => model.NomProprietaire), @Html.DisplayFor(model => model.PrenomProprietaire) <div class="label label-danger pull-right">Demandée</div></h2>
+<h2>Rendez-vous avec @Html.DisplayFor(model => model.NomProprietaire), @Html.DisplayFor(model => model.PrenomProprietaire) <div class="pull-right">@Html.Partial("RDVStatut", Model.Statuts.First())</div></h2>
 @if (Model.DateRDV != null)
 {
 	<h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>

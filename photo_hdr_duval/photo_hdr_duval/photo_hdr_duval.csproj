@@ -262,6 +262,7 @@
     <Content Include="Views\Shared\IndexTableDataRDVs.cshtml" />
     <Content Include="Views\Shared\IndexTableHeaderAgents.cshtml" />
     <Content Include="Views\Shared\IndexTableHeaderRDVs.cshtml" />
+    <Content Include="Views\Shared\RDVStatut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

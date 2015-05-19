@@ -14,6 +14,6 @@
     @Html.DisplayFor(modelItem => item.NomProprietaire), @Html.DisplayFor(modelItem => item.PrenomProprietaire)
 </td>
 <td>
-    <h4 style="margin:0; margin-top:3px;"><span class="label label-danger">Demandée</span></h4>
+    @Html.Partial("RDVStatut", item.Statuts.First())
 </td>
 

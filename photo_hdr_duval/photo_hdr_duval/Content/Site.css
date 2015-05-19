@@ -152,17 +152,14 @@ input, select, textarea {
 
 .statut {
 	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
 	text-align: center;
 	font-weight: bold;
-	border-radius: 0.25em;
 	color: #ffffff;
-}
-
-.statut-small {
-	width: 90px;
-	height: 32px;
-	font-size: 14px;
-	line-height: 30px;
+	border-radius: 0.25em;
 }
 
 .Demandée {
