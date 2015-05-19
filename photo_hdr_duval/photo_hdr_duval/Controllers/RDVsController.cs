@@ -194,10 +194,13 @@ namespace photo_hdr_duval.Controllers
                 return HttpNotFound();
             }
 
-            string path = Server.MapPath("~/Images/" + photo.Url);
+            string path = Server.MapPath(photo.Url);
             string mime = MimeMapping.GetMimeMapping(path);
 
-            return File(path, mime);
+            string date = ((DateTime)photo.RDV.DateRDV).ToShortDateString();
+            string ext = System.IO.Path.GetExtension(path);
+
+            return File(path, mime, date + "_" + photo.PhotoProprieteID + ext);
         }
 
         public JsonResult DoUploadPhoto(int? id)
