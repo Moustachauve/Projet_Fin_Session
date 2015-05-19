@@ -14,8 +14,7 @@
 		@foreach (var item in Model)
 		{
 			<tr>
-                @{ViewBag.item = item;}
-                @Html.Partial("../Shared/IndexTableDataRDVs")
+                @Html.Partial("../Shared/IndexTableDataRDVs", item)
 				<td class="text-right">
 					<div class="btn-group">
 						@Html.ActionLink("Détails", "Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })

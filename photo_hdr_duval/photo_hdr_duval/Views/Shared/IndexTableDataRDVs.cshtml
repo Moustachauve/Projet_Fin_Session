@@ -1,7 +1,6 @@
-﻿
+﻿@model photo_hdr_duval.Models.RDV
 @{
     ViewBag.Title = "IndexTableDataRDVs";
-    photo_hdr_duval.Models.RDV item = ViewBag.item;
 }
 
 <td>
@@ -14,6 +13,6 @@
     @Html.DisplayFor(modelItem => modelItem.NomProprietaire), @Html.DisplayFor(modelItem => modelItem.PrenomProprietaire)
 </td>
 <td>
-    @Html.Partial("RDVStatut", modelItem.Statuts.First())
+    @Html.Partial("RDVStatut", Model.Statuts.First())
 </td>
 

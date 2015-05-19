@@ -1,8 +1,6 @@
-﻿@model IEnumerable<photo_hdr_duval.Models.Agent>
+﻿@model photo_hdr_duval.Models.Agent
 @{
     ViewBag.Title = "IndexTableDataRDVs";
-
-    photo_hdr_duval.Models.Agent item = ViewBag.Agent;
 }
 
 <td>
@@ -21,7 +19,7 @@
     @Html.DisplayFor(modelItem => modelItem.TelPrincipal)
 </td>
 <td>
-    @if (item.TelSecondaire > 0)
+    @if (Model.TelSecondaire > 0)
     {
 		Html.DisplayFor(modelItem => modelItem.TelSecondaire);
     }

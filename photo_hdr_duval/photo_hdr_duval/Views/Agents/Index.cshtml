@@ -13,8 +13,7 @@
     @foreach (photo_hdr_duval.Models.Agent item in Model)
     {
         <tr>
-            @{ViewBag.Agent = item;}
-            @Html.Partial("../Shared/IndexTableDataAgents")
+            @Html.Partial("../Shared/IndexTableDataAgents", item)
 			<td class ="text-right">
 				<div class="btn-group">
 					@Html.ActionLink("Détails", "Details", new { id = item.AgentID }, new { @class = "btn btn-primary btn-sm" })
