@@ -36,7 +36,7 @@ namespace photo_hdr_duval.Models
 
             [Required]
             [DataType(DataType.PhoneNumber)]
-            [Display(Name = "Téléphone principal*")]
+            [Display(Name = "Téléphone principal")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelPrincipal { get; set; }
 
@@ -44,6 +44,16 @@ namespace photo_hdr_duval.Models
             [Display(Name = "Téléphone secondaire")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelSecondaire { get; set; }
+
+            [Required]
+            [Display(Name = "Email principal")]
+            public string Email1 { get; set; }
+
+            [Display(Name = "Email secondaire 1")]
+            public string Email2 { get; set; }
+
+            [Display(Name = "Email secondaire 2")]
+            public string Email3 { get; set; }
 
         }
     }
