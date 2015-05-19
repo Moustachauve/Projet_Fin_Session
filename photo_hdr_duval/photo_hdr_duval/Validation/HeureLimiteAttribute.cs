@@ -24,9 +24,9 @@ namespace photo_hdr_duval.Validation
 			RDV RdvCourant = (RDV)validationContext.ObjectInstance;
 			if (value != null && RdvCourant != null)
 			{
-				DateTime timeOfDay = (DateTime)value;
+				TimeSpan timeOfDay = (TimeSpan)value;
 				DateTime date = (DateTime)RdvCourant.DateRDV;
-				date.AddHours(timeOfDay.Hour).AddMinutes(timeOfDay.Minute);
+				date.AddHours(timeOfDay.Hours).AddMinutes(timeOfDay.Minutes);
 				if (!Is4hoursApart(date))
 				{
 					var ErrorMessage = FormatErrorMessage(validationContext.DisplayName);
@@ -39,15 +39,21 @@ namespace photo_hdr_duval.Validation
 		private bool Is4hoursApart(DateTime dt) 
 		{
 			IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
-			bool IsValid = false;
+			bool IsValid = true;
 			foreach (RDV rdv in rdvs) 
 			{
-				DateTime tempDate = (DateTime)rdv.DateRDV;
-				if (tempDate.DayOfYear == dt.DayOfYear) 
+				if (rdv != null) 
 				{
-					if (tempDate.TimeOfDay <= dt.TimeOfDay.Subtract(new TimeSpan(4, 0, 0)) || tempDate.TimeOfDay >= dt.TimeOfDay.Add(new TimeSpan(4, 0, 0)))
+					if (rdv.DateRDV != null)
 					{
-						IsValid =  true;
+						DateTime tempDate = (DateTime)rdv.DateRDV;
+						if (tempDate.DayOfYear == dt.DayOfYear)
+						{
+							if (tempDate.TimeOfDay >= dt.TimeOfDay.Subtract(new TimeSpan(4, 0, 0)) && tempDate.TimeOfDay <= dt.TimeOfDay.Add(new TimeSpan(4, 0, 0)))
+							{
+								IsValid = false;
+							}
+						}
 					}
 				}
 			}

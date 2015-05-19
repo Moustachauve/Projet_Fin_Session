@@ -55,6 +55,7 @@ namespace photo_hdr_duval.Controllers
         // GET: RDVs/Create
         public ActionResult Create()
         {
+			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent");
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View();
         }
@@ -64,7 +65,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,VisiteVirtuelle,Deplacement,CodePostal,Agent,AgentID")] RDV rDV)
+        public ActionResult Create([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,VisiteVirtuelle,Deplacement,CodePostal,AgentID")] RDV rDV)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +76,7 @@ namespace photo_hdr_duval.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
+			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent",rDV.AgentID);
             return View(rDV);
         }
 
@@ -90,6 +92,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
+			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View(rDV);
         }
@@ -99,7 +102,7 @@ namespace photo_hdr_duval.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,VisiteVirtuelle,Deplacement,CodePostal,DateDemande")] RDV rDV)
+        public ActionResult Edit([Bind(Include = "RDVID,DateRDV,HeureRDV,Commentaire,NomProprietaire,PrenomProprietaire,TelPrincipalProprietaire,TelSecondaire,AdressePropriete,EmailProprietaire,ForfaitID,Ville,VisiteVirtuelle,Deplacement,CodePostal,DateDemande,AgentID")] RDV rDV)
         {
             if (ModelState.IsValid)
             {
@@ -109,6 +112,7 @@ namespace photo_hdr_duval.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
+			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             return View(rDV);
         }
 

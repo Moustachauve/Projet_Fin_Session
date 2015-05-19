@@ -21,6 +21,7 @@ namespace photo_hdr_duval.Models
 
             [DataType(DataType.Time)]
             [Display(Name = "Heure")]
+			[HeureLimite]
             public DateTime HeureRDV { get; set; }
 
             [DataType(DataType.MultilineText)]
