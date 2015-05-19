@@ -152,39 +152,36 @@ namespace photo_hdr_duval.Controllers
             return View(rDV);
         }
 
-        /*[HttpPost]
-        public ActionResult UploadPhoto(int? id, HttpPostedFileBase[] files)
+        public ActionResult EditPhoto(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            DirectoryInfo imageFolderPath = createImageRepo((int)id);
-
-
-            //try
-            //{
-            foreach (HttpPostedFileBase file in files)
+            PhotoPropriete photo = uow.PhotoProprieteRepository.GetByID((int)id);
+            if (photo == null)
             {
-                string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
-
-                file.SaveAs(imageFolderPath + "/" + filename);
-                string fullPath = id + "/" + filename;
-                uow.PhotoProprieteRepository.Insert(new PhotoPropriete() { Url = fullPath, RDVID = (int)id });
+                return HttpNotFound();
             }
+            return View(photo);
+        }
 
-            uow.Save();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPhoto(PhotoPropriete photo)
+        {
+            if (ModelState.IsValid)
+            {
+                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.GetByID(photo.PhotoProprieteID);
+                vraiPhoto.DescriptionPhoto = photo.DescriptionPhoto;
 
-            ViewBag.Message = "Les images ont été téléverser avec succès.";
-            //}
-            //catch
-            //{
-            //    throw;
-            //    //ViewBag.Message = "Une erreur est survenue.";
-            //}
-            return View();
-        }*/
+                uow.PhotoProprieteRepository.Update(vraiPhoto);
+                uow.Save();
+                return RedirectToAction("Details", new { id = vraiPhoto.RDVID });
+            }
+            return View(photo);
+        }
+
 
         public JsonResult DoUploadPhoto(int? id)
         {

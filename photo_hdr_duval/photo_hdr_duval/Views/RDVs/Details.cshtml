@@ -1,53 +1,53 @@
 ﻿@model photo_hdr_duval.Models.RDV
 
 @{
-	ViewBag.Title = "Details";
+    ViewBag.Title = "Details";
 }
 <h2>Rendez-vous avec @Html.DisplayFor(model => model.NomProprietaire), @Html.DisplayFor(model => model.PrenomProprietaire) <div class="pull-right">@Html.Partial("RDVStatut", Model.Statuts.First())</div></h2>
 @if (Model.DateRDV != null)
 {
-	<h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
+    <h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
 }
 <hr />
 
 <div>
-	<h3>Informations de contact:</h3>
-	<dl>
+    <h3>Informations de contact:</h3>
+    <dl>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.EmailProprietaire)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailProprietaire)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.EmailProprietaire)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.EmailProprietaire)
+        </dd>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.TelPrincipalProprietaire)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.TelPrincipalProprietaire)
+        </dd>
 
-		@if (Model.TelSecondaire != null)
-		{
-			<dt>
-				@Html.DisplayNameFor(model => model.TelSecondaire)
-			</dt>
+        @if (Model.TelSecondaire != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.TelSecondaire)
+            </dt>
 
-			<dd>
-				@Html.DisplayFor(model => model.TelSecondaire)
-			</dd>
-		}
-        
-		<dt>
-			@Html.DisplayNameFor(model => model.AdressePropriete)
-		</dt>
+            <dd>
+                @Html.DisplayFor(model => model.TelSecondaire)
+            </dd>
+        }
 
-		<dd>
-			@Html.DisplayFor(model => model.AdressePropriete)
-		</dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdressePropriete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdressePropriete)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.CodePostal)
@@ -57,40 +57,40 @@
             @Html.DisplayFor(model => model.CodePostal)
         </dd>
 
-		@if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-		{
-			<dt>
-				@Html.DisplayNameFor(model => model.Commentaire)
-			</dt>
+        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Commentaire)
+            </dt>
 
-			<dd>
-				@Html.DisplayFor(model => model.Commentaire)
-			</dd>
-		}
+            <dd>
+                @Html.DisplayFor(model => model.Commentaire)
+            </dd>
+        }
 
-		<dt>
-			@Html.DisplayNameFor(model => model.Forfait.Prix)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Forfait.Prix)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.Forfait.Prix)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.Forfait.Prix)
+        </dd>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.Deplacement)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Deplacement)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.Deplacement)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.Deplacement)
+        </dd>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.VisiteVirtuelle)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.VisiteVirtuelle)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.VisiteVirtuelle)
-		</dd>
+        <dd>
+            @Html.DisplayFor(model => model.VisiteVirtuelle)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.CoutTotalAvantTaxes)
@@ -116,34 +116,33 @@
             }
         }
 
-		<dt>
-			@Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
-		</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
+        </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.CoutTotalApresTaxes)
-		</dd>
-	</dl>
+        <dd>
+            @Html.DisplayFor(model => model.CoutTotalApresTaxes)
+        </dd>
+    </dl>
 </div>
 
 <div class="row" id="photo_gallery">
-	<h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "RDVs", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
-	@foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
-	{
-		string chemin = @Url.Content("~/Images/" + photo.Url);
+    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "RDVs", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
+    @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
+    {
+        string chemin = @Url.Content("~/Images/" + photo.Url);
 
-		<div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
+        <div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
             <div class="buttons">
-                <a href="#" class="glyphicon glyphicon-save"></a>
-                <a href="#" class="glyphicon glyphicon-pencil delete_image"></a>
+                @Html.ActionLink(" ", "#", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
+                @Html.ActionLink(" ", "EditPhoto", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-pencil", title = "Modifier la photo" }) @*Modifier*@
                 <a href="#" class="glyphicon glyphicon-remove delete_image"></a>
             </div>
-			<a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
-				<!--@Html.ActionLink("X", "DeletePhoto", "RDVs", new {id = photo.PhotoProprieteID }, new { @class = "btn btn-danger pull-right" })-->
-				<img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
-			</a>
-		</div>
-	}
+            <a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
+                <img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
+            </a>
+        </div>
+    }
 </div>
 <hr />
 <div class="btn-group">
@@ -154,7 +153,7 @@
 
 @section Scripts {
 
-	@Scripts.Render("~/Scripts/ekko-lightbox.js")
-	@Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
+    @Scripts.Render("~/Scripts/ekko-lightbox.js")
+    @Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
     @Scripts.Render("~/Scripts/jquery.image-buttons.js")
 }
