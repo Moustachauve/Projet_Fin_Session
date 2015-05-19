@@ -182,6 +182,23 @@ namespace photo_hdr_duval.Controllers
             return View(photo);
         }
 
+        public ActionResult DownloadPhoto(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PhotoPropriete photo = uow.PhotoProprieteRepository.GetByID((int)id);
+            if (photo == null)
+            {
+                return HttpNotFound();
+            }
+
+            string path = Server.MapPath("~/Images/" + photo.Url);
+            string mime = MimeMapping.GetMimeMapping(path);
+
+            return File(path, mime);
+        }
 
         public JsonResult DoUploadPhoto(int? id)
         {
@@ -205,7 +222,7 @@ namespace photo_hdr_duval.Controllers
                 string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
 
                 file.SaveAs(imageFolderPath + "/" + filename);
-                string fullPath = id + "/" + filename;
+                string fullPath = "~/Images/" + id + "/" + filename;
                 uow.PhotoProprieteRepository.Insert(new PhotoPropriete() { Url = fullPath, RDVID = (int)id });
             }
 

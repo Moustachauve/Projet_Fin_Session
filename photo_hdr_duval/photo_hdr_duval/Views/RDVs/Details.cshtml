@@ -130,11 +130,11 @@
     <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "RDVs", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
     @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
     {
-        string chemin = @Url.Content("~/Images/" + photo.Url);
+        string chemin = @Url.Content(photo.Url);
 
         <div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
             <div class="buttons">
-                @Html.ActionLink(" ", "#", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
+                @Html.ActionLink(" ", "DownloadPhoto", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
                 @Html.ActionLink(" ", "EditPhoto", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-pencil", title = "Modifier la photo" }) @*Modifier*@
                 <a href="#" class="glyphicon glyphicon-remove delete_image"></a>
             </div>
