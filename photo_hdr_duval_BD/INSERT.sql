@@ -11,17 +11,19 @@ GO
 
 --Agent.Agent
 INSERT INTO Agent.Agents VALUES
-('Monette','Jamy-jeff', 'société 1', '123 une adresse','H0H 0H0', '1231231234', NULL),
-('Despins','Francis', '1 société', '321 adresse une','H0H 0H0', '4321321321', NULL),
-('Fortier','Kevin', 'société 2', '472 rue secondaire','H0H 0H0', '7531594862', NULL)
+('Monette','Jamy-jeff', 'société 1', '123 une adresse','H0H 0H0', '1231231234', NULL, 'jjeff@hotmail.com', NULL, NULL),
+('Despins','Francis', '1 société', '321 adresse une','H0H 0H0', '4321321321', NULL, 'francisDespins@hotmail.com', 'FrancisCool123@hotmail.com', NULL),
+('Fortier','Kevin', 'société 2', '472 rue secondaire','H0H 0H0', '7531594862', NULL, 'KevinFortier@hotmail.com', NULL, NULL)
 GO
 
 --Agent.Emails
-INSERT INTO Agent.Emails VALUES
-('jjeff@hotmail.com', 1, 1),
-('francisDespins@hotmail.com', 2, 1),
-('FrancisCool123@hotmail.com', 2, 0),
-('KevinFortier@hotmail.com', 3, 1)
+/*
+	INSERT INTO Agent.Emails VALUES
+	('jjeff@hotmail.com', 1, 1),
+	('francisDespins@hotmail.com', 2, 1),
+	('FrancisCool123@hotmail.com', 2, 0),
+	('KevinFortier@hotmail.com', 3, 1)
+*/
 
 --RDV.RDVs
 --DELETE FROM RDV.Statuts

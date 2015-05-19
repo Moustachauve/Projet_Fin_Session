@@ -45,7 +45,7 @@ CREATE TABLE RDV.RDVs(
 	CoutTotalApresTaxes MONEY NOT NULL DEFAULT 0,
 	Deplacement MONEY NOT NULL DEFAULT 0,
 	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
-	DateFacturation DATE NULL,					--AJOUT DU 2015-05-13, PERMET DE METTRE LE STATUT À FACTURÉE
+	DateFacturation DATE NULL,						--AJOUT DU 2015-05-13, PERMET DE METTRE LE STATUT À FACTURÉE
 	DateLivraison DATE NULL,
 	AgentID int NOT NULL
 
@@ -63,15 +63,17 @@ CREATE TABLE Agent.Agents(
 	Adresse NVARCHAR(50) NOT NULL,
 	CodePostal NVARCHAR(7) NOT NULL,
 	TelPrincipal BIGINT NOT NULL,
-	TelSecondaire BIGINT NULL
-
+	TelSecondaire BIGINT NULL,
+	Email1 NVARCHAR(30) NOT NULL,
+	Email2 NVARCHAR(30) NULL,
+	Email3 NVARCHAR(30) NULL,
 	PRIMARY KEY (AgentID)
 ) ON [PRIMARY];
 GO
 
 --Agent.Emails
 -------------------------------------------------------------------  --DROP TABLE Agent.Emails
-CREATE TABLE Agent.Emails(
+/*CREATE TABLE Agent.Emails(
 	EmailID int NOT NULL IDENTITY,
 	Email NVARCHAR(50) NOT NULL,
 	AgentID INT NOT NULL,
@@ -79,7 +81,7 @@ CREATE TABLE Agent.Emails(
 
 	PRIMARY KEY (EmailID)
 ) ON [PRIMARY]
-GO
+GO*/
 
 --RDV.PhotoProprietes
 -------------------------------------------------------------------  --DROP TABLE RDV.PhotoProprietes
@@ -123,11 +125,12 @@ ALTER TABLE RDV.RDVs
 	ADD CONSTRAINT FK_RDVs_Forfaits_ForfaitID
 	FOREIGN KEY (ForfaitID) 
 	REFERENCES RDV.Forfaits
-	
+/*
 ALTER TABLE Agent.Emails
 	ADD CONSTRAINT FK_Agent_Emails_EmailID
 	FOREIGN KEY (AgentID)
 	REFERENCES Agent.Agents
+*/
 
 ALTER TABLE RDV.PhotoProprietes
 	ADD CONSTRAINT FK_RDVs_PhotoPropriete_RDVID
