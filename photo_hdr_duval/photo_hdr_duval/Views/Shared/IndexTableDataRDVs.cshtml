@@ -5,15 +5,15 @@
 }
 
 <td>
-    @Html.DisplayFor(modelItem => item.DateDemande)
+    @Html.DisplayFor(modelItem => modelItem.DateDemande)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.DateRDV) @Html.DisplayFor(modelItem => item.HeureRDV)
+    @Html.DisplayFor(modelItem => modelItem.DateRDV) @Html.DisplayFor(modelItem => modelItem.HeureRDV)
 </td>
 <td>
-    @Html.DisplayFor(modelItem => item.NomProprietaire), @Html.DisplayFor(modelItem => item.PrenomProprietaire)
+    @Html.DisplayFor(modelItem => modelItem.NomProprietaire), @Html.DisplayFor(modelItem => modelItem.PrenomProprietaire)
 </td>
 <td>
-    @Html.Partial("RDVStatut", item.Statuts.First())
+    @Html.Partial("RDVStatut", modelItem.Statuts.First())
 </td>
 
