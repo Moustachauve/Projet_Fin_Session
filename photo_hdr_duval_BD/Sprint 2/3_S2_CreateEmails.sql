@@ -1,22 +1,8 @@
 USE [H15_PROJET_E05]
 GO
---Agent
--------
-CREATE TABLE Agent.Agent(
-	AgentID INT NOT NULL IDENTITY,
-	NomPrenomAgent NVARCHAR(50) NOT NULL,
-	NomEntreprise NVARCHAR(50) NOT NULL,
-	Adresse NVARCHAR(50) NOT NULL,
-	TelPrincipal BIGINT NOT NULL,
-	TelSecondaire BIGINT NOT NULL
-
-	PRIMARY KEY (AgentID)
-) ON [PRIMARY];
-GO
-
 
 --Emails
---------
+---------------------------------------------------------------
 CREATE TABLE Agent.Emails(
 	EmailID int NOT NULL IDENTITY,
 	Email NVARCHAR(50) NOT NULL,

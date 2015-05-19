@@ -39,7 +39,7 @@ AS
 
 	--SET NouveauStatut à Livré
 	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Livré'
+		SET @NouveauStatut = 'Livrée'
 	END
 	
 	--SET NouveauStatut à Facturée
@@ -136,7 +136,6 @@ BEGIN
 	RETURN @CoutTotalAvantTaxes
 END
 
-
 GO
 CREATE FUNCTION RDV.udf_CoutTotalApresTaxes (
 	@RDVID AS INT
@@ -165,13 +164,18 @@ GO
 --SELECT RDVID, NomProprietaire + ', '+ PrenomProprietaire AS 'Nom, Prénom', RDV.udf_CoutTotalAvantTaxes(RDVID) AS 'Cout Avant Taxes', RDV.udf_CoutTotalApresTaxes(RDVID) AS 'Cout Après Taxes', Deplacement, VisiteVirtuelle FROM RDV.RDVs
 GO
 
+-- DROP PROCEDURE Agent.RapportMensuel
+
 CREATE PROCEDURE Agent.RapportMensuel
 @mois int,
 @année int
 AS
 BEGIN
-	select a.AgentID, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise
+	select r.DateDemande, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalAvantTaxes, r.Deplacement, r.VisiteVirtuelle , r.CoutTotalApresTaxes
 	from RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
 	WHERE	YEAR(r.DateFacturation) = @année AND
 			MONTH(r.DateFacturation) = @mois
+	ORDER BY a.NomAgent, a.PrenomAgent
 END
+
+EXEC Agent.RapportMensuel @mois = 05, @année = 2015

@@ -8,7 +8,6 @@ CREATE TABLE RDV.Statut(
 	StatutID INT NOT NULL IDENTITY,
 	DateModification DATETIME NOT NULL DEFAULT(GETDATE()), 
 	DescriptionStatut NVARCHAR(50) NOT NULL,
-	Statut INT NOT NULL,
 	RDVID INT NOT NULL
 
 	PRIMARY KEY (StatutID)
@@ -18,10 +17,10 @@ CREATE TABLE RDV.Statut(
 --Foreign Keys
 -------------------------------------------------------------------
 
-ALTER TABLE RDV.Statut
+ALTER TABLE RDV.Statuts
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
-	FOREIGN KEY (StatutID)
-	REFERENCES RDV.RDVs
+	FOREIGN KEY (RDVID)
+	REFERENCES RDV.RDVs (RDVID)
 
 /*ANCIEN STATUT
 USE [H15_PROJET_E05]

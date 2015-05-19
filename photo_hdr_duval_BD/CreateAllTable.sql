@@ -73,15 +73,17 @@ GO
 
 --Agent.Emails
 -------------------------------------------------------------------  --DROP TABLE Agent.Emails
-/*CREATE TABLE Agent.Emails(
-	EmailID int NOT NULL IDENTITY,
-	Email NVARCHAR(50) NOT NULL,
-	AgentID INT NOT NULL,
-	IsPrimary Bit NOT NULL DEFAULT 0
+/*
+	CREATE TABLE Agent.Emails(
+		EmailID int NOT NULL IDENTITY,
+		Email NVARCHAR(50) NOT NULL,
+		AgentID INT NOT NULL,
+		IsPrimary Bit NOT NULL DEFAULT 0
 
-	PRIMARY KEY (EmailID)
-) ON [PRIMARY]
-GO*/
+		PRIMARY KEY (EmailID)
+	) ON [PRIMARY]
+	GO
+*/
 
 --RDV.PhotoProprietes
 -------------------------------------------------------------------  --DROP TABLE RDV.PhotoProprietes
