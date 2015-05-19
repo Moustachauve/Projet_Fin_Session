@@ -74,10 +74,12 @@ namespace photo_hdr_duval.Models
 			[DisplayFormat(DataFormatString = "{0:c2}")]
 			public decimal CoutTotalApresTaxes { get; set; }
 
+            [DataType(DataType.Currency)]
 			[Display(Name = "Coût de déplacement")]
 			[DisplayFormat(DataFormatString = "{0:c2}")]
 			public decimal Deplacement { get; set; }
 
+            [DataType(DataType.Currency)]
 			[Display(Name = "Coût de la visite virtuelle")]
 			[DisplayFormat(DataFormatString = "{0:c2}")]
 			public decimal VisiteVirtuelle { get; set; }
