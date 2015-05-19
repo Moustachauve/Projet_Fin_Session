@@ -148,39 +148,19 @@ namespace photo_hdr_duval.Controllers
             return View(rDV);
         }
 
-        /*[HttpPost]
-        public ActionResult UploadPhoto(int? id, HttpPostedFileBase[] files)
+        public ActionResult EditPhoto(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            DirectoryInfo imageFolderPath = createImageRepo((int)id);
-
-
-            //try
-            //{
-            foreach (HttpPostedFileBase file in files)
+            PhotoPropriete photo = uow.PhotoProprieteRepository.GetByID((int)id);
+            if (photo == null)
             {
-                string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
-
-                file.SaveAs(imageFolderPath + "/" + filename);
-                string fullPath = id + "/" + filename;
-                uow.PhotoProprieteRepository.Insert(new PhotoPropriete() { Url = fullPath, RDVID = (int)id });
+                return HttpNotFound();
             }
-
-            uow.Save();
-
-            ViewBag.Message = "Les images ont été téléverser avec succès.";
-            //}
-            //catch
-            //{
-            //    throw;
-            //    //ViewBag.Message = "Une erreur est survenue.";
-            //}
-            return View();
-        }*/
+            return View(photo);
+        }
 
         public JsonResult DoUploadPhoto(int? id)
         {

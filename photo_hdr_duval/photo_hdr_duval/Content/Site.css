@@ -198,3 +198,8 @@ input, select, textarea {
 .Facturée {
 	background-color: #83a0b6;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}

@@ -260,6 +260,8 @@
     <Content Include="Views\Shared\IndexTableHeaderAgents.cshtml" />
     <Content Include="Views\Shared\IndexTableHeaderRDVs.cshtml" />
     <Content Include="Views\Shared\RDVStatut.cshtml" />
+    <Content Include="Views\RDVs\EditPhoto.cshtml" />
+    <Content Include="Views\RDVs\DeletePhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
