@@ -68,7 +68,7 @@
 		}
 	</dl>
 </div>
-
+@Html.ActionLink("Télécharger tout", "Download", new { id = Model.RDVID }, new { @class = "btn btn-primary" })
 @if (Model.PhotoProprietes != null && Model.PhotoProprietes.Count > 0)
 {
 	<div class="row">

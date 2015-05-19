@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using photo_hdr_duval.Models;
 using photo_hdr_duval.DAL;
+using System.IO;
+using System.IO.Compression;
+using Ionic.Zip;
+using System.Drawing;
 
 namespace photo_hdr_duval.Controllers
 {
@@ -44,6 +48,38 @@ namespace photo_hdr_duval.Controllers
                 return HttpNotFound();
             }
             return View(rDV);
+        }
+
+        public ActionResult Download(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
+            if (rDV == null)
+            {
+                return HttpNotFound();
+            }
+
+            var outputStream = new MemoryStream();
+
+            using (var zip = new ZipFile())
+            {
+                int i = 1;
+                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
+                {
+                    //FileStream file = new FileStream(photo.Url, )
+                    string ext = System.IO.Path.GetExtension(photo.Url);
+                    zip.AddFile(Server.MapPath(photo.Url), photo.Url);
+                    //zip.AddEntry(((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext,"lul");
+                    i++;
+                }
+                zip.Save(outputStream);
+            }
+
+            outputStream.Position = 0;
+            return File(outputStream, "application/zip", "photo.zip");
         }
 
         // GET: DemandeRDVs/Create

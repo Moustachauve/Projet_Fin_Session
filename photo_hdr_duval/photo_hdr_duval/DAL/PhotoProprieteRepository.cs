@@ -17,5 +17,10 @@ namespace photo_hdr_duval.DAL
         {
             return base.GetByID(id);
         }
+
+        public IEnumerable<PhotoPropriete> GetForRDV(int rdvID)
+        {
+            return Get(filter: x => x.RDVID == rdvID);
+        }
     }
 }
