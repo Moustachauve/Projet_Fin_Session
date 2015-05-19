@@ -47,13 +47,17 @@ namespace photo_hdr_duval.Validation
 					if (rdv.DateRDV != null)
 					{
 						DateTime tempDate = (DateTime)rdv.DateRDV;
-						if (tempDate.DayOfYear == dt.DayOfYear)
-						{
-							if (tempDate.TimeOfDay >= dt.TimeOfDay.Subtract(new TimeSpan(4, 0, 0)) && tempDate.TimeOfDay <= dt.TimeOfDay.Add(new TimeSpan(4, 0, 0)))
-							{
-								IsValid = false;
-							}
-						}
+                        if (rdv.HeureRDV != null)
+                        {
+                            tempDate.Add((TimeSpan)rdv.HeureRDV);
+                            if (tempDate.DayOfYear == dt.DayOfYear)
+                            {
+                                if (tempDate.TimeOfDay >= dt.TimeOfDay.Subtract(new TimeSpan(4, 0, 0)) && tempDate.TimeOfDay <= dt.TimeOfDay.Add(new TimeSpan(4, 0, 0)))
+                                {
+                                    IsValid = false;
+                                }
+                            }
+                        }
 					}
 				}
 			}
