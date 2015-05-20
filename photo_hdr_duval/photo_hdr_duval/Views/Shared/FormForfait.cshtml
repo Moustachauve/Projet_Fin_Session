@@ -1,18 +1,18 @@
-﻿@model photo_hdr_duval.Models.RDV
+﻿@model photo_hdr_duval.Models.Forfait
 @{
     ViewBag.Title = "FormForfait";
 }
 
 <div class="form-group">
-    @Html.LabelFor(model => model.Forfait, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.LabelFor(model => model.ForfaitID, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-6">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th></th>
-                    <th>@Html.DisplayNameFor(x => x.Forfait.Nom)</th>
-                    <th>@Html.DisplayNameFor(x => x.Forfait.DescriptionForfait)</th>
-                    <th>@Html.DisplayNameFor(x => x.Forfait.Prix)</th>
+                    <th>@Html.DisplayNameFor(x => x.Nom)</th>
+                    <th>@Html.DisplayNameFor(x => x.DescriptionForfait)</th>
+                    <th>@Html.DisplayNameFor(x => x.Prix)</th>
                 </tr>
             </thead>
             <tbody>

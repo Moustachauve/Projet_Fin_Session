@@ -18,7 +18,7 @@
             @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), "Index", new { sortString = "NomProprietaire", asc = futureAsc })
         </th>
         <th class="th-statut">
-            État
+            @Html.ActionLink("Status" + (ViewBag.orderBy == "Status" ? arrow : ""), "Index", new { sortString = "Status", asc = futureAsc })
         </th>
         <th></th>
     </tr>
