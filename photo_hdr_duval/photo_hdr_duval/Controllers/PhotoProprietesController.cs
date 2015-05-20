@@ -149,11 +149,8 @@ namespace photo_hdr_duval.Controllers
             }
 
             PhotoPropriete photo = uow.PhotoProprieteRepository.GetByID(id);
-            String path = HttpContext.Server.MapPath("~/images/" + photo.Url);
-            if (System.IO.File.Exists(path))
-                System.IO.File.Delete(path);
 
-            uow.PhotoProprieteRepository.Delete(photo);
+            uow.PhotoProprieteRepository.DeletePhotoPropriete(photo);
             uow.Save();
 
             return Json(id);

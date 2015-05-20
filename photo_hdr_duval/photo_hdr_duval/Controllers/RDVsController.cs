@@ -48,20 +48,20 @@ namespace photo_hdr_duval.Controllers
                 return HttpNotFound();
             }
             uow.RDVRepository.UpdateCoutTotal(rDV);
-			IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
+            IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
             ViewBag.Taxes = Taxes;
-			decimal TPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
-			decimal TVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
-			string specifier = "C";
-			ViewBag.TPS = TPS.ToString(specifier);
-			ViewBag.TVQ = TVQ.ToString(specifier);
+            decimal TPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
+            decimal TVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
+            string specifier = "C";
+            ViewBag.TPS = TPS.ToString(specifier);
+            ViewBag.TVQ = TVQ.ToString(specifier);
             return View(rDV);
         }
 
         // GET: RDVs/Create
         public ActionResult Create()
         {
-			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent");
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent");
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View();
         }
@@ -82,7 +82,7 @@ namespace photo_hdr_duval.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
-			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent",rDV.AgentID);
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             return View(rDV);
         }
 
@@ -98,7 +98,7 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
             return View(rDV);
         }
@@ -118,7 +118,7 @@ namespace photo_hdr_duval.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
-			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             return View(rDV);
         }
 
@@ -143,6 +143,15 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
+            for (int i = rDV.PhotoProprietes.Count - 1; i >= 0; i--)
+            {
+                uow.PhotoProprieteRepository.DeletePhotoPropriete(rDV.PhotoProprietes.ElementAt(i));
+            }
+            for (int i = rDV.Statuts.Count - 1; i >= 0; i--)
+            {
+                uow.StatutRepository.Delete(rDV.Statuts.ElementAt(i));
+            }
+
             uow.RDVRepository.DeleteRDV(rDV);
             uow.Save();
             return RedirectToAction("Index");
