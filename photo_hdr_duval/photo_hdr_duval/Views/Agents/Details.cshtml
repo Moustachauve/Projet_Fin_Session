@@ -94,10 +94,11 @@
             {
                 <tr>
                     @Html.Partial("../Shared/IndexTableDataRDVs", item)
-                    <td class="text-right th-buttons-small">
+                    <td class="text-right th-buttons">
                         <div class="btn-group">
                             @Html.ActionLink("Détails", "../RDVs/Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
                             @Html.ActionLink("Modifier", "../RDVs/Edit", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
+                            @Html.ActionLink("Supprimer", "../RDVs/Delete", new { id = item.RDVID }, new { @class = "btn btn-danger btn-sm" })
                         </div>
                     </td>
                 </tr>

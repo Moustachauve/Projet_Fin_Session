@@ -57,6 +57,15 @@ namespace photo_hdr_duval.DAL
             }
             return Get(orderBy: orderLambda);
         }
+
+        public IEnumerable<Agent> SortAgents(string sortString, bool? asc)
+        {
+            if (sortString == null)
+                return Get();
+            else
+                return GetOrderBy(sortString, asc != null ? (bool)asc : false);
+        }
+
         public void InsertAgent(Agent agent)
         {
             Insert(agent);

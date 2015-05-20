@@ -14,24 +14,18 @@ namespace photo_hdr_duval.Controllers
 {
     public class AgentsController : Controller
     {
-        //private H15_PROJET_E05_Context db = new H15_PROJET_E05_Context();
         UnitOfWork uow = new UnitOfWork();
 
         // GET: Agents
         public ActionResult Index(string sortString, bool? asc, int? page)
         {
-            IEnumerable<Agent> agents = null;
             int pageNum = page ?? 1;
             int pageSize = 10;
 
+            IEnumerable<Agent> agents = uow.AgentRepository.SortAgents(sortString, asc);
+
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
-
-            if (sortString == null)
-                agents = uow.AgentRepository.Get();
-            else
-                agents = uow.AgentRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
-
             return View(new PagedList<Agent>(agents, pageNum, pageSize));
         }
 
@@ -47,19 +41,14 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-            IEnumerable<RDV> rdvs = null;
+            
             int pageNum = page ?? 1;
             int pageSize = 10;
 
+            IEnumerable<RDV> rdvs = uow.RDVRepository.SortRDVs(sortString, asc, agent);
+
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
-
-
-            if (sortString == null)
-                rdvs = uow.RDVRepository.GetRdvByAgentID((int)id);
-            else
-                rdvs = uow.RDVRepository.GetOrderByAgent(sortString, asc != null ? (bool)asc : false, agent);
-
             ViewBag.listRDVs = new PagedList<RDV>(rdvs, pageNum, pageSize);
             return View(agent);
         }
