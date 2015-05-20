@@ -47,12 +47,9 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.GetByID(photo.PhotoProprieteID);
-                vraiPhoto.DescriptionPhoto = photo.DescriptionPhoto;
-
-                uow.PhotoProprieteRepository.Update(vraiPhoto);
+                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.UpdatePhoto(photo);
                 uow.Save();
-                return RedirectToAction("Details","RDVs", new { id = vraiPhoto.RDVID });
+                return RedirectToAction("Details", "RDVs", new { id = vraiPhoto.RDVID });
             }
             return View(photo);
         }
@@ -90,22 +87,7 @@ namespace photo_hdr_duval.Controllers
                 return HttpNotFound();
             }
 
-            var outputStream = new MemoryStream();
-
-            using (var zip = new ZipFile())
-            {
-                int i = 1;
-                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
-                {
-                    string ext = System.IO.Path.GetExtension(photo.Url);
-                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
-                    i++;
-                }
-                zip.Save(outputStream);
-            }
-
-            outputStream.Position = 0;
-            return File(outputStream, "application/zip", "photo.zip");
+            return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", "photo.zip");
         }
 
 
