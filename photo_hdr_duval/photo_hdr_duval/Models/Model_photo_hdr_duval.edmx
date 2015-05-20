@@ -27,7 +27,7 @@
           </Key>
           <Property Name="TaxeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nom" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="Pourcentage" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="Pourcentage" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Forfaits">
           <Key>
@@ -56,21 +56,21 @@
           <Property Name="DateRDV" Type="date" />
           <Property Name="HeureRDV" Type="time" Precision="7" />
           <Property Name="Commentaire" Type="nvarchar(max)" />
-          <Property Name="NomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="PrenomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="TelPrincipalProprietaire" Type="bigint" Nullable="false" />
           <Property Name="TelSecondaire" Type="bigint" />
           <Property Name="AdressePropriete" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="CodePostal" Type="nvarchar" MaxLength="7" Nullable="false" />
-          <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="EmailProprietaire" Type="nvarchar" MaxLength="30" />
           <Property Name="ForfaitID" Type="int" Nullable="false" />
+          <Property Name="NomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="PrenomProprietaire" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="CodePostal" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="CoutTotalAvantTaxes" Type="money" Nullable="false" />
           <Property Name="CoutTotalApresTaxes" Type="money" Nullable="false" />
           <Property Name="Deplacement" Type="money" Nullable="false" />
           <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
           <Property Name="DateFacturation" Type="date" />
           <Property Name="DateLivraison" Type="date" />
+          <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="AgentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Statuts">
@@ -81,6 +81,7 @@
           <Property Name="DateModification" Type="datetime" Nullable="false" />
           <Property Name="DescriptionStatut" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RDVID" Type="int" Nullable="false" />
+          <Property Name="Importance" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_RDV_Statut_StatutID">
           <End Role="RDVs" Type="Self.RDVs" Multiplicity="1" />
@@ -169,6 +170,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="H15_PROJET_E05Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="H15_PROJET_E05_Context" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="RapportMensuel" ReturnType="Collection(H15_PROJET_E05Model.RapportMensuel_Result)">
+            <Parameter Name="mois" Mode="In" Type="Int32" />
+            <Parameter Name="année" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="Agents" EntityType="H15_PROJET_E05Model.Agent" />
           <EntitySet Name="Taxes" EntityType="H15_PROJET_E05Model.Tax" />
           <EntitySet Name="Forfaits" EntityType="H15_PROJET_E05Model.Forfait" />
@@ -191,11 +196,16 @@
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Statut" EntitySet="Statuts" />
           </AssociationSet>
-          <FunctionImport Name="RapportMensuel" ReturnType="Collection(H15_PROJET_E05Model.RapportMensuel_Result)">
-            <Parameter Name="mois" Mode="In" Type="Int32" />
-            <Parameter Name="année" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="RapportMensuel_Result">
+          <Property Type="DateTime" Name="DateDemande" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Nom__Prénom" Nullable="false" MaxLength="102" />
+          <Property Type="String" Name="NomEntreprise" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="CoutTotalAvantTaxes" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="Deplacement" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="VisiteVirtuelle" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="CoutTotalApresTaxes" Nullable="false" Precision="19" />
+        </ComplexType>
         <EntityType Name="Agent">
           <Key>
             <PropertyRef Name="AgentID" />
@@ -219,7 +229,7 @@
           </Key>
           <Property Name="TaxeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nom" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="Pourcentage" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="Pourcentage" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="Forfait">
           <Key>
@@ -250,21 +260,21 @@
           <Property Name="DateRDV" Type="DateTime" Precision="0" />
           <Property Name="HeureRDV" Type="Time" Precision="7" />
           <Property Name="Commentaire" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="PrenomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="TelPrincipalProprietaire" Type="Int64" Nullable="false" />
           <Property Name="TelSecondaire" Type="Int64" />
           <Property Name="AdressePropriete" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="CodePostal" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="EmailProprietaire" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="ForfaitID" Type="Int32" Nullable="false" />
+          <Property Name="NomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="PrenomProprietaire" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CodePostal" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="CoutTotalAvantTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CoutTotalApresTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="DateFacturation" Type="DateTime" Precision="0" />
           <Property Name="DateLivraison" Type="DateTime" Precision="0" />
+          <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="AgentID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Agent" Relationship="H15_PROJET_E05Model.FK_RDVs_Agents_AgentID" FromRole="RDV" ToRole="Agent" />
           <NavigationProperty Name="Forfait" Relationship="H15_PROJET_E05Model.FK_RDVs_Forfaits_ForfaitID" FromRole="RDV" ToRole="Forfait" />
@@ -279,6 +289,7 @@
           <Property Name="DateModification" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DescriptionStatut" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RDVID" Type="Int32" Nullable="false" />
+          <Property Name="Importance" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="Statut" ToRole="RDV" />
         </EntityType>
         <Association Name="FK_RDVs_Agents_AgentID">
@@ -329,21 +340,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="RapportMensuel_Result">
-          <Property Type="DateTime" Name="DateDemande" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Nom__Prénom" Nullable="false" MaxLength="102" />
-          <Property Type="String" Name="NomEntreprise" Nullable="false" MaxLength="50" />
-          <Property Type="Decimal" Name="CoutTotalAvantTaxes" Nullable="false" Precision="19" />
-          <Property Type="Decimal" Name="Deplacement" Nullable="false" Precision="19" />
-          <Property Type="Decimal" Name="VisiteVirtuelle" Nullable="false" Precision="19" />
-          <Property Type="Decimal" Name="CoutTotalApresTaxes" Nullable="false" Precision="19" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="H15_PROJET_E05ModelStoreContainer" CdmEntityContainer="H15_PROJET_E05_Context">
+          <FunctionImportMapping FunctionImportName="RapportMensuel" FunctionName="H15_PROJET_E05Model.Store.RapportMensuel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H15_PROJET_E05Model.RapportMensuel_Result">
+                <ScalarProperty Name="DateDemande" ColumnName="DateDemande" />
+                <ScalarProperty Name="Nom__Prénom" ColumnName="Nom, Prénom" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+                <ScalarProperty Name="CoutTotalAvantTaxes" ColumnName="CoutTotalAvantTaxes" />
+                <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
+                <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
+                <ScalarProperty Name="CoutTotalApresTaxes" ColumnName="CoutTotalApresTaxes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="Agents">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.Agent">
               <MappingFragment StoreEntitySet="Agents">
@@ -394,21 +409,21 @@
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.RDV">
               <MappingFragment StoreEntitySet="RDVs">
                 <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
                 <ScalarProperty Name="DateLivraison" ColumnName="DateLivraison" />
                 <ScalarProperty Name="DateFacturation" ColumnName="DateFacturation" />
                 <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
                 <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
                 <ScalarProperty Name="CoutTotalApresTaxes" ColumnName="CoutTotalApresTaxes" />
                 <ScalarProperty Name="CoutTotalAvantTaxes" ColumnName="CoutTotalAvantTaxes" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="PrenomProprietaire" ColumnName="PrenomProprietaire" />
+                <ScalarProperty Name="NomProprietaire" ColumnName="NomProprietaire" />
                 <ScalarProperty Name="ForfaitID" ColumnName="ForfaitID" />
                 <ScalarProperty Name="EmailProprietaire" ColumnName="EmailProprietaire" />
-                <ScalarProperty Name="Ville" ColumnName="Ville" />
-                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="AdressePropriete" ColumnName="AdressePropriete" />
                 <ScalarProperty Name="TelSecondaire" ColumnName="TelSecondaire" />
                 <ScalarProperty Name="TelPrincipalProprietaire" ColumnName="TelPrincipalProprietaire" />
-                <ScalarProperty Name="PrenomProprietaire" ColumnName="PrenomProprietaire" />
-                <ScalarProperty Name="NomProprietaire" ColumnName="NomProprietaire" />
                 <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
                 <ScalarProperty Name="HeureRDV" ColumnName="HeureRDV" />
                 <ScalarProperty Name="DateRDV" ColumnName="DateRDV" />
@@ -420,6 +435,7 @@
           <EntitySetMapping Name="Statuts">
             <EntityTypeMapping TypeName="H15_PROJET_E05Model.Statut">
               <MappingFragment StoreEntitySet="Statuts">
+                <ScalarProperty Name="Importance" ColumnName="Importance" />
                 <ScalarProperty Name="RDVID" ColumnName="RDVID" />
                 <ScalarProperty Name="DescriptionStatut" ColumnName="DescriptionStatut" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
@@ -427,19 +443,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="RapportMensuel" FunctionName="H15_PROJET_E05Model.Store.RapportMensuel">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="H15_PROJET_E05Model.RapportMensuel_Result">
-                <ScalarProperty Name="DateDemande" ColumnName="DateDemande" />
-                <ScalarProperty Name="Nom__Prénom" ColumnName="Nom, Prénom" />
-                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
-                <ScalarProperty Name="CoutTotalAvantTaxes" ColumnName="CoutTotalAvantTaxes" />
-                <ScalarProperty Name="Deplacement" ColumnName="Deplacement" />
-                <ScalarProperty Name="VisiteVirtuelle" ColumnName="VisiteVirtuelle" />
-                <ScalarProperty Name="CoutTotalApresTaxes" ColumnName="CoutTotalApresTaxes" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

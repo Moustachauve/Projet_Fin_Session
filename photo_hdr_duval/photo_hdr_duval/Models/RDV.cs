@@ -25,21 +25,21 @@ namespace photo_hdr_duval.Models
         public Nullable<System.DateTime> DateRDV { get; set; }
         public Nullable<System.TimeSpan> HeureRDV { get; set; }
         public string Commentaire { get; set; }
-        public string NomProprietaire { get; set; }
-        public string PrenomProprietaire { get; set; }
         public long TelPrincipalProprietaire { get; set; }
         public Nullable<long> TelSecondaire { get; set; }
         public string AdressePropriete { get; set; }
-        public string CodePostal { get; set; }
-        public string Ville { get; set; }
         public string EmailProprietaire { get; set; }
         public int ForfaitID { get; set; }
+        public string NomProprietaire { get; set; }
+        public string PrenomProprietaire { get; set; }
+        public string CodePostal { get; set; }
         public decimal CoutTotalAvantTaxes { get; set; }
         public decimal CoutTotalApresTaxes { get; set; }
         public decimal Deplacement { get; set; }
         public decimal VisiteVirtuelle { get; set; }
         public Nullable<System.DateTime> DateFacturation { get; set; }
         public Nullable<System.DateTime> DateLivraison { get; set; }
+        public string Ville { get; set; }
         public int AgentID { get; set; }
     
         public virtual Agent Agent { get; set; }

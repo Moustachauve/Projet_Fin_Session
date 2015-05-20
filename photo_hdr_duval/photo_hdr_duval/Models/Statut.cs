@@ -18,6 +18,7 @@ namespace photo_hdr_duval.Models
         public System.DateTime DateModification { get; set; }
         public string DescriptionStatut { get; set; }
         public int RDVID { get; set; }
+        public int Importance { get; set; }
     
         public virtual RDV RDV { get; set; }
     }
