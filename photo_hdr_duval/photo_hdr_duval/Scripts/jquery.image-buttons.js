@@ -8,19 +8,21 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 $(function () {
     var hoverCount = 0;
 
-    $('#photo_gallery').on("mouseenter", ".thumbnail, .buttons", function () {
+    
+    $('#photo_gallery').on("mouseenter", ".thumbnail-container", function () {
         hoverCount++;
-        $(this).parent().find('.buttons').show();
+        $(this).find('.buttons').show();
     });
 
-    $('#photo_gallery').on("mouseleave", ".thumbnail, .buttons", function () {
-        hoverCount--;
+    $('#photo_gallery').on("mouseleave", ".thumbnail-container", function () {
+        /*hoverCount--;
         var _this = this;
         setTimeout(function () {
             if (hoverCount == 0) {
-                $(_this).parent().find('.buttons').fadeOut(150);
+                $(_this).find('.buttons').fadeOut(150);
             }
-        }, 30);
+        }, 5);*/
+        $(this).find('.buttons').fadeOut(150);
     });
 
     $('#photo_gallery').on('click', '.delete_image', function () {
