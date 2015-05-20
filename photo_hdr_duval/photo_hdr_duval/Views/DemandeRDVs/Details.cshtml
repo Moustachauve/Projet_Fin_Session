@@ -1,109 +1,172 @@
-﻿@model photo_hdr_duval.Models.RDV
+﻿@model photo_hdr_duval.Models.RDVDetailsViewModel
 
 @{
-	ViewBag.Title = "Details";
+    ViewBag.Title = "Details";
 }
-
-
-<h2>Rendez-vous de @Html.DisplayFor(model => model.NomProprietaire), @Html.DisplayFor(model => model.PrenomProprietaire) <div class="pull-right">@Html.Partial("RDVStatut", Model.Statuts.First())</div></h2>
-@if (Model.DateRDV != null)
+<h2>Rendez-vous avec @Html.DisplayFor(model => model.RDV.PrenomProprietaire) @Html.DisplayFor(model => model.RDV.NomProprietaire) <span class="pull-right">@Html.Partial("RDVStatut", Model.Statut)</span></h2>
+@if (Model.RDV.DateRDV != null)
 {
-	<h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
+    <h4>@Html.DisplayFor(model => model.RDV.DateRDV) à @Html.DisplayFor(model => model.RDV.HeureRDV) </h4>
 }
 <hr />
 
-<div>
-	<h3>Informations de contact:</h3>
-	<dl>
+<div class="row">
+    <div class="col-sm-6">
+        <h3>Informations de contact:</h3>
+        <dl>
 
-		<dt>
-			Email
-		</dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.EmailProprietaire)
+            </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.EmailProprietaire)
-		</dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.EmailProprietaire)
+            </dd>
 
-		<dt>
-			Téléphone principal
-		</dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.TelPrincipalProprietaire)
+            </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.TelPrincipalProprietaire)
-		</dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.TelPrincipalProprietaire)
+            </dd>
 
-		<dt>
-			@Html.DisplayNameFor(model => model.TelSecondaire)
-		</dt>
+            @if (Model.RDV.TelSecondaire != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.RDV.TelSecondaire)
+                </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.TelSecondaire)
-		</dd>
+                <dd>
+                    @Html.DisplayFor(model => model.RDV.TelSecondaire)
+                </dd>
+            }
 
-		<dt>
-			Adresse
-		</dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.AdressePropriete)
+            </dt>
 
-		<dd>
-			@Html.DisplayFor(model => model.AdressePropriete)
-		</dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.AdressePropriete)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CodePostal)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CodePostal)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CodePostal)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CodePostal)
+            </dd>
 
-		@if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-		{
-			<dt>
-				@Html.DisplayNameFor(model => model.Commentaire)
-			</dt>
+            @if (Model.RDV.Commentaire != null && !String.IsNullOrWhiteSpace(Model.RDV.Commentaire))
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.RDV.Commentaire)
+                </dt>
 
-			<dd>
-				@Html.DisplayFor(model => model.Commentaire)
-			</dd>
-		}
-	</dl>
+                <dd>
+                    @Html.DisplayFor(model => model.RDV.Commentaire)
+                </dd>
+            }
+
+        </dl>
+    </div>
+
+    <div class="col-sm-6">
+        <h3>Informations de facturation:</h3>
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Forfait.Prix)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Forfait.Prix)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.Deplacement)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.Deplacement)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.VisiteVirtuelle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.VisiteVirtuelle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CoutTotalAvantTaxes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CoutTotalAvantTaxes)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CoutTVQ)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CoutTVQ)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CoutTPS)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CoutTPS)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CoutTotalApresTaxes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CoutTotalApresTaxes)
+            </dd>
+
+        </dl>
+    </div>
+
 </div>
-@if (Model.PhotoProprietes != null && Model.PhotoProprietes.Count > 0)
-{
-	<div class="row">
-		<h2>Photos: @Html.ActionLink("Télécharger tout", "DownloadAll", "PhotoProprietes", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
-        @if (Model.PhotoProprietes == null || Model.PhotoProprietes.Count == 0)
-        {
-            <small>Il n'y a pas encore de photos pour ce rendez-vous</small>
-        }
-        @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
-		{
-			string chemin = @Url.Content(photo.Url);
 
-			<div class="col-xs-6 col-sm-4 col-md-3">
-				<a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
-					<img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
-				</a>
-			</div>
-		}
-	</div>
-}
+<div class="row" id="photo_gallery">
+    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "PhotoProprietes", new { id = Model.RDV.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
+    @if (Model.Photos == null || Model.Photos.Count == 0)
+    {
+        <small>Il n'y a pas encore de photos pour ce rendez-vous</small>
+    }
+    @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.Photos)
+    {
+        string chemin = @Url.Content(photo.Url);
 
+        <div class="col-xs-6 col-sm-4 col-md-3 thumbnail-container" id="@photo.PhotoProprieteID">
+            <div class="buttons">
+                @Html.ActionLink(" ", "DownloadPhoto", "PhotoProprietes", new { id = photo.PhotoProprieteID }, new { @class = "glyphicon glyphicon-save", title = "Télécharger la photo" }) @*Télécharger*@
+            </div>
+            <a class="thumbnail" data-footer="@photo.DescriptionPhoto" data-toggle="lightbox" href="@chemin" data-gallery="photos">
+                <img src="@chemin" alt="@photo.DescriptionPhoto" class="img-responsive" />
+            </a>
+        </div>
+    }
+</div>
+<hr />
 <div class="btn-group">
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDV.RDVID }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Retourner à la liste", "Index", null, new { @class = "btn btn-default" })
 </div>
 
+
 @section Scripts {
 
-	@Scripts.Render("~/Scripts/ekko-lightbox.js")
-	@Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
-	<script type="text/javascript">
-		$(".thumbnail").matchHeight();
-
-		$(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
-			event.preventDefault();
-			$(this).ekkoLightbox();
-		});
-	</script>
+    @Scripts.Render("~/Scripts/ekko-lightbox.js")
+    @Scripts.Render("~/Scripts/jquery.matchHeight-min.js")
+    @Scripts.Render("~/Scripts/jquery.image-buttons.js")
 }
