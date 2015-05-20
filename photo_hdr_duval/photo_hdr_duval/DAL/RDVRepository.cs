@@ -52,5 +52,18 @@ namespace photo_hdr_duval.DAL
 			rdv.CoutTotalAvantTaxes = coutTotalBeforeTaxes;
 			rdv.CoutTotalApresTaxes = coutTotalAfterTaxes;
 		}
+
+        public void InsertRDV(RDV rdv)
+        {
+            Insert(rdv);
+        }
+        public void UpdateRDV(RDV rdv)
+        {
+            Update(rdv);
+        }
+        public void DeleteRDV(RDV rdv)
+        {
+            Delete(rdv);
+        }
 	}
 }

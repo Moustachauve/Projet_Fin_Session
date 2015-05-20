@@ -68,7 +68,7 @@ namespace photo_hdr_duval.Controllers
             if (ModelState.IsValid)
             {
                 rDV.DateDemande = DateTime.Now;
-                uow.RDVRepository.Insert(rDV);
+                uow.RDVRepository.InsertRDV(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -101,7 +101,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                uow.RDVRepository.Update(rDV);
+                uow.RDVRepository.UpdateRDV(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -130,7 +130,7 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
-            uow.RDVRepository.Delete(rDV);
+            uow.RDVRepository.DeleteRDV(rDV);
             uow.Save();
             return RedirectToAction("Index");
         }
