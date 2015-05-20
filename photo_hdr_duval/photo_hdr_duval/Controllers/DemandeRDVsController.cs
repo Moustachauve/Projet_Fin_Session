@@ -50,36 +50,6 @@ namespace photo_hdr_duval.Controllers
             return View(rDV);
         }
 
-        public ActionResult Download(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RDV rDV = uow.RDVRepository.GetByID((int)id);
-            if (rDV == null)
-            {
-                return HttpNotFound();
-            }
-
-            var outputStream = new MemoryStream();
-
-            using (var zip = new ZipFile())
-            {
-                int i = 1;
-                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
-                {
-                    string ext = System.IO.Path.GetExtension(photo.Url);
-                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
-                    i++;
-                }
-                zip.Save(outputStream);
-            }
-
-            outputStream.Position = 0;
-            return File(outputStream, "application/zip", "photo.zip");
-        }
-
         // GET: DemandeRDVs/Create
         public ActionResult Create()
         {
@@ -98,7 +68,7 @@ namespace photo_hdr_duval.Controllers
             if (ModelState.IsValid)
             {
                 rDV.DateDemande = DateTime.Now;
-                uow.RDVRepository.Insert(rDV);
+                uow.RDVRepository.InsertRDV(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -131,7 +101,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                uow.RDVRepository.Update(rDV);
+                uow.RDVRepository.UpdateRDV(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -160,7 +130,7 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
-            uow.RDVRepository.Delete(rDV);
+            uow.RDVRepository.DeleteRDV(rDV);
             uow.Save();
             return RedirectToAction("Index");
         }

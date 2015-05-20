@@ -52,8 +52,20 @@ namespace photo_hdr_duval.DAL
 			rdv.CoutTotalAvantTaxes = coutTotalBeforeTaxes;
 			rdv.CoutTotalApresTaxes = coutTotalAfterTaxes;
 		}
+		public void InsertRDV(RDV rdv)
+		{
+			Insert(rdv);
+		}
+		public void UpdateRDV(RDV rdv)
+		{
+			Update(rdv);
+		}
+		public void DeleteRDV(RDV rdv)
+		{
+			Delete(rdv);
+		}
 
-		public List<RDV> GetByDateRDV(DateTime dt)
+				public List<RDV> GetByDateRDV(DateTime dt)
 		{
 			IEnumerable<RDV> rdvs = this.Get();
 			List<RDV> rdvsByDate = new List<RDV>();
@@ -72,5 +84,8 @@ namespace photo_hdr_duval.DAL
 			return rdvsByDate;
 
 		}
+	}
+
+
 	}
 }

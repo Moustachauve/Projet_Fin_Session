@@ -58,5 +58,17 @@ namespace photo_hdr_duval.DAL
             }
             return Get(orderBy: orderLambda);
         }
+        public void InsertAgent(Agent agent)
+        {
+            Insert(agent);
+        }
+        public void UpdateAgent(Agent agent)
+        {
+            Update(agent);
+        }
+        public void DeleteAgent(Agent agent)
+        {
+            Delete(agent);
+        }
     }
 }

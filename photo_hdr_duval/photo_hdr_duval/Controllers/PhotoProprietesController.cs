@@ -1,4 +1,5 @@
-﻿using photo_hdr_duval.DAL;
+﻿using Ionic.Zip;
+using photo_hdr_duval.DAL;
 using photo_hdr_duval.Models;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace photo_hdr_duval.Controllers
 
                 uow.PhotoProprieteRepository.Update(vraiPhoto);
                 uow.Save();
-                return RedirectToAction("Details", new { id = vraiPhoto.RDVID });
+                return RedirectToAction("Details","RDVs", new { id = vraiPhoto.RDVID });
             }
             return View(photo);
         }
@@ -76,6 +77,37 @@ namespace photo_hdr_duval.Controllers
 
             return File(path, mime, date + "_" + photo.PhotoProprieteID + ext);
         }
+
+        public ActionResult DownloadAll(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            RDV rDV = uow.RDVRepository.GetByID((int)id);
+            if (rDV == null)
+            {
+                return HttpNotFound();
+            }
+
+            var outputStream = new MemoryStream();
+
+            using (var zip = new ZipFile())
+            {
+                int i = 1;
+                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
+                {
+                    string ext = System.IO.Path.GetExtension(photo.Url);
+                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
+                    i++;
+                }
+                zip.Save(outputStream);
+            }
+
+            outputStream.Position = 0;
+            return File(outputStream, "application/zip", "photo.zip");
+        }
+
 
         public JsonResult DoUploadPhoto(int? id)
         {

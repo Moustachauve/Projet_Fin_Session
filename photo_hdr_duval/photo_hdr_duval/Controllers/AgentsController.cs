@@ -62,7 +62,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                uow.AgentRepository.Insert(agent);
+                uow.AgentRepository.InsertAgent(agent);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -94,7 +94,7 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                uow.AgentRepository.Update(agent);
+                uow.AgentRepository.UpdateAgent(agent);
                 uow.Save();
                 return RedirectToAction("Index");
             }
@@ -122,7 +122,7 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Agent agent = uow.AgentRepository.GetByID(id);
-            uow.AgentRepository.Delete(agent);
+            uow.AgentRepository.DeleteAgent(agent);
             uow.Save();
             return RedirectToAction("Index");
         }

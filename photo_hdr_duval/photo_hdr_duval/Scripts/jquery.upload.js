@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿/* By Christophe Gagnier */
+
+$(function () {
     var id_overlay = 'upload_overlay';
     var template_overlay = $('<div id="' + id_overlay + '"><div class="border"><div class="text">Téléverser</div></div></div>');
     var template_loading = $('<div class="white">TEST</div>')
@@ -146,7 +148,7 @@
 
             jQuery.ajax({
                 type: "POST",
-                url: "/RDVs/DoUploadPhoto/" + id,
+                url: "/PhotoProprietes/DoUploadPhoto/" + id,
                 processData: false,
                 contentType: false,
                 data: formData
