@@ -51,7 +51,6 @@ namespace photo_hdr_duval.Controllers
 
             RDVDetailsViewModel viewModel = new RDVDetailsViewModel();
 
-            uow.RDVRepository.UpdateCoutTotal(rDV);
 			IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
 
             viewModel.RDV = rDV;
@@ -83,7 +82,6 @@ namespace photo_hdr_duval.Controllers
             if (ModelState.IsValid)
             {
                 rDV.DateDemande = DateTime.Now;
-                uow.RDVRepository.UpdateCoutTotal(rDV);
                 uow.RDVRepository.Insert(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
@@ -119,7 +117,6 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                uow.RDVRepository.UpdateCoutTotal(rDV);
                 uow.RDVRepository.Update(rDV);
                 uow.Save();
                 return RedirectToAction("Index");
