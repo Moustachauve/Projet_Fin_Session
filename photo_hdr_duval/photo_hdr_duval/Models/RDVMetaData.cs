@@ -15,13 +15,15 @@ namespace photo_hdr_duval.Models
             public int RDVID { get; set; }
 
             [DataType(DataType.Date)]
-            [Display(Name= "Date du rendez-vous")]
-			[DateLimite]
+            [DisplayFormat(DataFormatString = "{0:D}")]
+            [Display(Name = "Date du rendez-vous")]
+            [DateLimite]
             public DateTime DateRDV { get; set; }
 
             [DataType(DataType.Time)]
             [Display(Name = "Heure")]
-			[HeureLimite]
+            [DisplayFormat(DataFormatString = @"{0:hh\hmm}")]
+            [HeureLimite]
             public DateTime HeureRDV { get; set; }
 
             [DataType(DataType.MultilineText)]
@@ -32,9 +34,9 @@ namespace photo_hdr_duval.Models
             [Required]
             public string NomProprietaire { get; set; }
 
-			[Display(Name = "Prénom Propriétaire")]
-			[Required]
-			public string PrenomProprietaire { get; set; }
+            [Display(Name = "Prénom Propriétaire")]
+            [Required]
+            public string PrenomProprietaire { get; set; }
 
             [Display(Name = "Code Postal")]
             [Required]
@@ -59,31 +61,31 @@ namespace photo_hdr_duval.Models
             public string EmailProprietaire { get; set; }
 
             [DataType(DataType.DateTime)]
-			[Display(Name = "Date de demande")]
+            [Display(Name = "Date de demande")]
             public DateTime DateDemande { get; set; }
 
-			[Required]
-			[StringLength(70)]
-			[Display(Name = "Ville de la propriété")]
-			public string Ville { get; set; }
+            [Required]
+            [StringLength(70)]
+            [Display(Name = "Ville de la propriété")]
+            public string Ville { get; set; }
 
-			[Display(Name="Coût total avant taxes")]
-			[DisplayFormat(DataFormatString = "{0:c2}")]
-			public decimal CoutTotalAvantTaxes { get; set; }
+            [Display(Name = "Coût total avant taxes")]
+            [DisplayFormat(DataFormatString = "{0:c2}")]
+            public decimal CoutTotalAvantTaxes { get; set; }
 
-			[Display(Name = "Coût total après taxes")]
-			[DisplayFormat(DataFormatString = "{0:c2}")]
-			public decimal CoutTotalApresTaxes { get; set; }
-
-            [DataType(DataType.Currency)]
-			[Display(Name = "Coût de déplacement")]
-			[DisplayFormat(DataFormatString = "{0:c2}")]
-			public decimal Deplacement { get; set; }
+            [Display(Name = "Coût total après taxes")]
+            [DisplayFormat(DataFormatString = "{0:c2}")]
+            public decimal CoutTotalApresTaxes { get; set; }
 
             [DataType(DataType.Currency)]
-			[Display(Name = "Coût de la visite virtuelle")]
-			[DisplayFormat(DataFormatString = "{0:c2}")]
-			public decimal VisiteVirtuelle { get; set; }
+            [Display(Name = "Coût de déplacement")]
+            [DisplayFormat(DataFormatString = "{0:c2}")]
+            public decimal Deplacement { get; set; }
+
+            [DataType(DataType.Currency)]
+            [Display(Name = "Coût de la visite virtuelle")]
+            [DisplayFormat(DataFormatString = "{0:c2}")]
+            public decimal VisiteVirtuelle { get; set; }
 
         }
     }
