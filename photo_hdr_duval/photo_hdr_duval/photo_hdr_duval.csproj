@@ -167,6 +167,9 @@
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PhotoProprieteMetaData.cs" />
+    <Compile Include="Models\RapportMensuel_Result.cs">
+      <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RDV.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>

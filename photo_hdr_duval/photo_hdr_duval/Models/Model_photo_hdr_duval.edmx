@@ -130,6 +130,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="RapportMensuel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Agent">
+          <Parameter Name="mois" Type="int" Mode="In" />
+          <Parameter Name="année" Type="int" Mode="In" />
+        </Function>
+        <Function Name="udf_CoutTotalApresTaxes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RDV" ReturnType="money">
+          <Parameter Name="RDVID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="udf_CoutTotalAvantTaxes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RDV" ReturnType="money">
+          <Parameter Name="RDVID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
           <EntitySet Name="Agents" EntityType="Self.Agents" Schema="Agent" store:Type="Tables" />
           <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="Paiement" store:Type="Tables" />
@@ -181,6 +191,10 @@
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Statut" EntitySet="Statuts" />
           </AssociationSet>
+          <FunctionImport Name="RapportMensuel" ReturnType="Collection(H15_PROJET_E05Model.RapportMensuel_Result)">
+            <Parameter Name="mois" Mode="In" Type="Int32" />
+            <Parameter Name="année" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Agent">
           <Key>
@@ -315,6 +329,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="RapportMensuel_Result">
+          <Property Type="Int32" Name="AgentID" Nullable="false" />
+          <Property Type="String" Name="Nom__Prénom" Nullable="false" MaxLength="102" />
+          <Property Type="String" Name="NomEntreprise" Nullable="false" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -404,6 +423,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RapportMensuel" FunctionName="H15_PROJET_E05Model.Store.RapportMensuel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="H15_PROJET_E05Model.RapportMensuel_Result">
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="Nom__Prénom" ColumnName="Nom, Prénom" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
