@@ -3,7 +3,6 @@
 $(function () {
     var id_overlay = 'upload_overlay';
     var template_overlay = $('<div id="' + id_overlay + '"><div class="border"><div class="text">Téléverser</div></div></div>');
-    var template_loading = $('<div class="white">TEST</div>')
 
     var fileList = new Array();
     var currentID = 0;
@@ -38,7 +37,14 @@ $(function () {
         var link = $('a .thumbnail', preview);
 
         reader.onload = function (e) {
+            //Verify file type
 
+
+            var buffer = reader.result;
+            if(buffer2mime(buffer) == "-1") {
+                alert("Le fichier n'est pas une image valide (png, jpg ou gif)");
+                return;
+            }
             $(img).load(function () {
                 $(".thumbnail").matchHeight();
             });
@@ -87,6 +93,10 @@ $(function () {
         e.preventDefault();
         e.stopPropagation();
 
+        var files = e.dataTransfer.files || e.target.files; // File list
+
+        console.log(files);
+
         dragging++;
 
         showOverlay();
@@ -132,33 +142,28 @@ $(function () {
             return;
         }
 
-        var imageDone = 0;
+        var formData = new FormData();
 
         for (var i = 0; i < fileList.length; i++) {
             if (typeof fileList[i] === "undefined")
                 continue;
 
-            var loadingBar = template_loading.clone()
-
-            //"/RDVs/DoUploadPhoto/" + id
-
-            var formData = new FormData();
-
             formData.append("file" + i, fileList[i]);
-
-            jQuery.ajax({
-                type: "POST",
-                url: "/PhotoProprietes/DoUploadPhoto/" + id,
-                processData: false,
-                contentType: false,
-                data: formData
-            }).always(function () {
-                imageDone++;
-                if (imageDone == totalImages) {
-                    document.location = "/RDVs/details/" + id;
-                }
-            });
         }
+
+        jQuery.ajax({
+            type: "POST",
+            url: "/PhotoProprietes/DoUploadPhoto/" + id,
+            processData: false,
+            contentType: false,
+            data: formData
+        }).fail(function (xhr) {
+            console.log(xhr);
+            alert("Une erreur est survenue: " + xhr.responseText);
+        }).success(function () {
+            document.location = "/RDVs/details/" + id;
+        });
+
     }
 
     function getNumberImages() {
@@ -208,4 +213,44 @@ $(function () {
         showNumberImages();
     });
 
-});
+    //Mime type
+    function buffer2mime(buffer)
+    {
+        var buf = new Uint8Array(buffer);
+        if(buf[0] == 0xFF
+        && buf[1] == 0xD8
+        && buf[2] == 0xFF
+        && buf[3] == 0xE0
+        && buf[4] == 0x00
+        && buf[5] == 0x10
+        && buf[6] == 0x4A  // J
+        && buf[7] == 0x46  // F
+        && buf[8] == 0x49  // I
+        && buf[9] == 0x46) // F
+        {
+            return "image/jpeg";
+        }
+        if(buf[0] == 0x89
+        && buf[1] == 0x50  // P
+        && buf[2] == 0x4E  // N
+        && buf[3] == 0x47  // G
+        && buf[4] == 0x0D  // \r
+        && buf[5] == 0x0A) // \n
+        {
+            return "image/png";
+        }
+        if(buf[0] == 0x47  // G
+        && buf[1] == 0x49  // I
+        && buf[2] == 0x46  // F
+        && buf[3] == 0x38  // 8
+        && buf[4] == 0x39  // 9
+        && buf[5] == 0x61) // a
+        {
+            return "image/gif";
+        }
+
+        // unknown
+        return "-1";
+    }
+
+    });

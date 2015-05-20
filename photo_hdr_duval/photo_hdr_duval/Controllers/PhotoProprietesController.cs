@@ -47,12 +47,9 @@ namespace photo_hdr_duval.Controllers
         {
             if (ModelState.IsValid)
             {
-                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.GetByID(photo.PhotoProprieteID);
-                vraiPhoto.DescriptionPhoto = photo.DescriptionPhoto;
-
-                uow.PhotoProprieteRepository.Update(vraiPhoto);
+                PhotoPropriete vraiPhoto = uow.PhotoProprieteRepository.UpdatePhoto(photo);
                 uow.Save();
-                return RedirectToAction("Details","RDVs", new { id = vraiPhoto.RDVID });
+                return RedirectToAction("Details", "RDVs", new { id = vraiPhoto.RDVID });
             }
             return View(photo);
         }
@@ -89,23 +86,11 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-
-            var outputStream = new MemoryStream();
-
-            using (var zip = new ZipFile())
+            if (rDV.DateRDV != null)
             {
-                int i = 1;
-                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
-                {
-                    string ext = System.IO.Path.GetExtension(photo.Url);
-                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
-                    i++;
-                }
-                zip.Save(outputStream);
+                return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", rDV.NomProprietaire + rDV.PrenomProprietaire + "_" + ((DateTime)rDV.DateRDV).ToShortDateString() + ".zip");
             }
-
-            outputStream.Position = 0;
-            return File(outputStream, "application/zip", "photo.zip");
+            return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", rDV.NomProprietaire + rDV.PrenomProprietaire + "_" + "photos.zip");
         }
 
 
@@ -114,12 +99,12 @@ namespace photo_hdr_duval.Controllers
             if (id == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("No ID");
+                return Json("Aucun rendez-vous sélectionné");
             }
             if (Request.Files == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("No file");
+                return Json("Aucun fichier sélectionné");
             }
 
             DirectoryInfo imageFolderPath = createImageRepo((int)id);
@@ -127,6 +112,15 @@ namespace photo_hdr_duval.Controllers
             foreach (string fileString in Request.Files)
             {
                 HttpPostedFileBase file = Request.Files[fileString];
+
+                if(file.ContentType.ToLower() != "image/jpg" &&
+                    file.ContentType.ToLower() != "image/jpeg" &&
+                    file.ContentType.ToLower() != "image/gif" &&
+                    file.ContentType.ToLower() != "image/png")
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json("Un ou plusieurs fichiers ne sont pas des images valides");
+                }
 
                 string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
 
@@ -137,7 +131,7 @@ namespace photo_hdr_duval.Controllers
 
             uow.Save();
 
-            return Json("File uploaded successfully");
+            return Json("Fichier téléversé avec succès");
         }
 
         public JsonResult DoDeletePhoto(int? id)
