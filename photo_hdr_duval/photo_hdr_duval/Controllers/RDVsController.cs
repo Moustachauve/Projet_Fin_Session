@@ -23,6 +23,7 @@ namespace photo_hdr_duval.Controllers
         // GET: RDVs
         public ActionResult Index(string sortString, string Statut, bool? asc, int? page)
         {
+            
             int pageNum = page ?? 1;
             int pageSize = 10;
 

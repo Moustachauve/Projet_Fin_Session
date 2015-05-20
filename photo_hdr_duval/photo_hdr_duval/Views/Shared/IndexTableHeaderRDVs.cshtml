@@ -18,7 +18,7 @@
             @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "NomProprietaire", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th class="th-statut">
-            @Html.ActionLink("Statuts" + (ViewBag.orderBy == "Status" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "Status", asc = futureAsc, Statut = ViewBag.Statut })
+            @Html.ActionLink("Status" + (ViewBag.orderBy == "Status" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "Status", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th></th>
     </tr>
