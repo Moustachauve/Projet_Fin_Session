@@ -5,7 +5,20 @@
 
 }
 
-<h2>Liste de Rendez-vous @Html.ActionLink("Demander un rendez-vous", "Create", "DemandeRDVs", null, new { @class = "btn btn-success pull-right" })</h2>
+<h2>Liste de Rendez-vous 
+    @Html.ActionLink("Demander un rendez-vous", "Create", "DemandeRDVs", null, new { @class = "btn btn-success pull-right" })
+    @Html.Partial("../Shared/IndexFilterStatutRDV")
+</h2>
+
+@using (@Html.BeginForm("Index", "DemandeRDVs", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <text>Filtrer par Agent: </text>
+    @Html.DropDownList("AgentID", (IEnumerable<SelectListItem>)ViewBag.AgentID, "Tous", htmlAttributes: new { onchange = "this.form.submit()" })
+
+    <input name="asc" value="@ViewBag.isAsc" type="hidden" />
+    <input name="sortString" value="@ViewBag.orderBy" type="hidden" />
+
+}
 
 <table class="table table-hover table-striped">
 

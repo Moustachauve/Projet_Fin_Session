@@ -1,0 +1,19 @@
+﻿<div class="filter small">
+    @using (@Html.BeginForm("Index", ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <input name="asc" value="@ViewBag.isAsc" type="hidden" />
+        <input name="sortString" value="@ViewBag.orderBy" type="hidden" />
+        <input name="agentId" value="@ViewBag.SelectedAgentID" type="hidden" />
+
+        <label for="statutSelect" class="control-label">Filtre par statut: </label>
+        <select name="Statut" id="statutSelect" onchange="this.form.submit()" class="form-control">
+            <option value="">Tous</option>
+            <option value="Demandée" @if (ViewBag.Statut == "Demandée") { <text> selected</text> }>Demandée</option>
+            <option value="Confirmée" @if (ViewBag.Statut == "Confirmée") { <text> selected</text> }>Confirmée</option>
+            <option value="Reportée" @if (ViewBag.Statut == "Reportée") { <text> selected</text> }>Reportée</option>
+            <option value="Réalisée" @if (ViewBag.Statut == "Réalisée") { <text> selected</text> }>Réalisée</option>
+            <option value="Livrée" @if (ViewBag.Statut == "Livrée") { <text> selected</text> }>Livrée</option>
+            <option value="Facturée" @if (ViewBag.Statut == "Facturée") { <text> selected</text> }>Facturée</option>
+        </select>
+    }
+</div>
