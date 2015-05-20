@@ -127,7 +127,7 @@
 </div>
 
 <div class="row" id="photo_gallery">
-    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "RDVs", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
+    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "PhotoProprietes", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
     @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
     {
         string chemin = @Url.Content(photo.Url);

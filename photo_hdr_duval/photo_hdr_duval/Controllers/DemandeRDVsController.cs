@@ -50,36 +50,6 @@ namespace photo_hdr_duval.Controllers
             return View(rDV);
         }
 
-        public ActionResult Download(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            RDV rDV = uow.RDVRepository.GetByID((int)id);
-            if (rDV == null)
-            {
-                return HttpNotFound();
-            }
-
-            var outputStream = new MemoryStream();
-
-            using (var zip = new ZipFile())
-            {
-                int i = 1;
-                foreach (PhotoPropriete photo in uow.PhotoProprieteRepository.GetForRDV((int)id))
-                {
-                    string ext = System.IO.Path.GetExtension(photo.Url);
-                    zip.AddFile(Server.MapPath(photo.Url)).FileName = ((DateTime)rDV.DateRDV).ToShortDateString() + "_" + i + ext;
-                    i++;
-                }
-                zip.Save(outputStream);
-            }
-
-            outputStream.Position = 0;
-            return File(outputStream, "application/zip", "photo.zip");
-        }
-
         // GET: DemandeRDVs/Create
         public ActionResult Create()
         {

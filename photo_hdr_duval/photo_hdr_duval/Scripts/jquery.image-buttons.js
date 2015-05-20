@@ -28,7 +28,7 @@ $(function () {
 
         jQuery.ajax({
             type: "POST",
-            url: "/RDVs/DoDeletePhoto/" + photo_id
+            url: "/PhotoProprietes/DoDeletePhoto/" + photo_id
         }).success(function (dataRaw) {
             var id = JSON.parse(dataRaw);
             $('#' + id).remove();
