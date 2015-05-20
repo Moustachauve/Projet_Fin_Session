@@ -36,6 +36,12 @@ namespace photo_hdr_duval.DAL
 					else
 						orderLambda = x => x.OrderByDescending(y => y.NomProprietaire);
 					break;
+                case "Status":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.Statuts);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.Statuts);
+                    break;
 			}
 			return Get(orderBy: orderLambda);
 		}
@@ -60,8 +66,17 @@ namespace photo_hdr_duval.DAL
 		{
 			Update(rdv);
 		}
-		public void DeleteRDV(RDV rdv)
+		public void DeleteRDV(RDV rdv, UnitOfWork uow)
 		{
+            for (int i = rdv.PhotoProprietes.Count - 1; i >= 0; i--)
+            {
+                uow.PhotoProprieteRepository.DeletePhotoPropriete(rdv.PhotoProprietes.ElementAt(i));
+            }
+            for (int i = rdv.Statuts.Count - 1; i >= 0; i--)
+            {
+                uow.StatutRepository.Delete(rdv.Statuts.ElementAt(i));
+            }
+
 			Delete(rdv);
 		}
 

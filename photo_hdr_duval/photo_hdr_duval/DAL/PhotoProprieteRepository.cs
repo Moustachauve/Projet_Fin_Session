@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace photo_hdr_duval.DAL
 {
@@ -21,6 +22,15 @@ namespace photo_hdr_duval.DAL
         public IEnumerable<PhotoPropriete> GetForRDV(int rdvID)
         {
             return Get(filter: x => x.RDVID == rdvID);
+        }
+
+        public void DeletePhotoPropriete(PhotoPropriete photo)
+        {
+            String path = HostingEnvironment.MapPath("~/images/" + photo.Url);
+            if (System.IO.File.Exists(path))
+                System.IO.File.Delete(path);
+
+            Delete(photo);
         }
     }
 }

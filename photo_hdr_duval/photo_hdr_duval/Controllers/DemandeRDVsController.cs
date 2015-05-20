@@ -130,7 +130,7 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
-            uow.RDVRepository.DeleteRDV(rDV);
+            uow.RDVRepository.DeleteRDV(rDV, uow);
             uow.Save();
             return RedirectToAction("Index");
         }

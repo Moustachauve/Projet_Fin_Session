@@ -82,7 +82,7 @@ namespace photo_hdr_duval.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Forfaits = uow.ForfaitRepository.Get();
-			ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent",rDV.AgentID);
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", rDV.AgentID);
             return View(rDV);
         }
 
@@ -143,7 +143,8 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
-            uow.RDVRepository.DeleteRDV(rDV);
+
+            uow.RDVRepository.DeleteRDV(rDV, uow);
             uow.Save();
             return RedirectToAction("Index");
         }

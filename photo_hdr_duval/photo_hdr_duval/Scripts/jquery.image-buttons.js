@@ -6,22 +6,12 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 });
 
 $(function () {
-    var hoverCount = 0;
-
-    
+   
     $('#photo_gallery').on("mouseenter", ".thumbnail-container", function () {
-        hoverCount++;
         $(this).find('.buttons').show();
     });
 
     $('#photo_gallery').on("mouseleave", ".thumbnail-container", function () {
-        /*hoverCount--;
-        var _this = this;
-        setTimeout(function () {
-            if (hoverCount == 0) {
-                $(_this).find('.buttons').fadeOut(150);
-            }
-        }, 5);*/
         $(this).find('.buttons').fadeOut(150);
     });
 
