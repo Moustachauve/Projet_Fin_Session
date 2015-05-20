@@ -24,7 +24,8 @@ $(function () {
         }).success(function (dataRaw) {
             var id = JSON.parse(dataRaw);
             $('#' + id).remove();
-            hoverCount = 0;
+            if ($(".thumbnail-container").length == 0)
+                $("#photo_gallery").append("<small>Il n'y a pas encore de photos pour ce rendez-vous</small>");
 
         }).fail(function () {
             alert('Une erreur est survenue, veuillez réessayer');
