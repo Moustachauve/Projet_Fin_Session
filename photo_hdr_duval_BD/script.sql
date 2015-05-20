@@ -68,10 +68,10 @@ ALTER TABLE RDV.RDVs
 ADD NomProprietaire NVARCHAR(70) NOT NULL,
 	PrenomProprietaire NVARCHAR(70) NOT NULL DEFAULT 'N/D',
 	CodePostal NVARCHAR(7) NOT NULL DEFAULT 'N/D',
-	CoutTotalAvantTaxes MONEY NOT NULL DEFAULT 0,
-	CoutTotalApresTaxes MONEY NOT NULL DEFAULT 0,
-	Deplacement MONEY NULL DEFAULT 0,
-	VisiteVirtuelle MONEY NULL DEFAULT 0,
+	CoutTotalAvantTaxes MONEY NOT NULL DEFAULT 0 CHECK(CoutTotalAvantTaxes >= 0),
+	CoutTotalApresTaxes MONEY NOT NULL DEFAULT 0 CHECK(CoutTotalApresTaxes >= 0),
+	Deplacement MONEY NOT NULL DEFAULT 0,
+	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
 	DateFacturation DATE NULL,
 	DateLivraison DATE NULL,
 	Ville NVARCHAR(70) NOT NULL DEFAULT('N/D')
@@ -339,16 +339,20 @@ CREATE PROCEDURE Agent.RapportMensuel
 @année int
 AS
 BEGIN
-	select r.DateDemande, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalAvantTaxes, r.Deplacement, r.VisiteVirtuelle , r.CoutTotalApresTaxes
-	from RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
+	SELECT r.DateDemande, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalAvantTaxes, r.Deplacement, r.VisiteVirtuelle , r.CoutTotalApresTaxes
+	FROM RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
 	WHERE	YEAR(r.DateFacturation) = @année AND
 			MONTH(r.DateFacturation) = @mois
 	ORDER BY a.NomAgent, a.PrenomAgent
 END
-
---EXEC Agent.RapportMensuel @mois = 05, @année = 2015
-
 GO
+--EXEC Agent.RapportMensuel @mois = 05, @année = 2015
+/*
+
+CREATE VIEW Agent.view_RapportMensuel
+AS
+	SELECT * FROM (Agent.RapportMensuel @mois = 5, @année = 2015)
+GO*/
 
 USE [H15_PROJET_E05]
 GO
