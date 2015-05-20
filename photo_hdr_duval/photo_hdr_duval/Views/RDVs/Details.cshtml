@@ -104,15 +104,21 @@
         {
             foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
             {
-
                 <dt>
-                    @item.Nom
+                    @item.Nom (@item.PourcentageToString()) :
                 </dt>
-
                 <dd>
-                    @item.PourcentageToString()
+                    @{switch (item.Nom)
+                    {
+                        case "TPS":
+                            @ViewBag.TPS
+                            break;
+                        case "TVQ":
+                            @ViewBag.TVQ
+                            break;
+                    }
+                    }
                 </dd>
-
             }
         }
 

@@ -48,7 +48,13 @@ namespace photo_hdr_duval.Controllers
                 return HttpNotFound();
             }
             uow.RDVRepository.UpdateCoutTotal(rDV);
-            ViewBag.Taxes = uow.TaxRepository.Get();
+			IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
+            ViewBag.Taxes = Taxes;
+			decimal TPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
+			decimal TVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
+			string specifier = "C";
+			ViewBag.TPS = TPS.ToString(specifier);
+			ViewBag.TVQ = TVQ.ToString(specifier);
             return View(rDV);
         }
 
