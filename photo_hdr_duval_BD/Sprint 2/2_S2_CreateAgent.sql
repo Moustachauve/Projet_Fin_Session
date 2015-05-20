@@ -11,7 +11,7 @@ CREATE TABLE Agent.Agents(
 	Adresse NVARCHAR(50) NOT NULL,
 	CodePostal NVARCHAR(7) NOT NULL,
 	TelPrincipal BIGINT NOT NULL,
-	TelSecondaire BIGINT NOT NULL
+	TelSecondaire BIGINT NULL DEFAULT 'N/D'
 
 	PRIMARY KEY (AgentID)
 ) ON [PRIMARY];
