@@ -21,7 +21,7 @@ namespace photo_hdr_duval.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: RDVs
-        public ActionResult Index(string sortString, bool? asc, int? page)
+        public ActionResult Index(string sortString, string Statut, bool? asc, int? page)
         {
             IEnumerable<RDV> rdvs;
             int pageNum = page ?? 1;
@@ -29,11 +29,15 @@ namespace photo_hdr_duval.Controllers
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
+            ViewBag.Statut = Statut;
 
             if (sortString == null)
                 rdvs = uow.RDVRepository.Get();
             else
                 rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
+
+            if(Statut != null && !String.IsNullOrWhiteSpace(Statut))
+                rdvs = rdvs.Where(x => x.Statuts.First().DescriptionStatut == Statut).ToList();
 
             return View(new PagedList<RDV>(rdvs, pageNum, pageSize));
         }
