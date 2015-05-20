@@ -65,27 +65,22 @@ namespace photo_hdr_duval.DAL
 			Delete(rdv);
 		}
 
-				public List<RDV> GetByDateRDV(DateTime dt)
+		public List<RDV> GetByDateRDV(DateTime dt)
 		{
 			IEnumerable<RDV> rdvs = this.Get();
 			List<RDV> rdvsByDate = new List<RDV>();
-			foreach(RDV rdv in rdvs)
+			foreach (RDV rdv in rdvs)
 			{
-				if(rdv.DateRDV != null)
+				if (rdv.DateRDV != null)
 				{
 					DateTime dateRdv = (DateTime)rdv.DateRDV;
-					if (dateRdv.Date == dt.Date) 
+					if (dateRdv.Date == dt.Date)
 					{
 						rdvsByDate.Add(rdv);
 					}
 				}
 			}
-
 			return rdvsByDate;
-
 		}
-	}
-
-
 	}
 }
