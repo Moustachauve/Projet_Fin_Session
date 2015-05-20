@@ -17,5 +17,5 @@ ADD NomProprietaire NVARCHAR(70) NOT NULL,
 	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
 	DateFacturation DATE NULL,
 	DateLivraison DATE NULL,
-	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A')
+	Ville NVARCHAR(70) NOT NULL DEFAULT('N/D')
 GO

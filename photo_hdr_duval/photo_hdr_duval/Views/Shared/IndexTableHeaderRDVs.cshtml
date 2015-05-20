@@ -9,16 +9,16 @@
 <thead>
     <tr>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), "Index", new { sortString = "DateDemande", asc = futureAsc })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateDemande) + (ViewBag.orderBy == "DateDemande" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "DateDemande", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th>
-            @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), "Index", new { sortString = "DateRdv", asc = futureAsc })
+            @Html.ActionLink(Html.DisplayNameFor(model => model.DateRDV) + (ViewBag.orderBy == "DateRdv" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "DateRdv", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th>
-            @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), "Index", new { sortString = "NomProprietaire", asc = futureAsc })
+            @Html.ActionLink("Nom et prénom du propriétaire" + (ViewBag.orderBy == "NomProprietaire" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "NomProprietaire", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th class="th-statut">
-            @Html.ActionLink("Status" + (ViewBag.orderBy == "Status" ? arrow : ""), "Index", new { sortString = "Status", asc = futureAsc })
+            @Html.ActionLink("Statut" + (ViewBag.orderBy == "Status" ? arrow : ""), ViewContext.RouteData.Values["action"].ToString(), new { sortString = "Status", asc = futureAsc, Statut = ViewBag.Statut })
         </th>
         <th></th>
     </tr>

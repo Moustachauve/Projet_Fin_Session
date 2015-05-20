@@ -203,3 +203,8 @@ input, select, textarea {
     float: none;
     margin: 0 auto;
 }
+
+.filter {
+    float:right;
+    margin-right:100px;
+}

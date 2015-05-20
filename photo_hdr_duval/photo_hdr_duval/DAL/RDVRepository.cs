@@ -1,4 +1,5 @@
-﻿using photo_hdr_duval.Models;
+﻿using PagedList;
+using photo_hdr_duval.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -97,5 +98,86 @@ namespace photo_hdr_duval.DAL
 			}
 			return rdvsByDate;
 		}
+
+        public IEnumerable<RDV> GetRdvByAgentID(int id)
+        {
+            List<RDV> lst = new List<RDV>();
+            foreach (RDV rdv in Get())
+            {
+                if (rdv.AgentID == id)
+                {
+                    lst.Add(rdv);
+                    
+                }
+            }
+            return lst;
+        }
+
+        public IEnumerable<RDV> GetOrderByAgent(string orderBy, bool asc, Agent agent)
+        {
+            Func<IQueryable<RDV>, IOrderedQueryable<RDV>> orderLambda = null;
+
+            switch (orderBy)
+            {
+                case "DateRdv":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.DateRDV);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.DateRDV);
+                    break;
+                case "DateDemande":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.DateDemande);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.DateDemande);
+                    break;
+                case "NomProprietaire":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.NomProprietaire);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.NomProprietaire);
+                    break;
+                case "Status":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.Statuts.FirstOrDefault().Importance);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.Statuts.FirstOrDefault().Importance);
+                    break;
+            }
+            List<RDV> lst = new List<RDV>();
+            foreach (RDV rdv in Get(orderBy: orderLambda))
+            {
+                if (rdv.AgentID == agent.AgentID && (rdv.DateRDV == null || rdv.DateRDV.Value.Year == DateTime.Now.Year))
+                {
+                    lst.Add(rdv);
+                }
+            }
+            return lst;
+        }
+
+        public IEnumerable<RDV> SortRDVs(string sortString, bool? asc, string Statut)
+        {
+            IEnumerable<RDV> rdvs;
+
+            if (sortString == null)
+                rdvs = Get();
+            else
+                rdvs = GetOrderBy(sortString, asc != null ? (bool)asc : false);
+
+            if (Statut != null && !String.IsNullOrWhiteSpace(Statut))
+                rdvs = rdvs.Where(x => x.Statuts.First().DescriptionStatut == Statut).ToList();
+
+            return rdvs;
+        }
+
+        public IEnumerable<RDV> SortRDVsByAgent(string sortString, bool? asc, Agent agent)
+        {
+            if (sortString == null)
+                return GetRdvByAgentID(agent.AgentID);
+            else
+                return GetOrderByAgent(sortString, asc != null ? (bool)asc : false, agent);
+
+            
+        }
 	}
 }

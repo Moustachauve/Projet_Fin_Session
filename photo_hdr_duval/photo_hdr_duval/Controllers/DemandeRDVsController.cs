@@ -38,7 +38,6 @@ namespace photo_hdr_duval.Controllers
             return View(new PagedList<RDV>(rdvs, pageNum, pageSize));
         }
 
-        // GET: DemandeRDVs/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -50,7 +49,18 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-            return View(rDV);
+            IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
+
+            RDVDetailsViewModel viewModel = new RDVDetailsViewModel();
+            viewModel.RDV = rDV;
+            viewModel.CoutTPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
+            viewModel.CoutTVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
+            viewModel.Agent = rDV.Agent;
+            viewModel.Forfait = rDV.Forfait;
+            viewModel.Photos = rDV.PhotoProprietes;
+            viewModel.Statut = rDV.Statuts.First();
+
+            return View(viewModel);
         }
 
         // GET: DemandeRDVs/Create

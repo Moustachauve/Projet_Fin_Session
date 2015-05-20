@@ -1,5 +1,12 @@
 USE [H15_PROJET_E05]
 GO
+/*
+DROP TABLE RDV.Statuts
+DROP TABLE RDV.PhotoProprietes
+DROP TABLE Paiement.Taxes
+DROP TABLE Agent.Agents
+DROP TABLE RDV.RDVs
+DROP TABLE RDV.Forfaits*/
 
 --RDV.forfaits
 INSERT INTO  RDV.Forfaits (Nom, DescriptionForfait, Prix) VALUES
@@ -16,20 +23,22 @@ INSERT INTO Agent.Agents (NomAgent, PrenomAgent, NomEntreprise, Adresse, CodePos
 ('Fortier','Kevin', 'Immobilier Quebec', '472 rue secondaire','H0H 0H0', '7531594862', NULL, 'KevinFortier@hotmail.com', NULL, NULL)
 GO
 
-INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
-(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h',4501231234, NULL, '7350-16 du Chardonneret', 'EricCoolFriend@hotmail.com',2, 'Leduc', 'Éric', 'H0H 0H0', 10, 5, NULL, NULL, 'Brossard', 2)
-INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
-(GETDATE(), '2015-06-06', '15:10', 'N/D',4501231234, NULL, '3743 Boul Jean Béliveau', 'unEmail@email.com', 1, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Longueuil', 1)
-INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
-(GETDATE(), NULL, NULL, 'N/D',4501231234, NULL, '3045 Paquin', 'EricCoolFriend@hotmail.com',3, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3)
-INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
-(GETDATE(), '2015-05-29',  '15:35', 'Extérieur seulement. Intérieur pas prêt', 4501231234, NULL, '5525-5527 Baldwin', 'EricCoolFriend@hotmail.com',3, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3)
-
-
 --Paiement.Taxes
 INSERT INTO Paiement.Taxes (Nom, Pourcentage) VALUES
 ('TPS', 5),
 ('TVQ', 9.975)
+GO
+
+--RDV.RDVs
+
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID, CoutTotalAvantTaxes, CoutTotalApresTaxes) VALUES
+(GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h',4501231234, NULL, '7350-16 du Chardonneret', 'EricCoolFriend@hotmail.com',2, 'Leduc', 'Éric', 'H0H 0H0', 10, 5, NULL, NULL, 'Brossard', 2, 0, 0)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID, CoutTotalAvantTaxes, CoutTotalApresTaxes) VALUES
+(GETDATE(), '2015-06-06', '15:10', NULL,4501231234, NULL, '3743 Boul Jean Béliveau', 'unEmail@email.com', 1, 'Fafard', 'Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Longueuil', 1, 0, 0)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID, CoutTotalAvantTaxes, CoutTotalApresTaxes) VALUES
+(GETDATE(), NULL, NULL, NULL,4501231234, NULL, '3045 Paquin', 'EricCoolFriend@hotmail.com',3, 'Sylvain','Rodrigue', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3, 0, 0)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID, CoutTotalAvantTaxes, CoutTotalApresTaxes) VALUES
+(GETDATE(), '2015-05-29', '15:35', 'Extérieur seulement. Intérieur pas prêt', 4501231234, NULL, '5525-5527 Baldwin', 'EricCoolFriend@hotmail.com',3, 'France','Mayer', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3, 0, 0)
 GO
 
 --Add différent statut

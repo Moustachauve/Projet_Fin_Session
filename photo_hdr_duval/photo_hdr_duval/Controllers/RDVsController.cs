@@ -21,19 +21,17 @@ namespace photo_hdr_duval.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: RDVs
-        public ActionResult Index(string sortString, bool? asc, int? page)
+        public ActionResult Index(string sortString, string Statut, bool? asc, int? page)
         {
-            IEnumerable<RDV> rdvs;
+            
             int pageNum = page ?? 1;
             int pageSize = 10;
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
+            ViewBag.Statut = Statut;
 
-            if (sortString == null)
-                rdvs = uow.RDVRepository.Get();
-            else
-                rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
+            IEnumerable<RDV> rdvs = uow.RDVRepository.SortRDVs(sortString, asc, Statut);
 
             return View(new PagedList<RDV>(rdvs, pageNum, pageSize));
         }
@@ -50,15 +48,21 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
+
+            RDVDetailsViewModel viewModel = new RDVDetailsViewModel();
+
             uow.RDVRepository.UpdateCoutTotal(rDV);
 			IEnumerable<Tax> Taxes = uow.TaxRepository.Get();
-            ViewBag.Taxes = Taxes;
-			decimal TPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
-			decimal TVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
-			string specifier = "C";
-			ViewBag.TPS = TPS.ToString(specifier);
-			ViewBag.TVQ = TVQ.ToString(specifier);
-            return View(rDV);
+
+            viewModel.RDV = rDV;
+            viewModel.CoutTPS = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 1).First().Pourcentage / 100);
+            viewModel.CoutTVQ = rDV.CoutTotalAvantTaxes * (Taxes.Where(x => x.TaxeID == 2).First().Pourcentage / 100);
+            viewModel.Agent = rDV.Agent;
+            viewModel.Forfait = rDV.Forfait;
+            viewModel.Photos = rDV.PhotoProprietes;
+            viewModel.Statut = rDV.Statuts.First();
+
+            return View(viewModel);
         }
 
         // GET: RDVs/Create

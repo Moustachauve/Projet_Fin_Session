@@ -1,73 +1,73 @@
-﻿@model photo_hdr_duval.Models.RDV
+﻿@model photo_hdr_duval.Models.RDVDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
-<h2>Rendez-vous avec @Html.DisplayFor(model => model.PrenomProprietaire) @Html.DisplayFor(model => model.NomProprietaire) <span class="pull-right">@Html.Partial("RDVStatut", Model.Statuts.First())</span></h2>
-@if (Model.DateRDV != null)
+<h2>Rendez-vous avec @Html.DisplayFor(model => model.RDV.PrenomProprietaire) @Html.DisplayFor(model => model.RDV.NomProprietaire) <span class="pull-right">@Html.Partial("RDVStatut", Model.Statut)</span></h2>
+@if (Model.RDV.DateRDV != null)
 {
-    <h4>@Html.DisplayFor(model => model.DateRDV) à @Html.DisplayFor(model => model.HeureRDV) </h4>
+    <h4>@Html.DisplayFor(model => model.RDV.DateRDV) à @Html.DisplayFor(model => model.RDV.HeureRDV) </h4>
 }
 <hr />
 
 <div class="row">
     <div class="col-sm-6">
-    <h3>Informations de contact:</h3>
-    <dl>
+        <h3>Informations de contact:</h3>
+        <dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailProprietaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EmailProprietaire)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TelPrincipalProprietaire)
-        </dd>
-
-        @if (Model.TelSecondaire != null)
-        {
             <dt>
-                @Html.DisplayNameFor(model => model.TelSecondaire)
+                @Html.DisplayNameFor(model => model.RDV.EmailProprietaire)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TelSecondaire)
+                @Html.DisplayFor(model => model.RDV.EmailProprietaire)
             </dd>
-        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AdressePropriete)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdressePropriete)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CodePostal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CodePostal)
-        </dd>
-
-        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-        {
             <dt>
-                @Html.DisplayNameFor(model => model.Commentaire)
+                @Html.DisplayNameFor(model => model.RDV.TelPrincipalProprietaire)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Commentaire)
+                @Html.DisplayFor(model => model.RDV.TelPrincipalProprietaire)
             </dd>
-        }
+
+            @if (Model.RDV.TelSecondaire != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.RDV.TelSecondaire)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RDV.TelSecondaire)
+                </dd>
+            }
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.AdressePropriete)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.AdressePropriete)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CodePostal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CodePostal)
+            </dd>
+
+            @if (Model.RDV.Commentaire != null && !String.IsNullOrWhiteSpace(Model.RDV.Commentaire))
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.RDV.Commentaire)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.RDV.Commentaire)
+                </dd>
+            }
 
         </dl>
     </div>
@@ -75,80 +75,75 @@
     <div class="col-sm-6">
         <h3>Informations de facturation:</h3>
         <dl>
-        <dt>
-            @Html.DisplayNameFor(model => model.Forfait.Prix)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Forfait.Prix)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Forfait.Prix)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Forfait.Prix)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deplacement)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.Deplacement)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Deplacement)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.Deplacement)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.VisiteVirtuelle)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.VisiteVirtuelle)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.VisiteVirtuelle)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.VisiteVirtuelle)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CoutTotalAvantTaxes)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CoutTotalAvantTaxes)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CoutTotalAvantTaxes)
+            </dd>
 
-        @if (ViewBag.Taxes != null)
-        {
-            foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
-            {
-                <dt>
-                    @item.Nom (@item.PourcentageToString()) :
-                </dt>
-                <dd>
-                    @{switch (item.Nom)
-                    {
-                        case "TPS":
-                            @ViewBag.TPS
-                            break;
-                        case "TVQ":
-                            @ViewBag.TVQ
-                            break;
-                    }
-                    }
-                </dd>
-            }
-        }
+            <dt>
+                @Html.DisplayNameFor(model => model.CoutTVQ)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CoutTVQ)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CoutTotalApresTaxes)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CoutTPS)
+            </dt>
 
-    </dl>
-</div>
+            <dd>
+                @Html.DisplayFor(model => model.CoutTPS)
+            </dd>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RDV.CoutTotalApresTaxes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RDV.CoutTotalApresTaxes)
+            </dd>
+
+        </dl>
+    </div>
 
 </div>
 
 <div class="row" id="photo_gallery">
-    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "PhotoProprietes", new { id = Model.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
-    @if (Model.PhotoProprietes == null || Model.PhotoProprietes.Count == 0)
+    <h2>Photos: @Html.ActionLink("Ajouter des photos", "UploadPhoto", "PhotoProprietes", new { id = Model.RDV.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
+    @if (Model.Photos == null || Model.Photos.Count == 0)
     {
         <small>Il n'y a pas encore de photos pour ce rendez-vous</small>
     }
-    @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.PhotoProprietes)
+    @foreach (photo_hdr_duval.Models.PhotoPropriete photo in Model.Photos)
     {
         string chemin = @Url.Content(photo.Url);
 
@@ -166,7 +161,7 @@
 </div>
 <hr />
 <div class="btn-group">
-    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDVID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.RDV.RDVID }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Retourner à la liste", "Index", null, new { @class = "btn btn-default" })
 </div>
 
