@@ -99,12 +99,12 @@ namespace photo_hdr_duval.Controllers
             if (id == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("No ID");
+                return Json("Aucun rendez-vous sélectionné");
             }
             if (Request.Files == null)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json("No file");
+                return Json("Aucun fichier sélectionné");
             }
 
             DirectoryInfo imageFolderPath = createImageRepo((int)id);
@@ -112,6 +112,15 @@ namespace photo_hdr_duval.Controllers
             foreach (string fileString in Request.Files)
             {
                 HttpPostedFileBase file = Request.Files[fileString];
+
+                if(file.ContentType.ToLower() != "image/jpg" &&
+                    file.ContentType.ToLower() != "image/jpeg" &&
+                    file.ContentType.ToLower() != "image/gif" &&
+                    file.ContentType.ToLower() != "image/png")
+                {
+                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    return Json("Un ou plusieurs fichiers ne sont pas des images valides");
+                }
 
                 string filename = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(file.FileName);
 
@@ -122,7 +131,7 @@ namespace photo_hdr_duval.Controllers
 
             uow.Save();
 
-            return Json("File uploaded successfully");
+            return Json("Fichier téléversé avec succès");
         }
 
         public JsonResult DoDeletePhoto(int? id)
