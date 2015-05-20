@@ -180,6 +180,7 @@
     <Compile Include="Models\RDV.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RDVDetailsViewModel.cs" />
     <Compile Include="Models\RDVMetaData.cs" />
     <Compile Include="Models\Statut.cs">
       <DependentUpon>Model_photo_hdr_duval.tt</DependentUpon>

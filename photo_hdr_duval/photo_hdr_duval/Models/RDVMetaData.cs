@@ -42,8 +42,10 @@ namespace photo_hdr_duval.Models
             [Required]
             public string CodePostal { get; set; }
 
+            
             [DataType(DataType.PhoneNumber)]
             [Required]
+            [Phone]
             [Display(Name = "Téléphone principal")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelPrincipalProprietaire { get; set; }
