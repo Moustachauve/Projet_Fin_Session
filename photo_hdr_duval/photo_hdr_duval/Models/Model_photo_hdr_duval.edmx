@@ -66,8 +66,8 @@
           <Property Name="CodePostal" Type="nvarchar" MaxLength="7" Nullable="false" />
           <Property Name="CoutTotalAvantTaxes" Type="money" Nullable="false" />
           <Property Name="CoutTotalApresTaxes" Type="money" Nullable="false" />
-          <Property Name="Deplacement" Type="money" Nullable="false" />
-          <Property Name="VisiteVirtuelle" Type="money" Nullable="false" />
+          <Property Name="Deplacement" Type="money" />
+          <Property Name="VisiteVirtuelle" Type="money" />
           <Property Name="DateFacturation" Type="date" />
           <Property Name="DateLivraison" Type="date" />
           <Property Name="Ville" Type="nvarchar" MaxLength="70" Nullable="false" />
@@ -190,7 +190,7 @@
             <End Role="RDV" EntitySet="RDVs" />
             <End Role="Statut" EntitySet="Statuts" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="RapportMensuel_Result">
           <Property Type="DateTime" Name="DateDemande" Nullable="false" Precision="23" />
           <Property Type="String" Name="Nom__Prénom" Nullable="false" MaxLength="102" />
@@ -264,8 +264,8 @@
           <Property Name="CodePostal" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="CoutTotalAvantTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="CoutTotalApresTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Deplacement" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="VisiteVirtuelle" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Deplacement" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VisiteVirtuelle" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="DateFacturation" Type="DateTime" Precision="0" />
           <Property Name="DateLivraison" Type="DateTime" Precision="0" />
           <Property Name="Ville" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
@@ -437,7 +437,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
