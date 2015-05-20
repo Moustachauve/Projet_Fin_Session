@@ -35,8 +35,8 @@ namespace photo_hdr_duval.Models
         public string CodePostal { get; set; }
         public decimal CoutTotalAvantTaxes { get; set; }
         public decimal CoutTotalApresTaxes { get; set; }
-        public Nullable<decimal> Deplacement { get; set; }
-        public Nullable<decimal> VisiteVirtuelle { get; set; }
+        public decimal Deplacement { get; set; }
+        public decimal VisiteVirtuelle { get; set; }
         public Nullable<System.DateTime> DateFacturation { get; set; }
         public Nullable<System.DateTime> DateLivraison { get; set; }
         public string Ville { get; set; }

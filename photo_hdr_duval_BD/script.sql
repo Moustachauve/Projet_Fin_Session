@@ -339,7 +339,7 @@ CREATE PROCEDURE Agent.RapportMensuel
 @année int
 AS
 BEGIN
-	SELECT r.DateDemande, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalAvantTaxes, r.Deplacement, r.VisiteVirtuelle , r.CoutTotalApresTaxes
+	SELECT  a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalApresTaxes
 	FROM RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
 	WHERE	YEAR(r.DateFacturation) = @année AND
 			MONTH(r.DateFacturation) = @mois
@@ -348,7 +348,7 @@ BEGIN
 END
 GO
 --EXEC Agent.RapportMensuel @mois = 05, @année = 2015
-/*
+
 
 GO
 CREATE VIEW Agent.view_RapportMensuel
