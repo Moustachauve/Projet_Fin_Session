@@ -89,7 +89,7 @@ GO
 CREATE FUNCTION RDV.udf_CoutTotalAvantTaxes (
 	@RDVID AS INT
 )
-RETURNS MONEY
+RETURNS DECIMAL(10,2)
 AS 
 BEGIN
 	DECLARE @ForfaitIDselonRDVID INT
@@ -112,8 +112,11 @@ BEGIN
 	
 	--CALCULE LE @CoutTotalAvantTaxes
 	SET @CoutTotalAvantTaxes = (@prixBaseForfait + @CoutDeplacement + @CoutVisiteVirtuelle)
+	
+	DECLARE @CoutTotalAvantTaxesDecimal DECIMAL(10,2)
+	SET @CoutTotalAvantTaxesDecimal = CAST(@CoutTotalAvantTaxes AS DECIMAL(10,2))
 
-	RETURN @CoutTotalAvantTaxes
+	RETURN @CoutTotalAvantTaxesDecimal
 END
 GO
 
@@ -122,7 +125,7 @@ GO
 CREATE FUNCTION RDV.udf_CoutTotalApresTaxes (
 	@RDVID AS INT
 )
-RETURNS MONEY
+RETURNS DECIMAL(10,2)
 AS 
 BEGIN
 	DECLARE @CoutFinalAvecTaxes MONEY
@@ -130,15 +133,19 @@ BEGIN
 	DECLARE @PrixTPS MONEY
 	DECLARE @PrixTVQ MONEY
 
-	SET @CoutTotalAvantTaxes = RDV.udf_CoutTotalAvantTaxes(@RDVID)
-	
+	--SET @CoutTotalAvantTaxes = RDV.udf_CoutTotalAvantTaxes(@RDVID)
+	SELECT @CoutTotalAvantTaxes = CoutTotalAvantTaxes FROM RDV.RDVs WHERE RDVID = @RDVID
+
 	--CALCULE LES PRIX SELON LA TPS ET LA TVQ
 	SELECT @PrixTPS = ROUND((@CoutTotalAvantTaxes*(Pourcentage/100)), 2,1) FROM [Paiement].[Taxes] WHERE Nom = 'TPS'
 	SELECT @PrixTVQ = ROUND((@CoutTotalAvantTaxes*(Pourcentage/100)), 2,1) FROM Paiement.Taxes WHERE Nom = 'TVQ'
 
 	SET @CoutFinalAvecTaxes = @CoutTotalAvantTaxes + @PrixTPS + @PrixTVQ
 
-	RETURN @CoutFinalAvecTaxes
+	DECLARE @CoutFinalAvecTaxesDecimal DECIMAL(10,2)
+	SET @CoutFinalAvecTaxesDecimal = CAST(@CoutFinalAvecTaxes AS DECIMAL(10,2))
+
+	RETURN @CoutFinalAvecTaxesDecimal
 END
 GO
 
