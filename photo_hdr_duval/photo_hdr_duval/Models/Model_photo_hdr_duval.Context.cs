@@ -33,6 +33,7 @@ namespace photo_hdr_duval.Models
         public virtual DbSet<PhotoPropriete> PhotoProprietes { get; set; }
         public virtual DbSet<RDV> RDVs { get; set; }
         public virtual DbSet<Statut> Statuts { get; set; }
+        public virtual DbSet<view_RapportMensuel> view_RapportMensuel { get; set; }
     
         public virtual ObjectResult<RapportMensuel_Result> RapportMensuel(Nullable<int> mois, Nullable<int> année)
         {

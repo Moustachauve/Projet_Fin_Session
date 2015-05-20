@@ -83,6 +83,17 @@
           <Property Name="RDVID" Type="int" Nullable="false" />
           <Property Name="Importance" Type="int" Nullable="false" />
         </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'H15_PROJET_E05.Agent.view_RapportMensuel' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="view_RapportMensuel">
+          <Key>
+            <PropertyRef Name="Nom, Prénom" />
+            <PropertyRef Name="NomEntreprise" />
+          </Key>
+          <Property Name="Nom, Prénom" Type="nvarchar" MaxLength="102" Nullable="false" />
+          <Property Name="NomEntreprise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Total" Type="money" />
+        </EntityType>
         <Association Name="FK_RDV_Statut_StatutID">
           <End Role="RDVs" Type="Self.RDVs" Multiplicity="1" />
           <End Role="Statuts" Type="Self.Statuts" Multiplicity="*" />
@@ -142,6 +153,13 @@
           <EntitySet Name="PhotoProprietes" EntityType="Self.PhotoProprietes" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="RDVs" EntityType="Self.RDVs" Schema="RDV" store:Type="Tables" />
           <EntitySet Name="Statuts" EntityType="Self.Statuts" Schema="RDV" store:Type="Tables" />
+          <EntitySet Name="view_RapportMensuel" EntityType="Self.view_RapportMensuel" store:Type="Views" store:Schema="Agent">
+            <DefiningQuery>SELECT 
+    [view_RapportMensuel].[Nom, Prénom] AS [Nom, Prénom], 
+    [view_RapportMensuel].[NomEntreprise] AS [NomEntreprise], 
+    [view_RapportMensuel].[Total] AS [Total]
+    FROM [Agent].[view_RapportMensuel] AS [view_RapportMensuel]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_RDV_Statut_StatutID" Association="Self.FK_RDV_Statut_StatutID">
             <End Role="RDVs" EntitySet="RDVs" />
             <End Role="Statuts" EntitySet="Statuts" />
@@ -174,6 +192,7 @@
           <EntitySet Name="PhotoProprietes" EntityType="H15_PROJET_E05Model.PhotoPropriete" />
           <EntitySet Name="RDVs" EntityType="H15_PROJET_E05Model.RDV" />
           <EntitySet Name="Statuts" EntityType="H15_PROJET_E05Model.Statut" />
+          <EntitySet Name="view_RapportMensuel" EntityType="H15_PROJET_E05Model.view_RapportMensuel" />
           <AssociationSet Name="FK_RDVs_Agents_AgentID" Association="H15_PROJET_E05Model.FK_RDVs_Agents_AgentID">
             <End Role="Agent" EntitySet="Agents" />
             <End Role="RDV" EntitySet="RDVs" />
@@ -285,6 +304,15 @@
           <Property Name="RDVID" Type="Int32" Nullable="false" />
           <Property Name="Importance" Type="Int32" Nullable="false" />
           <NavigationProperty Name="RDV" Relationship="H15_PROJET_E05Model.FK_RDV_Statut_StatutID" FromRole="Statut" ToRole="RDV" />
+        </EntityType>
+        <EntityType Name="view_RapportMensuel">
+          <Key>
+            <PropertyRef Name="Nom__Prénom" />
+            <PropertyRef Name="NomEntreprise" />
+          </Key>
+          <Property Name="Nom__Prénom" Type="String" Nullable="false" MaxLength="102" FixedLength="false" Unicode="true" />
+          <Property Name="NomEntreprise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_RDVs_Agents_AgentID">
           <End Type="H15_PROJET_E05Model.Agent" Role="Agent" Multiplicity="1" />
@@ -434,6 +462,15 @@
                 <ScalarProperty Name="DescriptionStatut" ColumnName="DescriptionStatut" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
                 <ScalarProperty Name="StatutID" ColumnName="StatutID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_RapportMensuel">
+            <EntityTypeMapping TypeName="H15_PROJET_E05Model.view_RapportMensuel">
+              <MappingFragment StoreEntitySet="view_RapportMensuel">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+                <ScalarProperty Name="Nom__Prénom" ColumnName="Nom, Prénom" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

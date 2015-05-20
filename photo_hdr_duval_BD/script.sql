@@ -339,15 +339,23 @@ CREATE PROCEDURE Agent.RapportMensuel
 @année int
 AS
 BEGIN
-	select r.DateDemande, a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, r.CoutTotalAvantTaxes, r.Deplacement, r.VisiteVirtuelle , r.CoutTotalApresTaxes
+	select a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, SUM(r.CoutTotalApresTaxes) AS 'Total'
 	from RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
 	WHERE	YEAR(r.DateFacturation) = @année AND
 			MONTH(r.DateFacturation) = @mois
+	GROUP BY  a.NomAgent,a.PrenomAgent,a.NomEntreprise, r.CoutTotalApresTaxes
 	ORDER BY a.NomAgent, a.PrenomAgent
 END
 
 --EXEC Agent.RapportMensuel @mois = 05, @année = 2015
 
+GO
+CREATE VIEW Agent.view_RapportMensuel
+AS
+	SELECT a.NomAgent + ', ' + a.PrenomAgent AS 'Nom, Prénom', a.NomEntreprise, SUM(r.CoutTotalApresTaxes) AS 'Total'
+	FROM RDV.RDVs r INNER JOIN [Agent].[Agents] a ON  a.AgentID = r.AgentID
+	WHERE	YEAR(r.DateFacturation) = YEAR(GETDATE()) AND MONTH(r.DateFacturation) = MONTH(GETDATE())
+	GROUP BY  a.NomAgent,a.PrenomAgent,a.NomEntreprise, r.CoutTotalApresTaxes
 GO
 
 USE [H15_PROJET_E05]
@@ -394,7 +402,7 @@ GO
 
 UPDATE RDV.RDVs
 SET DateFacturation = '2015-05-15'
-WHERE RDVID = 1
+WHERE RDVID = 4
 GO
 
 UPDATE RDV.RDVs
