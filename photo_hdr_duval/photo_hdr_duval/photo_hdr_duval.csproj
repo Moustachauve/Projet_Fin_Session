@@ -278,6 +278,7 @@
     <Content Include="Views\Shared\RDVStatut.cshtml" />
     <Content Include="Views\PhotoProprietes\EditPhoto.cshtml" />
     <Content Include="Views\Agents\RapportMensuel.cshtml" />
+    <Content Include="Views\Shared\IndexFilterStatutRDV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

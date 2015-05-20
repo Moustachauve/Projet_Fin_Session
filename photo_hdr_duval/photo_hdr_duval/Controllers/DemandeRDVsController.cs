@@ -21,19 +21,27 @@ namespace photo_hdr_duval.Controllers
         private UnitOfWork uow = new UnitOfWork();
         
         // GET: DemandeRDVs
-        public ActionResult Index(string sortString, bool? asc, int? page)
+        public ActionResult Index(string sortString, string Statut, bool? asc, int? page, int? agentId)
         {
-            IEnumerable<RDV> rdvs;
             int pageNum = page ?? 1;
             int pageSize = 10;
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
+            ViewBag.Statut = Statut;
+            ViewBag.SelectedAgentID = agentId;
+            ViewBag.AgentID = new SelectList(uow.AgentRepository.Get(), "AgentID", "NomAgent", agentId);
 
-            if (sortString == null)
-                rdvs = uow.RDVRepository.Get();
-            else
-                rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
+            IEnumerable<RDV> rdvs;
+
+            if (agentId != null)
+            {
+                Agent agent = uow.AgentRepository.GetByID((int)agentId);
+                rdvs = uow.RDVRepository.SortRDVsByAgent(sortString, asc, Statut, agent);
+            }
+            else {
+                rdvs = uow.RDVRepository.SortRDVs(sortString, asc, Statut);
+            }
 
             return View(new PagedList<RDV>(rdvs, pageNum, pageSize));
         }
