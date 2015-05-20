@@ -1,4 +1,5 @@
-﻿@model photo_hdr_duval.Models.Forfait
+﻿@model photo_hdr_duval.Models.RDV
+
 @{
     ViewBag.Title = "FormForfait";
 }
@@ -10,9 +11,9 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>@Html.DisplayNameFor(x => x.Nom)</th>
-                    <th>@Html.DisplayNameFor(x => x.DescriptionForfait)</th>
-                    <th>@Html.DisplayNameFor(x => x.Prix)</th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.Nom)</th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.DescriptionForfait)</th>
+                    <th>@Html.DisplayNameFor(x => x.Forfait.Prix)</th>
                 </tr>
             </thead>
             <tbody>
