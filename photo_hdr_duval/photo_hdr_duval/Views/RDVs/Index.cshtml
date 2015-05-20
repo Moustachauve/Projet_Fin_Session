@@ -1,5 +1,5 @@
-﻿@model IEnumerable<photo_hdr_duval.Models.RDV>
-
+﻿@model PagedList.IPagedList<photo_hdr_duval.Models.RDV>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Gestion des rendez-vous demandé";
     bool futureAsc = ViewBag.isAsc != null ? !ViewBag.isAsc : false;
@@ -27,3 +27,5 @@
 	</tbody>
 </table>
 
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount

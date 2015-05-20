@@ -12,6 +12,7 @@ using System.Security.AccessControl;
 using System.Configuration;
 using System.IO;
 using System.Security.Principal;
+using PagedList;
 
 namespace photo_hdr_duval.Controllers
 {
@@ -20,9 +21,11 @@ namespace photo_hdr_duval.Controllers
         private UnitOfWork uow = new UnitOfWork();
 
         // GET: RDVs
-        public ActionResult Index(string sortString, bool? asc)
+        public ActionResult Index(string sortString, bool? asc, int? page)
         {
-            IEnumerable<RDV> rdvs = null;
+            IEnumerable<RDV> rdvs;
+            int pageNum = page ?? 1;
+            int pageSize = 10;
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
@@ -32,7 +35,7 @@ namespace photo_hdr_duval.Controllers
             else
                 rdvs = uow.RDVRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
 
-            return View(rdvs.ToList());
+            return View(new PagedList<RDV>(rdvs, pageNum, pageSize));
         }
 
         // GET: RDVs/Details/5
