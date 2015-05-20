@@ -6,9 +6,6 @@ DROP TABLE Agent.Emails
 DROP TABLE Agent.Agents
 DROP TABLE RDV.RDVs
 DROP TABLE RDV.Forfaits
-
-DELETE FROM RDV.PhotoProprietes
-
 */
 
 CREATE DATABASE H15_PROJET_E05
@@ -38,14 +35,14 @@ CREATE TABLE RDV.RDVs(
 	TelSecondaire BIGINT NULL,
 	AdressePropriete NVARCHAR(70) NOT NULL,
 	CodePostal NVARCHAR(7) NOT NULL,
-	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'),		-- ajouté 2015-05-06 11:34
+	Ville NVARCHAR(70) NOT NULL DEFAULT('N/A'),
 	EmailProprietaire NVARCHAR(30) NULL,
 	ForfaitID INT NOT NULL,
 	CoutTotalAvantTaxes MONEY NOT NULL DEFAULT 0,
 	CoutTotalApresTaxes MONEY NOT NULL DEFAULT 0,
 	Deplacement MONEY NOT NULL DEFAULT 0,
 	VisiteVirtuelle MONEY NOT NULL DEFAULT 0,
-	DateFacturation DATE NULL,						--AJOUT DU 2015-05-13, PERMET DE METTRE LE STATUT À FACTURÉE
+	DateFacturation DATE NULL,
 	DateLivraison DATE NULL,
 	AgentID int NOT NULL
 
@@ -71,20 +68,6 @@ CREATE TABLE Agent.Agents(
 	PRIMARY KEY (AgentID)
 ) ON [PRIMARY];
 GO
-
---Agent.Emails
--------------------------------------------------------------------  --DROP TABLE Agent.Emails
-/*
-	CREATE TABLE Agent.Emails(
-		EmailID int NOT NULL IDENTITY,
-		Email NVARCHAR(50) NOT NULL,
-		AgentID INT NOT NULL,
-		IsPrimary Bit NOT NULL DEFAULT 0
-
-		PRIMARY KEY (EmailID)
-	) ON [PRIMARY]
-	GO
-*/
 
 --RDV.PhotoProprietes
 -------------------------------------------------------------------  --DROP TABLE RDV.PhotoProprietes
@@ -128,12 +111,6 @@ ALTER TABLE RDV.RDVs
 	ADD CONSTRAINT FK_RDVs_Forfaits_ForfaitID
 	FOREIGN KEY (ForfaitID) 
 	REFERENCES RDV.Forfaits
-/*
-ALTER TABLE Agent.Emails
-	ADD CONSTRAINT FK_Agent_Emails_EmailID
-	FOREIGN KEY (AgentID)
-	REFERENCES Agent.Agents
-*/
 
 ALTER TABLE RDV.PhotoProprietes
 	ADD CONSTRAINT FK_RDVs_PhotoPropriete_RDVID

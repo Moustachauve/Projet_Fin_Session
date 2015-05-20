@@ -16,15 +16,6 @@ INSERT INTO Agent.Agents VALUES
 ('Fortier','Kevin', 'société 2', '472 rue secondaire','H0H 0H0', '7531594862', NULL, 'KevinFortier@hotmail.com', NULL, NULL)
 GO
 
---Agent.Emails
-/*
-	INSERT INTO Agent.Emails VALUES
-	('jjeff@hotmail.com', 1, 1),
-	('francisDespins@hotmail.com', 2, 1),
-	('FrancisCool123@hotmail.com', 2, 0),
-	('KevinFortier@hotmail.com', 3, 1)
-*/
-
 --RDV.RDVs
 --DELETE FROM RDV.Statuts
 --DELETE FROM RDV.RDVs
@@ -41,3 +32,22 @@ GO
 INSERT INTO Paiement.Taxes VALUES
 ('TPS', 5),
 ('TVQ', 9.975)
+
+--Add différent statut
+UPDATE RDV.RDVS
+SET DateRDV = '2015-07-07'
+WHERE RDVID = 2
+GO
+
+UPDATE RDV.RDVs
+SET DateFacturation = '2015-05-15'
+WHERE RDVID = 1
+GO
+
+UPDATE RDV.RDVs
+SET DateLivraison = '2015-08-12'
+WHERE RDVID = 3
+GO
+
+INSERT INTO [RDV].[PhotoProprietes]
+VALUES('testtt2', 'photo 2', 2)

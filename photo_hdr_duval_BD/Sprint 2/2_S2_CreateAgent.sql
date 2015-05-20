@@ -3,7 +3,7 @@ GO
 
 --Agent
 ----------------------------------------------------------------------
-CREATE TABLE Agent.Agent(
+CREATE TABLE Agent.Agents(
 	AgentID INT NOT NULL IDENTITY,
 	NomAgent NVARCHAR(50) NOT NULL,
 	PrenomAgent NVARCHAR(50) NOT NULL,

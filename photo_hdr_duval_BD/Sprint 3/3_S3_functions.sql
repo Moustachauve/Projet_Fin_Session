@@ -8,7 +8,8 @@ GO
 --4		Réalisée
 --5		Livrée
 --6		Facturée
-
+IF OBJECT_ID ('RDV.trg_GererStatut') IS NOT NULL DROP TRIGGER RDV.trg_GererStatut
+GO
 CREATE TRIGGER RDV.trg_GererStatut
 ON RDV.RDVs
 AFTER UPDATE, INSERT
@@ -17,95 +18,74 @@ AS
 	DECLARE @NouveauStatut NVARCHAR(50)
 	DECLARE @DateRdvUpdate DATE
 	
+	DECLARE @importance INT
+
 	SELECT @RDVID = RDVID FROM inserted
 	SELECT @DateRdvUpdate = DateRDV	FROM deleted
 
 	--SET NouveauStatut à DEMANDÉE
 	IF((SELECT COUNT(RDVID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
 		SET @NouveauStatut = 'Demandée'
+		SET @importance = 1
 	END
 
 	--SET NouveauStatut à CONFIRMÉE
 	IF ((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
 		SET @NouveauStatut = 'Confirmée'
+		SET @importance = 2
 	END
 
 	IF(UPDATE(DateRDV)) BEGIN
 		--SET NouveauStatut à Reportée
 		IF((SELECT TOP 1 DateRDV FROM RDV.RDVS WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
 			SET @NouveauStatut = 'Reportée'
+			SET @importance = 3
 		END
 	END
 
 	--SET NouveauStatut à Livré
 	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Livrée'
+		SET @importance = 5
 	END
 	
 	--SET NouveauStatut à Facturée
 	IF((SELECT DateFacturation FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
 		SET @NouveauStatut = 'Facturée'
+		SET @importance = 6
 	END
 
 
 	--UPDATE le statut à la fin selon si c'est un update ou un insert
 	INSERT INTO RDV.Statuts
-	VALUES (GETDATE(), @NouveauStatut, @RDVID)
+	VALUES (GETDATE(), @NouveauStatut, @RDVID, @importance)
 GO
 
+IF OBJECT_ID ('RDV.trg_GererPhotos') IS NOT NULL DROP TRIGGER RDV.trg_GererPhotos
+GO
 CREATE TRIGGER RDV.trg_GererPhotos
 ON [RDV].[PhotoProprietes]
 AFTER UPDATE, INSERT
 AS
 	DECLARE @RDVID INT
 	DECLARE @NouveauStatut NVARCHAR(50)
-	
+	DECLARE @importance INT
+
 	SELECT @RDVID = RDVID FROM inserted
 
 	--SET NouveauStatut à réalisée
 	IF ((SELECT COUNT(Url) FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) != 0) BEGIN
 		SET @NouveauStatut = 'Réalisée'
+		SET @importance = 4
 	END
 
 	INSERT INTO RDV.Statuts
-	VALUES (GETDATE(), @NouveauStatut, @RDVID)
+	VALUES (GETDATE(), @NouveauStatut, @RDVID, @importance)
 GO
-
-/*
---TESTS STATUTS
-UPDATE RDV.RDVS
-SET DateRDV = '2015-07-07'
-WHERE RDVID = 2
-GO
-
-UPDATE RDV.RDVs
-SET DateFacturation = '2015-05-15'
-WHERE RDVID = 1
-GO
-
-UPDATE RDV.RDVs
-SET DateLivraison = '2015-08-12'
-WHERE RDVID = 3
-GO
-
-INSERT INTO [RDV].[PhotoProprietes]
-VALUES('testtt2', 'photo 2', 2)
-*/
-
-
-
-
 
 --UDF
-/* Quand prix change(update prix)/créer rdv, va falloir additionne prix forfait + frais déplacement + visite virtuel
-
-prix = cout total avant taxe
-
-prix calcul après taxes
-
-taxe = prix * 1.15
-*/
-
+IF OBJECT_ID ('RDV.udf_CoutTotalAvantTaxes') IS NOT NULL DROP FUNCTION RDV.udf_CoutTotalAvantTaxes
+GO
 CREATE FUNCTION RDV.udf_CoutTotalAvantTaxes (
 	@RDVID AS INT
 )
@@ -135,7 +115,9 @@ BEGIN
 
 	RETURN @CoutTotalAvantTaxes
 END
+GO
 
+IF OBJECT_ID ('RDV.udf_CoutTotalApresTaxes') IS NOT NULL DROP FUNCTION RDV.udf_CoutTotalApresTaxes
 GO
 CREATE FUNCTION RDV.udf_CoutTotalApresTaxes (
 	@RDVID AS INT
@@ -165,7 +147,8 @@ GO
 GO
 
 -- DROP PROCEDURE Agent.RapportMensuel
-
+IF OBJECT_ID ('Agent.RapportMensuel') IS NOT NULL DROP PROCEDURE Agent.RapportMensuel
+GO
 CREATE PROCEDURE Agent.RapportMensuel
 @mois int,
 @année int

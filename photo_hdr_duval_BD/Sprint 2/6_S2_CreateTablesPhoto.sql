@@ -4,7 +4,7 @@ GO
 --PhotoPropriete
 -------------------------------------------------------------------  --DROP TABLE RDV.PhotoPropriete
 
-CREATE TABLE RDV.PhotoPropriete(
+CREATE TABLE RDV.PhotoProprietes(
 	PhotoProprieteID INT NOT NULL IDENTITY,
 	Url NVARCHAR(100) NOT NULL,
 	DescriptionPhoto NVARCHAR(300) NULL,
@@ -13,7 +13,7 @@ CREATE TABLE RDV.PhotoPropriete(
 	PRIMARY KEY (PhotoProprieteID)
 ) ON [PRIMARY];
 
-ALTER TABLE RDV.PhotoPropriete
+ALTER TABLE RDV.PhotoProprietes
 	ADD CONSTRAINT FK_RDVs_PhotoPropriete_RDVID
 	FOREIGN KEY (RDVID) 
 	REFERENCES RDV.RDVs

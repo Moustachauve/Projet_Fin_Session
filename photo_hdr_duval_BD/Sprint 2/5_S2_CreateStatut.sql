@@ -4,11 +4,12 @@ GO
 --Statut
 ------------------------------------------------------------------- --DROP TABLE RDV.Statut
 
-CREATE TABLE RDV.Statut(
+CREATE TABLE RDV.Statuts(
 	StatutID INT NOT NULL IDENTITY,
 	DateModification DATETIME NOT NULL DEFAULT(GETDATE()), 
 	DescriptionStatut NVARCHAR(50) NOT NULL,
-	RDVID INT NOT NULL
+	RDVID INT NOT NULL,
+	Importance INT NOT NULL DEFAULT 0
 
 	PRIMARY KEY (StatutID)
 ) ON [PRIMARY];
@@ -21,31 +22,3 @@ ALTER TABLE RDV.Statuts
 	ADD CONSTRAINT FK_RDV_Statut_StatutID
 	FOREIGN KEY (RDVID)
 	REFERENCES RDV.RDVs (RDVID)
-
-/*ANCIEN STATUT
-USE [H15_PROJET_E05]
-GO
-
---Statut
-------------------------------------------------------------------- --DROP TABLE RDV.Statut
-
-CREATE TABLE RDV.Statut(
-	StatutID INT NOT NULL IDENTITY,
-	DescriptionStatut NVARCHAR(50) NOT NULL UNIQUE,
-
-	PRIMARY KEY (StatutID)
-) ON [PRIMARY];
-
-
---Foreign Keys
--------------------------------------------------------------------
-
-ALTER TABLE RDV.Statut
-	ADD CONSTRAINT FK_RDV_Statut_StatutID
-	FOREIGN KEY (StatutID)
-	REFERENCES RDV.RDVs
-
---DONNÉES DE LA TABLE RDV.STATUT
--------------------------------------------------------------------
-
-INSERT INTO RDV.Statut(DescriptionStatut) VALUES ('Demandée'), ('Confirmée'), ('Reportée'), ('Réalisée'), ('Livrée'), ('Facturée')*/
