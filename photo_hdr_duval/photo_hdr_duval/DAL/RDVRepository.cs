@@ -90,7 +90,9 @@ namespace photo_hdr_duval.DAL
 				{
 					DateTime dateRdv = (DateTime)rdv.DateRDV;
 					if (dateRdv.Date == dt.Date)
+					{
 						rdvsByDate.Add(rdv);
+					}
 				}
 			}
 			return rdvsByDate;

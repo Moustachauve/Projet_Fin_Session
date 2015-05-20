@@ -12,62 +12,62 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h3>Informations de contact:</h3>
-        <dl>
+    <h3>Informations de contact:</h3>
+    <dl>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailProprietaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailProprietaire)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelPrincipalProprietaire)
+        </dd>
+
+        @if (Model.TelSecondaire != null)
+        {
             <dt>
-                @Html.DisplayNameFor(model => model.EmailProprietaire)
+                @Html.DisplayNameFor(model => model.TelSecondaire)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.EmailProprietaire)
+                @Html.DisplayFor(model => model.TelSecondaire)
             </dd>
+        }
 
+        <dt>
+            @Html.DisplayNameFor(model => model.AdressePropriete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdressePropriete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodePostal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodePostal)
+        </dd>
+
+        @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
+        {
             <dt>
-                @Html.DisplayNameFor(model => model.TelPrincipalProprietaire)
+                @Html.DisplayNameFor(model => model.Commentaire)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.TelPrincipalProprietaire)
+                @Html.DisplayFor(model => model.Commentaire)
             </dd>
-
-            @if (Model.TelSecondaire != null)
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.TelSecondaire)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.TelSecondaire)
-                </dd>
-            }
-
-            <dt>
-                @Html.DisplayNameFor(model => model.AdressePropriete)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.AdressePropriete)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CodePostal)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CodePostal)
-            </dd>
-
-            @if (Model.Commentaire != null && !String.IsNullOrWhiteSpace(Model.Commentaire))
-            {
-                <dt>
-                    @Html.DisplayNameFor(model => model.Commentaire)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Commentaire)
-                </dd>
-            }
+        }
 
         </dl>
     </div>
@@ -75,70 +75,70 @@
     <div class="col-sm-6">
         <h3>Informations de facturation:</h3>
         <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.Forfait.Prix)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Forfait.Prix)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Forfait.Prix)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Forfait.Prix)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Deplacement)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Deplacement)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Deplacement)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Deplacement)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.VisiteVirtuelle)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.VisiteVirtuelle)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.VisiteVirtuelle)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.VisiteVirtuelle)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.CoutTotalAvantTaxes)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CoutTotalAvantTaxes)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CoutTotalAvantTaxes)
+        </dd>
 
-            @if (ViewBag.Taxes != null)
+        @if (ViewBag.Taxes != null)
+        {
+            foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
             {
-                foreach (photo_hdr_duval.Models.Tax item in ViewBag.Taxes)
-                {
-                    <dt>
-                        @item.Nom (@item.PourcentageToString()) :
-                    </dt>
-                    <dd>
-                        @{switch (item.Nom)
-                        {
-                            case "TPS":
-                                @ViewBag.TPS
-                                break;
-                            case "TVQ":
+                <dt>
+                    @item.Nom (@item.PourcentageToString()) :
+                </dt>
+                <dd>
+                    @{switch (item.Nom)
+                    {
+                        case "TPS":
+                            @ViewBag.TPS
+                            break;
+                        case "TVQ":
                             @ViewBag.TVQ
-                                break;
-                        }
-                        }
-                    </dd>
-                }
+                            break;
+                    }
+                    }
+                </dd>
             }
+        }
 
-            <dt>
-                @Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CoutTotalApresTaxes)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.CoutTotalApresTaxes)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CoutTotalApresTaxes)
+        </dd>
 
-        </dl>
-    </div>
+    </dl>
+</div>
 
 </div>
 
