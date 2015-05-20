@@ -36,6 +36,12 @@ namespace photo_hdr_duval.DAL
 					else
 						orderLambda = x => x.OrderByDescending(y => y.NomProprietaire);
 					break;
+                case "Status":
+                    if (asc)
+                        orderLambda = x => x.OrderBy(y => y.Statuts);
+                    else
+                        orderLambda = x => x.OrderByDescending(y => y.Statuts);
+                    break;
 			}
 			return Get(orderBy: orderLambda);
 		}
