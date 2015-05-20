@@ -38,9 +38,9 @@ namespace photo_hdr_duval.DAL
 					break;
                 case "Status":
                     if (asc)
-                        orderLambda = x => x.OrderBy(y => y.Statuts);
+                        orderLambda = x => x.OrderBy(y => y.Statuts.FirstOrDefault().Importance);
                     else
-                        orderLambda = x => x.OrderByDescending(y => y.Statuts);
+                        orderLambda = x => x.OrderByDescending(y => y.Statuts.FirstOrDefault().Importance);
                     break;
 			}
 			return Get(orderBy: orderLambda);

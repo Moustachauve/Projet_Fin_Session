@@ -8,7 +8,6 @@ namespace photo_hdr_duval.DAL
 {
     public class AgentRepository : Repository<Agent>
     {
-        UnitOfWork uow = new UnitOfWork();
         public AgentRepository(H15_PROJET_E05_Context context)
 			: base(context)
 		{ }
