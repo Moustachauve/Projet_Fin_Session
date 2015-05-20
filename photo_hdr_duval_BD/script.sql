@@ -158,6 +158,19 @@ ALTER TABLE RDV.RDVs
 	FOREIGN KEY (AgentID) 
 	REFERENCES Agent.Agents
 
+CREATE INDEX index_photoProprietesRDVID
+ON RDV.PhotoProprietes(RDVID)
+
+CREATE INDEX index_StatutsRDVID
+ON RDV.Statuts(RDVID)
+
+CREATE INDEX index_AgentsAgentID
+ON RDV.RDVs (AgentID)
+
+CREATE INDEX index_RDVForfaitID
+ON RDV.RDVs (ForfaitID)
+
+
 USE [H15_PROJET_E05]
 GO
 
