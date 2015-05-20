@@ -18,9 +18,35 @@ GO
 
 INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
 (GETDATE(), NULL, NULL, 'Appeller telephone secondaire avant 17h',4501231234, NULL, '7350-16 du Chardonneret', 'EricCoolFriend@hotmail.com',2, 'Leduc', 'Éric', 'H0H 0H0', 10, 5, NULL, NULL, 'Brossard', 2)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
+(GETDATE(), '2015-06-06', '15:10', 'N/D',4501231234, NULL, '3743 Boul Jean Béliveau', 'unEmail@email.com', 1, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Longueuil', 1)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
+(GETDATE(), NULL, NULL, 'N/D',4501231234, NULL, '3045 Paquin', 'EricCoolFriend@hotmail.com',3, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3)
+INSERT INTO RDV.RDVs (DateDemande, DateRDV, HeureRDV, Commentaire, TelPrincipalProprietaire, TelSecondaire, AdressePropriete, EmailProprietaire, ForfaitID, NomProprietaire, PrenomProprietaire, CodePostal, Deplacement, VisiteVirtuelle, DateFacturation, DateLivraison, Ville, AgentID) VALUES
+(GETDATE(), '2015-05-29',  '15:35', 'Extérieur seulement. Intérieur pas prêt', 4501231234, NULL, '5525-5527 Baldwin', 'EricCoolFriend@hotmail.com',3, 'Fafard','Paméla', 'H0H 0H0', 0, 0, NULL, NULL, 'Sainte-Madeleine', 3)
+
 
 --Paiement.Taxes
 INSERT INTO Paiement.Taxes (Nom, Pourcentage) VALUES
 ('TPS', 5),
 ('TVQ', 9.975)
 GO
+
+--Add différent statut
+UPDATE RDV.RDVS
+SET DateRDV = '2015-07-07'
+WHERE RDVID = 2
+GO
+
+UPDATE RDV.RDVs
+SET DateFacturation = '2015-05-15'
+WHERE RDVID = 1
+GO
+
+UPDATE RDV.RDVs
+SET DateLivraison = '2015-08-12'
+WHERE RDVID = 3
+GO
+
+INSERT INTO [RDV].[PhotoProprietes]
+VALUES('testtt2', 'photo 2', 2)
