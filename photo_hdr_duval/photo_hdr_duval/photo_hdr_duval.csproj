@@ -270,7 +270,6 @@
     <Content Include="Views\Agents\Index.cshtml" />
     <Content Include="Views\Shared\FormForfait.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Email.cshtml" />
-    <Content Include="Views\Agents\CreateEmail.cshtml" />
     <Content Include="Views\Shared\IndexTableDataAgents.cshtml" />
     <Content Include="Views\Shared\IndexTableDataRDVs.cshtml" />
     <Content Include="Views\Shared\IndexTableHeaderAgents.cshtml" />

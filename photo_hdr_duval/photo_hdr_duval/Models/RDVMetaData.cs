@@ -44,7 +44,7 @@ namespace photo_hdr_duval.Models
 
             [DataType(DataType.PhoneNumber)]
             [Required]
-            [Display(Name = "Téléphone principal du propriétaire")]
+            [Display(Name = "Téléphone principal")]
             [DisplayFormat(DataFormatString = "{0:###-###-####}")]
             public long TelPrincipalProprietaire { get; set; }
 
