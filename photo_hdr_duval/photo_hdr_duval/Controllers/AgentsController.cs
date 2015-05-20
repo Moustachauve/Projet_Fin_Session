@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using photo_hdr_duval.Models;
 using photo_hdr_duval.DAL;
+using PagedList;
 
 namespace photo_hdr_duval.Controllers
 {
@@ -17,9 +18,11 @@ namespace photo_hdr_duval.Controllers
         UnitOfWork uow = new UnitOfWork();
 
         // GET: Agents
-        public ActionResult Index(string sortString, bool? asc)
+        public ActionResult Index(string sortString, bool? asc, int? page)
         {
             IEnumerable<Agent> agents = null;
+            int pageNum = page ?? 1;
+            int pageSize = 10;
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
@@ -29,7 +32,7 @@ namespace photo_hdr_duval.Controllers
             else
                 agents = uow.AgentRepository.GetOrderBy(sortString, asc != null ? (bool)asc : false);
 
-            return View(agents.ToList());
+            return View(new PagedList<Agent>(agents, pageNum, pageSize));
         }
 
         // GET: Agents/Details/5

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<photo_hdr_duval.Models.RDV>
-
+﻿@model PagedList.IPagedList<photo_hdr_duval.Models.RDV>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
 
@@ -8,24 +8,27 @@
 <h2>Liste de Rendez-vous @Html.ActionLink("Demander un rendez-vous", "Create", "DemandeRDVs", null, new { @class = "btn btn-success pull-right" })</h2>
 
 <table class="table table-hover table-striped">
-    
+
     @Html.Partial("../Shared/IndexTableHeaderRDVs")
 
-	<tbody>
-		@foreach (var item in Model)
-		{
-			<tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
                 @Html.Partial("../Shared/IndexTableDataRDVs", item)
-				<td class="text-right th-buttons-small">
-					<div class="btn-group">
-						@Html.ActionLink("Détails", "Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
-						@Html.ActionLink("Modifier", "Edit", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
-					</div>
-				</td>
-			</tr>
-		}
-	</tbody>
-
-
-
+                <td class="text-right th-buttons-small">
+                    <div class="btn-group">
+                        @Html.ActionLink("Détails", "Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Modifier", "Edit", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@if (Model.PageCount > 1)
+{
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page, sortString = ViewBag.orderBy, asc = ViewBag.isAsc }))
+    <text>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) sur @Model.PageCount</text>
+}
