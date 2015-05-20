@@ -1,7 +1,9 @@
 ﻿@model photo_hdr_duval.Models.Agent
-
+@using PagedList.Mvc;
+@using photo_hdr_duval.Models;
 @{
     ViewBag.Title = "Details";
+    var listRdv = ViewBag.ListRDVs;
 }
 
 <h2>Détails</h2>
@@ -83,6 +85,25 @@
         </dd>
 
     </dl>
+    <table class="table table-hover table-striped">
+
+        @Html.Partial("../Shared/IndexTableHeaderRDVs", Model.RDVs)
+
+        <tbody>
+            @foreach (RDV item in listRdv)
+            {
+                <tr>
+                    @Html.Partial("../Shared/IndexTableDataRDVs", item)
+                    <td class="text-right th-buttons-small">
+                        <div class="btn-group">
+                            @Html.ActionLink("Détails", "../RDVs/Details", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
+                            @Html.ActionLink("Modifier", "../RDVs/Edit", new { id = item.RDVID }, new { @class = "btn btn-primary btn-sm" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div class="btn-group">
     @Html.ActionLink("Modifier", "Edit", new { id = Model.AgentID }, new { @class = "btn btn-primary" })

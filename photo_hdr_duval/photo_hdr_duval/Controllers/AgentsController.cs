@@ -36,7 +36,7 @@ namespace photo_hdr_duval.Controllers
         }
 
         // GET: Agents/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string sortString, bool? asc, int? id, int? page)
         {
             if (id == null)
             {
@@ -47,6 +47,20 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
+            IEnumerable<RDV> rdvs = null;
+            int pageNum = page ?? 1;
+            int pageSize = 10;
+
+            ViewBag.isAsc = asc;
+            ViewBag.orderBy = sortString;
+
+
+            if (sortString == null)
+                rdvs = uow.RDVRepository.GetRdvByAgentID((int)id);
+            else
+                rdvs = uow.RDVRepository.GetOrderByAgent(sortString, asc != null ? (bool)asc : false, agent);
+
+            ViewBag.listRDVs = new PagedList<RDV>(rdvs, pageNum, pageSize);
             return View(agent);
         }
 
