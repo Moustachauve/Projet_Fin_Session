@@ -6,24 +6,30 @@
     string arrow = futureAsc ? "▲" : "▼";
 }
 
-<h2>Index @Html.ActionLink("Ajouter un rendez-vous", "Create", "RDVs", null, new { @class = "btn btn-success pull-right" })</h2>
+<h2>
+    Index
 
-@using (@Html.BeginForm("Index", "RDVs", FormMethod.Get))
-{
-    <input name="isAsc" value="@ViewBag.isAsc" type="hidden" />
-    <input name="orderBy" value="@ViewBag.orderBy" type="hidden" />
+    @Html.ActionLink("Ajouter un rendez-vous", "Create", "RDVs", null, new { @class = "btn btn-success pull-right" })
 
-    <label for="statutSelect">Filtre par statut: </label>
-    <select name="Statut" id="statutSelect" onchange="this.form.submit()">
-        <option value="">Tous</option>
-        <option value="Demandée" @if (ViewBag.Statut == "Demandée") { <text> selected</text> }>Demandée</option>
-        <option value="Confirmée" @if (ViewBag.Statut == "Confirmée") { <text> selected</text> }>Confirmée</option>
-        <option value="Reportée" @if (ViewBag.Statut == "Reportée") { <text> selected</text> }>Reportée</option>
-        <option value="Réalisée" @if (ViewBag.Statut == "Réalisée") { <text> selected</text> }>Réalisée</option>
-        <option value="Livrée" @if (ViewBag.Statut == "Livrée") { <text> selected</text> }>Livrée</option>
-        <option value="Facturée" @if (ViewBag.Statut == "Facturée") { <text> selected</text> }>Facturée</option>
-    </select>
-}
+    <div class="filter small">
+        @using (@Html.BeginForm("Index", "RDVs", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <input name="isAsc" value="@ViewBag.isAsc" type="hidden" />
+            <input name="orderBy" value="@ViewBag.orderBy" type="hidden" />
+
+            <label for="statutSelect" class="control-label">Filtre par statut: </label>
+            <select name="Statut" id="statutSelect" onchange="this.form.submit()" class="form-control">
+                <option value="">Tous</option>
+                <option value="Demandée" @if (ViewBag.Statut == "Demandée") { <text> selected</text> }>Demandée</option>
+                <option value="Confirmée" @if (ViewBag.Statut == "Confirmée") { <text> selected</text> }>Confirmée</option>
+                <option value="Reportée" @if (ViewBag.Statut == "Reportée") { <text> selected</text> }>Reportée</option>
+                <option value="Réalisée" @if (ViewBag.Statut == "Réalisée") { <text> selected</text> }>Réalisée</option>
+                <option value="Livrée" @if (ViewBag.Statut == "Livrée") { <text> selected</text> }>Livrée</option>
+                <option value="Facturée" @if (ViewBag.Statut == "Facturée") { <text> selected</text> }>Facturée</option>
+            </select>
+        }
+    </div>
+</h2>
 
 <table class="table table-hover table-striped">
     @Html.Partial("../Shared/IndexTableHeaderRDVs")
