@@ -155,12 +155,29 @@ namespace photo_hdr_duval.DAL
             return lst;
         }
 
-        public IEnumerable<RDV> SortRDVs(string sortString, bool? asc, Agent agent)
+        public IEnumerable<RDV> SortRDVs(string sortString, bool? asc, string Statut)
+        {
+            IEnumerable<RDV> rdvs;
+
+            if (sortString == null)
+                rdvs = Get();
+            else
+                rdvs = GetOrderBy(sortString, asc != null ? (bool)asc : false);
+
+            if (Statut != null && !String.IsNullOrWhiteSpace(Statut))
+                rdvs = rdvs.Where(x => x.Statuts.First().DescriptionStatut == Statut).ToList();
+
+            return rdvs;
+        }
+
+        public IEnumerable<RDV> SortRDVsByAgent(string sortString, bool? asc, Agent agent)
         {
             if (sortString == null)
                 return GetRdvByAgentID(agent.AgentID);
             else
                 return GetOrderByAgent(sortString, asc != null ? (bool)asc : false, agent);
+
+            
         }
 	}
 }
