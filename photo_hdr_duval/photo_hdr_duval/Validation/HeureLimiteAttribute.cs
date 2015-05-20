@@ -24,6 +24,12 @@ namespace photo_hdr_duval.Validation
 			RDV RdvCourant = (RDV)validationContext.ObjectInstance;
 			if (value != null && RdvCourant != null)
 			{
+				//TODO: check if datecourante null
+				if (RdvCourant.DateRDV == null) 
+				{
+					var ErrorMessage = FormatErrorMessage(validationContext.DisplayName);
+					return new ValidationResult("*L'heure ne peut pas être entré si il n'y a pas d'heure");
+				}
 				if (!Is4hoursApart(RdvCourant, (TimeSpan)value))
 				{
 					var ErrorMessage = FormatErrorMessage(validationContext.DisplayName);
@@ -35,8 +41,6 @@ namespace photo_hdr_duval.Validation
 
 		private bool Is4hoursApart(RDV rdvCourant, TimeSpan timeOfDay)
 		{
-
-
 			IEnumerable<RDV> rdvs = uow.RDVRepository.Get();
 			bool IsValid = true;
 			foreach (RDV rdv in rdvs)

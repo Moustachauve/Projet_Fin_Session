@@ -135,12 +135,6 @@
           <Parameter Name="mois" Type="int" Mode="In" />
           <Parameter Name="année" Type="int" Mode="In" />
         </Function>
-        <Function Name="udf_CoutTotalApresTaxes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RDV" ReturnType="decimal">
-          <Parameter Name="RDVID" Type="int" Mode="In" />
-        </Function>
-        <Function Name="udf_CoutTotalAvantTaxes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RDV" ReturnType="decimal">
-          <Parameter Name="RDVID" Type="int" Mode="In" />
-        </Function>
         <EntityContainer Name="H15_PROJET_E05ModelStoreContainer">
           <EntitySet Name="Agents" EntityType="Self.Agents" Schema="Agent" store:Type="Tables" />
           <EntitySet Name="Taxes" EntityType="Self.Taxes" Schema="Paiement" store:Type="Tables" />
