@@ -45,7 +45,7 @@ namespace photo_hdr_duval.Controllers
             int pageNum = page ?? 1;
             int pageSize = 10;
 
-            IEnumerable<RDV> rdvs = uow.RDVRepository.SortRDVsByAgent(sortString, asc, agent);
+            IEnumerable<RDV> rdvs = uow.RDVRepository.SortRDVsByAgent(sortString, asc,null, agent);
 
             ViewBag.isAsc = asc;
             ViewBag.orderBy = sortString;
