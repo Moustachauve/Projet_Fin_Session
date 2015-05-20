@@ -143,16 +143,8 @@ namespace photo_hdr_duval.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             RDV rDV = uow.RDVRepository.GetByID((int)id);
-            for (int i = rDV.PhotoProprietes.Count - 1; i >= 0; i--)
-            {
-                uow.PhotoProprieteRepository.DeletePhotoPropriete(rDV.PhotoProprietes.ElementAt(i));
-            }
-            for (int i = rDV.Statuts.Count - 1; i >= 0; i--)
-            {
-                uow.StatutRepository.Delete(rDV.Statuts.ElementAt(i));
-            }
 
-            uow.RDVRepository.DeleteRDV(rDV);
+            uow.RDVRepository.DeleteRDV(rDV, uow);
             uow.Save();
             return RedirectToAction("Index");
         }
