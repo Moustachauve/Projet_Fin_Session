@@ -138,7 +138,7 @@
 </div>
 
 <div class="row" id="photo_gallery">
-    <h2>Photos: @Html.ActionLink("Télécharger tout", "DownloadAll", "PhotoProprietes", new { id = Model.RDV.RDVID }, new { @class = "btn btn-success pull-right" }) @Html.ActionLink("Ajouter des photos", "UploadPhoto", "PhotoProprietes", new { id = Model.RDV.RDVID }, new { @class = "btn btn-success pull-right" })</h2>
+    <h2>Photos: @Html.ActionLink("Télécharger tout", "DownloadAll", "PhotoProprietes", new { id = Model.RDV.RDVID }, new { @class = "btn btn-success pull-right" }) </h2>
     @if (Model.Photos == null || Model.Photos.Count == 0)
     {
         <small>Il n'y a pas encore de photos pour ce rendez-vous</small>

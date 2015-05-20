@@ -86,8 +86,11 @@ namespace photo_hdr_duval.Controllers
             {
                 return HttpNotFound();
             }
-
-            return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", "photo.zip");
+            if (rDV.DateRDV != null)
+            {
+                return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", rDV.NomProprietaire + rDV.PrenomProprietaire + "_" + ((DateTime)rDV.DateRDV).ToShortDateString() + ".zip");
+            }
+            return File(uow.PhotoProprieteRepository.ZipPhotos(rDV), "application/zip", rDV.NomProprietaire + rDV.PrenomProprietaire + "_" + "photos.zip");
         }
 
 
