@@ -57,6 +57,8 @@ namespace photo_hdr_duval.Models
             [Required]
             public string AdressePropriete { get; set; }
 
+            [Required]
+            [EmailAddress]
             [Display(Name = "Email du propriétaire")]
             public string EmailProprietaire { get; set; }
 

@@ -11,7 +11,7 @@ namespace photo_hdr_duval.Models
 	{
 		internal sealed class ForfaitMetaData
 		{
-			
+            [Display(Name = "Forfait")]
 			public int ForfaitID { get; set; }
 			[Display(Name = "Nom du forfait")]
 			public string Nom { get; set; }
