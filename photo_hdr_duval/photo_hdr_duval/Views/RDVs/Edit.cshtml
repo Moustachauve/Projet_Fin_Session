@@ -30,7 +30,7 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.DateRDV, htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-6">
-				@Html.EditorFor(model => model.DateRDV, new { htmlAttributes = new { @class = "form-control", Value = ((DateTime)Model.DateRDV).ToShortDateString() } })
+				@Html.EditorFor(model => model.DateRDV, new { htmlAttributes = new { @class = "form-control", Value = Model.DateRDV != null ? Model.DateRDV.Value.ToShortDateString() : "" } })
 				@Html.ValidationMessageFor(model => model.DateRDV, "", new { @class = "text-danger" })
 			</div>
 		</div>
