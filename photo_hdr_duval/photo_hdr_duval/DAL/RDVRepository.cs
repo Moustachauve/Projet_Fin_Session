@@ -39,9 +39,9 @@ namespace photo_hdr_duval.DAL
 					break;
                 case "Status":
                     if (asc)
-                        orderLambda = x => x.OrderBy(y => y.Statuts.FirstOrDefault().Importance);
+                        orderLambda = x => x.OrderBy(y => y.CurrentStatut.Importance);
                     else
-                        orderLambda = x => x.OrderByDescending(y => y.Statuts.FirstOrDefault().Importance);
+                        orderLambda = x => x.OrderByDescending(y => y.CurrentStatut.Importance);
                     break;
 			}
 			return Get(orderBy: orderLambda);
@@ -127,9 +127,9 @@ namespace photo_hdr_duval.DAL
                     break;
                 case "Status":
                     if (asc)
-                        orderLambda = x => x.OrderBy(y => y.Statuts.FirstOrDefault().Importance);
+						orderLambda = x => x.OrderBy(y => y.CurrentStatut.Importance);
                     else
-                        orderLambda = x => x.OrderByDescending(y => y.Statuts.FirstOrDefault().Importance);
+						orderLambda = x => x.OrderByDescending(y => y.CurrentStatut.Importance);
                     break;
             }
             List<RDV> lst = new List<RDV>();
@@ -153,7 +153,7 @@ namespace photo_hdr_duval.DAL
                 rdvs = GetOrderBy(sortString, asc != null ? (bool)asc : false);
 
             if (Statut != null && !String.IsNullOrWhiteSpace(Statut))
-                rdvs = rdvs.Where(x => x.Statuts.First().DescriptionStatut == Statut).ToList();
+				rdvs = rdvs.Where(x => x.CurrentStatut.DescriptionStatut == Statut).ToList();
 
             return rdvs;
         }
@@ -168,7 +168,7 @@ namespace photo_hdr_duval.DAL
                 rdvs = GetOrderByAgent(sortString, asc != null ? (bool)asc : false, agent);
 
             if (Statut != null && !String.IsNullOrWhiteSpace(Statut))
-                rdvs = rdvs.Where(x => x.Statuts.First().DescriptionStatut == Statut).ToList();
+				rdvs = rdvs.Where(x => x.CurrentStatut.DescriptionStatut == Statut).ToList();
 
             return rdvs;
         }

@@ -13,6 +13,6 @@
     @Html.DisplayFor(modelItem => modelItem.NomProprietaire), @Html.DisplayFor(modelItem => modelItem.PrenomProprietaire)
 </td>
 <td>
-    @Html.Partial("RDVStatut", Model.Statuts.First())
+    @Html.Partial("RDVStatut", Model.CurrentStatut)
 </td>
 

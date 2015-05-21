@@ -91,5 +91,7 @@ namespace photo_hdr_duval.Models
             public decimal VisiteVirtuelle { get; set; }
 
         }
+
+		public Statut CurrentStatut { get { return this.Statuts.OrderByDescending(x => x.StatutID).First(); } }
     }
 }

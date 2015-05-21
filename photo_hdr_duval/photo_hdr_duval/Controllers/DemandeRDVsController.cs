@@ -66,7 +66,7 @@ namespace photo_hdr_duval.Controllers
             viewModel.Agent = rDV.Agent;
             viewModel.Forfait = rDV.Forfait;
             viewModel.Photos = rDV.PhotoProprietes;
-            viewModel.Statut = rDV.Statuts.First();
+            viewModel.Statut = rDV.CurrentStatut;
 
             return View(viewModel);
         }
