@@ -374,7 +374,7 @@ GO
 
 USE [H15_PROJET_E05]
 GO
-
+/*
 --RDV.forfaits
 INSERT INTO  RDV.Forfaits (Nom, DescriptionForfait, Prix) VALUES
 ('Bronze', '20 photos et 35 minutes', 90),
@@ -425,4 +425,4 @@ WHERE RDVID = 3
 GO
 
 INSERT INTO [RDV].[PhotoProprietes]
-VALUES('testtt2', 'photo 2', 2)
+VALUES('testtt2', 'photo 2', 2)*/
