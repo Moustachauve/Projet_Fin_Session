@@ -127,9 +127,9 @@ namespace photo_hdr_duval.DAL
                     break;
                 case "Status":
                     if (asc)
-						orderLambda = x => x.OrderBy(y => y.CurrentStatut.Importance);
+                        orderLambda = x => x.OrderBy(y => y.Statuts.OrderByDescending(z => z.StatutID).FirstOrDefault().Importance);
                     else
-						orderLambda = x => x.OrderByDescending(y => y.CurrentStatut.Importance);
+                        orderLambda = x => x.OrderByDescending(y => y.Statuts.OrderByDescending(z => z.StatutID).FirstOrDefault().Importance);
                     break;
             }
             List<RDV> lst = new List<RDV>();
