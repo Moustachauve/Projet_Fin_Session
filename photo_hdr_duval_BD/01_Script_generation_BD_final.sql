@@ -175,12 +175,12 @@ USE [H15_PROJET_E05]
 GO
 
 --ID	Description
---1		Demandée
---2		Confirmée
---3		Reportée
---4		Réalisée
---5		Livrée
---6		Facturée
+--1		Demandé
+--2		Confirmé
+--3		Reporté
+--4		Réalisé
+--5		Livré
+--6		Facturé
 
 --UDF
 IF OBJECT_ID ('RDV.udf_CoutTotalAvantTaxes') IS NOT NULL DROP FUNCTION RDV.udf_CoutTotalAvantTaxes
@@ -250,43 +250,43 @@ AFTER INSERT, UPDATE
 AS
 	
 	DECLARE @RDVID INT
-	DECLARE @NouveauStatut NVARCHAR(50) = 'Demandée'
+	DECLARE @NouveauStatut NVARCHAR(50) = 'Demandé'
 	DECLARE @DateRdvUpdate DATE
 	
 	DECLARE @importance INT = 1
 
 	SELECT @RDVID = RDVID FROM inserted
 	SELECT @DateRdvUpdate = DateRDV	FROM deleted
-	--SET NouveauStatut à DEMANDÉE
+	--SET NouveauStatut à DEMANDÉ
 	IF((SELECT COUNT(RDVID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
-		SET @NouveauStatut = 'Demandée'
+		SET @NouveauStatut = 'Demandé'
 		SET @importance = 1
 	END
 
-	--SET NouveauStatut à CONFIRMÉE
+	--SET NouveauStatut à CONFIRMÉ
 	IF ((SELECT TOP 1 DateRDV FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
-		SET @NouveauStatut = 'Confirmée'
+		SET @NouveauStatut = 'Confirmé'
 		SET @importance = 2
 	END
 
 	IF(UPDATE(DateRDV)) BEGIN
-		--SET NouveauStatut à Reportée
+		--SET NouveauStatut à Reporté
 		IF((SELECT TOP 1 DateRDV FROM RDV.RDVs WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
-			SET @NouveauStatut = 'Reportée'
+			SET @NouveauStatut = 'Reporté'
 			SET @importance = 3
 		END
 	END
 
 	--SET NouveauStatut à Livré
 	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Livrée'
+		SET @NouveauStatut = 'Livré'
 		SET @importance = 5
 	END
 
 
-	--SET NouveauStatut à Facturée
+	--SET NouveauStatut à Facturé
 	IF((SELECT DateFacturation FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Facturée'
+		SET @NouveauStatut = 'Facturé'
 		SET @importance = 6
 	END 
 
@@ -325,10 +325,10 @@ AS
 	DECLARE @importance INT
 
 	SELECT @RDVID = RDVID FROM inserted
-
-	--SET NouveauStatut à réalisée
+ 
+	--SET NouveauStatut à réalisé
 	IF ((SELECT COUNT(Url) FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) != 0) BEGIN
-		SET @NouveauStatut = 'Réalisée'
+		SET @NouveauStatut = 'Réalisé'
 		SET @importance = 4
 	END
 

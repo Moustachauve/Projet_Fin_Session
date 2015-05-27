@@ -70,7 +70,6 @@ END
 GO
 
 
-
 IF OBJECT_ID ('RDV.trg_GererStatutETTaxes') IS NOT NULL DROP TRIGGER RDV.trg_GererStatutETTaxes
 GO
 CREATE TRIGGER RDV.trg_GererStatutETTaxes
@@ -79,43 +78,43 @@ AFTER INSERT, UPDATE
 AS
 	
 	DECLARE @RDVID INT
-	DECLARE @NouveauStatut NVARCHAR(50) = 'Demandée'
+	DECLARE @NouveauStatut NVARCHAR(50) = 'Demandé'
 	DECLARE @DateRdvUpdate DATE
 	
 	DECLARE @importance INT = 1
 
 	SELECT @RDVID = RDVID FROM inserted
 	SELECT @DateRdvUpdate = DateRDV	FROM deleted
-	--SET NouveauStatut à DEMANDÉE
+	--SET NouveauStatut à DEMANDÉ
 	IF((SELECT COUNT(RDVID) FROM RDV.Statuts WHERE RDVID = @RDVID) = 0) BEGIN --Si le nombre total de statuts de RDVID est égal a 0, ...
-		SET @NouveauStatut = 'Demandée'
+		SET @NouveauStatut = 'Demandé'
 		SET @importance = 1
 	END
 
-	--SET NouveauStatut à CONFIRMÉE
+	--SET NouveauStatut à CONFIRMÉ
 	IF ((SELECT TOP 1 DateRDV FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN --Si la date du RDV
-		SET @NouveauStatut = 'Confirmée'
+		SET @NouveauStatut = 'Confirmé'
 		SET @importance = 2
 	END
 
 	IF(UPDATE(DateRDV)) BEGIN
-		--SET NouveauStatut à Reportée
+		--SET NouveauStatut à Reporté
 		IF((SELECT TOP 1 DateRDV FROM RDV.RDVs WHERE RDVID = @RDVID) != @DateRdvUpdate) BEGIN
-			SET @NouveauStatut = 'Reportée'
+			SET @NouveauStatut = 'Reporté'
 			SET @importance = 3
 		END
 	END
 
 	--SET NouveauStatut à Livré
 	IF ((SELECT DateLivraison FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Livrée'
+		SET @NouveauStatut = 'Livré'
 		SET @importance = 5
 	END
 
 
-	--SET NouveauStatut à Facturée
+	--SET NouveauStatut à Facturé
 	IF((SELECT DateFacturation FROM RDV.RDVs WHERE RDVID = @RDVID) IS NOT NULL) BEGIN
-		SET @NouveauStatut = 'Facturée'
+		SET @NouveauStatut = 'Facturé'
 		SET @importance = 6
 	END 
 
@@ -143,38 +142,6 @@ GO
 
 
 
-/*
-IF OBJECT_ID ('RDV.trg_GererTaxes') IS NOT NULL DROP TRIGGER RDV.trg_GererTaxes
-GO
-CREATE TRIGGER RDV.trg_GererTaxes
-ON RDV.Statuts
-AFTER INSERT
-AS
-	DECLARE @IDaChanger INT
-	SELECT @IDaChanger = RDVID FROM inserted
-	
-	DECLARE @TotalAvantTaxes MONEY
-	SET @TotalAvantTaxes = RDV.udf_CoutTotalAvantTaxes (@IDaChanger)
-
-	UPDATE RDV.RDVs
-	SET [CoutTotalAvantTaxes] = @TotalAvantTaxes
-	WHERE RDVID = @IDaChanger
-
-	DECLARE @TotalApresTaxes MONEY
-	SET @TotalApresTaxes = RDV.udf_CoutTotalApresTaxes(@IDaChanger)
-
-	UPDATE RDV.RDVs
-	SET [CoutTotalApresTaxes] = @TotalApresTaxes
-	WHERE RDVID = @IDaChanger
-GO
-*/
-
-
-
-
-
-
-
 IF OBJECT_ID ('RDV.trg_GererStatutPhotos') IS NOT NULL DROP TRIGGER RDV.trg_GererStatutPhotos
 GO
 CREATE TRIGGER RDV.trg_GererStatutPhotos
@@ -186,10 +153,10 @@ AS
 	DECLARE @importance INT
 
 	SELECT @RDVID = RDVID FROM inserted
-
-	--SET NouveauStatut à réalisée
+ 
+	--SET NouveauStatut à réalisé
 	IF ((SELECT COUNT(Url) FROM RDV.PhotoProprietes WHERE RDVID = @RDVID) != 0) BEGIN
-		SET @NouveauStatut = 'Réalisée'
+		SET @NouveauStatut = 'Réalisé'
 		SET @importance = 4
 	END
 
