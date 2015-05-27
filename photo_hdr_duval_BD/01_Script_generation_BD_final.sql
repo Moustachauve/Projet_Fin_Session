@@ -246,7 +246,7 @@ IF OBJECT_ID ('RDV.trg_GererStatutETTaxes') IS NOT NULL DROP TRIGGER RDV.trg_Ger
 GO
 CREATE TRIGGER RDV.trg_GererStatutETTaxes
 ON RDV.RDVs
-AFTER INSERT
+AFTER INSERT, UPDATE
 AS
 	
 	DECLARE @RDVID INT
@@ -293,16 +293,7 @@ AS
 	INSERT INTO RDV.Statuts
 	VALUES (GETDATE(), @NouveauStatut, @RDVID, @importance)
 	
-	
-GO
-
-IF OBJECT_ID ('RDV.trg_GererTaxes') IS NOT NULL DROP TRIGGER RDV.trg_GererTaxes
-GO
-CREATE TRIGGER RDV.trg_GererTaxes
-ON RDV.Statuts
-AFTER INSERT
-AS
-	DECLARE @IDaChanger INT
+		DECLARE @IDaChanger INT
 	SELECT @IDaChanger = RDVID FROM inserted
 	
 	DECLARE @TotalAvantTaxes MONEY
@@ -318,7 +309,10 @@ AS
 	UPDATE RDV.RDVs
 	SET [CoutTotalApresTaxes] = @TotalApresTaxes
 	WHERE RDVID = @IDaChanger
+
 GO
+
+
 
 IF OBJECT_ID ('RDV.trg_GererStatutPhotos') IS NOT NULL DROP TRIGGER RDV.trg_GererStatutPhotos
 GO

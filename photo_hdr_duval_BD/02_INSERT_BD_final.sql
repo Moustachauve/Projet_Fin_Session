@@ -65,5 +65,7 @@ SET DateLivraison = '2015-08-12'
 WHERE RDVID = 3
 GO
 
+/*
 INSERT INTO [RDV].[PhotoProprietes]
 VALUES('testtt2', 'photo 2', 2)
+*/
